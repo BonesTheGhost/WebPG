@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-
 .global-grid{
   display: grid;
   height: 100vh;
@@ -17,6 +16,8 @@
     "controls inventory inventory inventory .";
 }
 
+
+
 .nav-bar{
   position: fixed;
   top: 0;
@@ -24,6 +25,8 @@
   height: 30px;
   background-color: red;
 }
+
+
 
 .console{
   grid-area: console;
@@ -33,7 +36,6 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-gap: 10px;
   grid-template-areas: 
     "descriptor"
     "flavor1"
@@ -43,34 +45,106 @@
 
 .descriptor{
   grid-area: descriptor;
-  background-color: gray;
+  background-color: rgb(0,150,25);
 }
-
 .flavor1{
   grid-area: flavor1;
-  background-color: lightgray;
+  background-color: rgb(0,200,25);
 }
-
 .flavor2{
   grid-area: flavor2;
-  background-color: lightgray;
+  background-color: rgb(0,200,25);
 }
-
 .player_choices{
   grid-area: player_choices;
-  background-color: gray;
+  background-color: rgb(0,150,25);
 }
+
+
 
 .stats{
   grid-area: stats;
   background-color: blue;
-  margin-top: 30px;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: 
+    "profile_picture"
+    "stats1"
+    "stats2";
 }
+
+
+
+.profile_picture{
+  grid-area: profile_picture;
+  background-color: rgb(0,0,150);
+}
+.stats1{
+  grid-area: stats1;
+  background-color: rgb(150,0,0);
+  margin: 2px;
+}
+.stats2{
+  grid-area: stats2;
+  background-color: rgb(150,0,0);
+  margin: 2px;
+}
+
+
 
 .controls{
   grid-area: controls;
   background-color: grey;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: 
+    "defend forward attack"
+    "left inspect right"
+    "help backward item";
 }
+
+.defend{
+  grid-area: defend;
+  background-color: aliceblue;
+}
+.forward{
+  grid-area: forward;
+  background-color: rgb(216, 134, 41);
+}
+.attack{
+  grid-area: attack;
+  background-color: rgb(240, 76, 76);
+}
+.left{
+  grid-area: left;
+  background-color: rgb(216, 134, 41);
+}
+.inspect{
+  grid-area: inspect;
+  background-color: rgb(155, 155, 155);
+}
+.right{
+  grid-area: right;
+  background-color: rgb(216, 134, 41);
+}
+.help{
+  grid-area: help;
+  background-color: rgb(63, 6, 80);
+}
+.backward{
+  grid-area: backward;
+  background-color: rgb(216, 134, 41);
+}
+.item{
+  grid-area: item;
+  background-color: rgb(25, 121, 13);
+}
+
+
 
 .inventory{
   grid-area: inventory;
