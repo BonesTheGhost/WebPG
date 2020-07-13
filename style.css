@@ -1,0 +1,78 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+
+.global-grid{
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: 
+    "console console console console stats"
+    "console console console console stats"
+    "controls inventory inventory inventory .";
+}
+
+.nav-bar{
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 30px;
+  background-color: red;
+}
+
+.console{
+  grid-area: console;
+  background-color: green;
+  margin-top: 30px;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+  grid-template-areas: 
+    "descriptor"
+    "flavor1"
+    "flavor2"
+    "player_choices";
+}
+
+.descriptor{
+  grid-area: descriptor;
+  background-color: gray;
+}
+
+.flavor1{
+  grid-area: flavor1;
+  background-color: lightgray;
+}
+
+.flavor2{
+  grid-area: flavor2;
+  background-color: lightgray;
+}
+
+.player_choices{
+  grid-area: player_choices;
+  background-color: gray;
+}
+
+.stats{
+  grid-area: stats;
+  background-color: blue;
+  margin-top: 30px;
+}
+
+.controls{
+  grid-area: controls;
+  background-color: grey;
+}
+
+.inventory{
+  grid-area: inventory;
+  background-color: yellow;
+}
