@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+
+
 .global-grid{
   display: grid;
   height: 100vh;
@@ -11,8 +13,9 @@
 
   background-color: hotpink;
 
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 384px 384px 384px 384px 384px;
+  grid-template-rows: auto 384px 384px;
+  grid-row: 1048px;
   grid-template-areas: 
     "console console console console stats"
     "console console console console stats"
@@ -106,7 +109,7 @@
   margin: 0px;
 
   display: grid;
-  grid-gap: 8px;
+  grid-gap: 10px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: 
@@ -115,14 +118,7 @@
     "help backward item";
 }
 
-.controls .position-assist{
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  background-size: cover;
-  background-position: center center;
-}
 
 .defend{
   grid-area: defend;
@@ -196,6 +192,14 @@
   height: 100%;
   margin: 0px;
   padding: 0px;
+}
+.controls .position-assist{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-size: cover;
+  background-position: center center;
 }
 .text-unrotate-left{
   transform: rotate(90deg);
