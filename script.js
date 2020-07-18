@@ -7,6 +7,7 @@ let gameTime = 0;
 //this corresponds to the arrays index for areas. Helps to keep track of where the player is on the map.
 let areaLocationId = 0;
 
+//Player Coordinates. Z unused for now.
 let playerX = 0;
 let playerY = 0;
 let playerZ = 0;
@@ -52,35 +53,39 @@ let areas = [
 //Grab the onclick event and pass the id of the element clicked.
 document.getElementById("defend-button").onclick = function() {
   handoffInput(this.id)
-}
+};
 document.getElementById("forward-button").onclick = function() {
   handoffInput(this.id)
-}
+};
 document.getElementById("attack-button").onclick = function() {
   handoffInput(this.id)
-}
+};
 document.getElementById("left-button").onclick = function() {
   handoffInput(this.id)
-}
+};
 document.getElementById("inspect-button").onclick = function() {
   handoffInput(this.id)
-}
+};
 document.getElementById("right-button").onclick = function() {
   handoffInput(this.id)
-}
+};
 document.getElementById("help-button").onclick = function() {
   handoffInput(this.id)
-}
+};
 document.getElementById("backward-button").onclick = function() {
   handoffInput(this.id)
-}
+};
 document.getElementById("item-button").onclick = function() {
   handoffInput(this.id)
-}
+};
 //===================================================================
+// *****
+// *****
+//========================= GAME LOGIC ==============================
 
+//CONSOLE OUTPUT FUNCTION
 
-
+//RECEIVE SOFTWARE BUTTON INPUT
 function handoffInput(event) {
 
   //Format Console for better readability
@@ -124,49 +129,6 @@ function handoffInput(event) {
       console.log("ITEM");
       break
   }
-
-  checkPosition();
-}
-
-function checkPosition(){
-
-  switch(playerX, playerY) {
-    case (-3<playerX<3) && (-3<playerY<3):
-      areaLocationId = 0;
-      console.log("[checkPosition()]:: 0 switch case triggered.")
-      break
-    case (-10<playerX<-4) && (-5<playerY<5):
-      areaLocationId = 1;
-      console.log("[checkPosition()]:: 1 switch case triggered.")
-      break
-    default:
-      console.log("[checkPosition()]:: default switch case triggered.")
-  }
-
-  updateConsole();
-}
-
-function updateConsole(){
-
-  if(combatYES === true){
-    //combat Function path
-    console.log("combat");
-  }
-
-  switch(playerX, playerY) {
-    case areaLocationId = 0:
-      document.getElementById("descriptorWindow").innerHTML = areas[areaLocationId].area
-      break
-    case areaLocationId = 1:
-      document.getElementById("descriptorWindow").innerHTML = areas[areaLocationId].area
-      break
-    default:
-      console.log("[updateConsole()]:: default switch case triggered.")
-  }
-
-  console.log("[COORDS: X , Y ]:: ", playerX, playerY);
-  console.log("==========================");
-
 }
 
 
