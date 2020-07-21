@@ -14,10 +14,12 @@ const stats = document.getElementById('statsSidebar');
 burgerLeft.addEventListener('click', ()=> {
   output(burgerLeft.classList,"Left burger menu clicked.", burgerLeft);
   inventory.classList.toggle('active');
+  burgerLeft.classList.toggle('toggle');
 })
 burgerRight.addEventListener('click', ()=> {
   output(burgerRight.classList,"Right burger menu clicked.", burgerRight);
   stats.classList.toggle('active');
+  burgerRight.classList.toggle('toggle');
 })
 
 //==========================================================
