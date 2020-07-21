@@ -3,63 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RPG_0.1</title>
+  <title>WebPG</title>
 
-  <!--Console Pro-->
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet"> 
+  <!--Font Awesome CDN-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 
   <!--My Stylesheet-->
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="style.css">
 
 </head>
-
 <body>
   
-  <section class="global-grid">
+  <!--Contains the Left and Right Sidebars & Their respective hamburger menus-->
+  <header>
 
-    <section class="nav-bar">
-      <p>This is where the nav bar will go!</p>
-    </section>
+    <nav>
+      <!--Inventory Menu Button-->
+      <div class="burger left">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
 
-    <section class="console">
-      <p class="descriptor" id="descriptorWindow">Descriptor</p>
-      <p class="flavor1" id="flavor1Window">Flavor1</p>
-      <p class="flavor2" id="flavor2Window">Flavor2</p>
-      <p class="player_choices" id="playerChoicesWindow">Player_Choices</p>
-    </section>
+      <h1 class="logo">WebPG</h1>
 
-    <section class="stats">
-      <section class="profile_picture"><p>Profile</p></section>
-      <section class="stats1"><p>Stats1</p></section>
-      <section class="stats2"><p>Stats2</p></section>
-    </section>
+      <!--Stats Menu Button-->
+      <div class="burger right">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
 
-    <section class="controls">
-      <section class="defend"><a href="#" id="defend-button" class="position-assist defend-button button-text-styling"><p>Defend</p></a></section>
-      <section class="forward"><a href="#" id="forward-button" class="position-assist forward-button button-text-styling"><p>Forward</p></a></section>
-      <section class="attack"><a href="#" id="attack-button" class="position-assist attack-button button-text-styling"><p>Attack</p></a></section>
+  </header>
 
-      <section class="left"><a href="#" id="left-button" class=" left-button position-assist button-text-styling"><p class="text-unrotate-left">Left</p></a></section>
-      <section class="inspect"><a href="#" id="inspect-button" class="position-assist inspect-button button-text-styling"><p>Inspect</p></a></section>
-      <section class="right"><a href="#" id="right-button" class="position-assist right-button button-text-styling"><p class="text-unrotate-right">Right</p></a></section>
+    <!--Inventory Sidebar-->
+    <div id="inventorySidebar" class="sidebar inventory">
+      <p>Inventory</p>
+    </div>
 
-      <section class="help"><a href="#" id="help-button" class="position-assist help-button button-text-styling"><p>Help</p></a></section>
-      <section class="backward"><a href="#" id="backward-button" class="position-assist backward-button button-text-styling"><p class="text-unrotate-backward">Backward</p></a></section>
-      <section class="item"><a href="#" id="item-button" class="position-assist item-button button-text-styling"><p>Item</p></a></section>
-    </section>
+    <!--Stats Sidebar-->
+    <div id="statsSidebar" class="sidebar stats">
+      <p>Stats</p>
+    </div>
 
-    <section class="inventory">
-      <p>INVENTORY</p>
-    </section>
+  
 
-  </section>
+  <!--The "Game" section-->
+  <main>
 
-
+    <!--For now, leave this here for the 3D. Maybe consolidate later?-->
+    <div class="push-container">
+      <section></section>
+    </div>
+  </main>
 
 
+  <!--My Javascript File-->
+  <script src="app.js"></script>
 </body>
 
-<!--My JavaScript File-->
-<script type="text/javascript" src="script.js"></script>
 
 </html>

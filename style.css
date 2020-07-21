@@ -1,223 +1,57 @@
-*{
+*
+*::before,
+*::after{
   margin:0;
   padding:0;
   box-sizing: border-box;
 }
 
-
-
-.global-grid{
-  display: grid;
-  height: 100vh;
-  width: 100vw;
-
-  background-color: hotpink;
-
-  grid-template-columns: 384px 384px 384px 384px auto;
-  grid-template-rows: auto 384px 384px;
-  grid-row: 1048px;
-  grid-template-areas: 
-    "console console console console stats"
-    "console console console console stats"
-    "controls inventory inventory inventory .";
+/* ===== GLOBAL STYLING ===== */
+html{
+  font-family: sans-serif;
+  font-size: 10px;
 }
 
-
-
-.nav-bar{
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 30px;
-  background-color: red;
-}
-
-
-
-.console{
-  grid-area: console;
-  background-color: green;
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-template-areas: 
-    "descriptor"
-    "flavor1"
-    "flavor2"
-    "player_choices";
-}
-
-.descriptor{
-  grid-area: descriptor;
-  background-color: rgb(0,150,25);
-  font-family: 'Source Code Pro', monospace;
-  color: black;
-  font-size: 24px;
-}
-.flavor1{
-  grid-area: flavor1;
-  background-color: rgb(0,200,25);
-}
-.flavor2{
-  grid-area: flavor2;
-  background-color: rgb(0,200,25);
-}
-.player_choices{
-  grid-area: player_choices;
-  background-color: rgb(0,150,25);
-}
-
-
-
-.stats{
-  grid-area: stats;
-  background-color: blue;
-
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas: 
-    "profile_picture"
-    "stats1"
-    "stats2";
-}
-
-
-
-.profile_picture{
-  grid-area: profile_picture;
-  background-color: rgb(0,0,150);
-}
-.stats1{
-  grid-area: stats1;
-  background-color: rgb(150,0,0);
-  margin: 2px;
-}
-.stats2{
-  grid-area: stats2;
-  background-color: rgb(150,0,0);
-  margin: 2px;
-}
-
-
-
-.controls{
-  grid-area: controls;
-  background-color: rgb(0, 0, 0);
-
-  margin: 0px;
-
-  font-size: 22px;
+a{
   text-decoration: none;
-  font-weight: bold;
-  text-transform: uppercase;
+}
+/* ========================= */
 
-  display: grid;
-  grid-gap: 1px;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas: 
-    "defend forward attack"
-    "left inspect right"
-    "help backward item";
-}
-
-
-
-.defend{
-  grid-area: defend;
-  background-color: aliceblue;
-}
-.defend .defend-button{
-  background-image: url("assets/shield.png");
-}
-.forward{
-  grid-area: forward;
-  background-color: rgb(216, 134, 41);
-}
-.forward .forward-button{
-  background-image: url("assets/arrow.png");
-}
-.attack{
-  grid-area: attack;
-  background-color: rgb(240, 76, 76);
-}
-.attack .attack-button{
-  background-image: url("assets/sword.png");
-}
-.left{
-  grid-area: left;
-  background-color: rgb(216, 134, 41);
-}
-.left .left-button{
-  background-image: url("assets/arrow.png");
-  transform: rotate(-90deg);
-}
-.inspect{
-  grid-area: inspect;
-  background-color: rgb(155, 155, 155);
-}
-.inspect .inspect-button{
-  background-image: url("assets/inspect.png");
-}
-.right{
-  grid-area: right;
-  background-color: rgb(216, 134, 41);
-}
-.right .right-button{
-  background-image: url("assets/arrow.png");
-  transform: rotate(90deg);
-}
-.help{
-  grid-area: help;
-  background-color: rgb(63, 6, 80);
-}
-.help .help-button{
-  background-image: url("assets/help.png");
-}
-.backward{
-  grid-area: backward;
-  background-color: rgb(216, 134, 41);
-}
-.backward .backward-button{
-  background-image: url("assets/arrow.png");
-  transform: rotate(180deg);
-}
-.item{
-  grid-area: item;
-  background-color: rgb(25, 121, 13);
-}
-.item .item-button{
-  background-image: url("assets/item.png");
-}
-.button-text-styling{
-  color:rgb(255, 255, 255);
-  width:100%;
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-}
-.controls .position-assist{
+/* ===== Navbar & Logo ===== */
+nav{
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  min-height: 5vh;
+  font-family: 'Rubik', sans-serif;
+  background-color: #067bc2;
+}
+.logo{
+  color: #cfdee7;
+  letter-spacing: 5px;
+  font-size: 22px;
+}
+/* ========================= */
 
-  background-size: cover;
-  background-position: center center;
-}
-.text-unrotate-left{
-  transform: rotate(90deg);
-}
-.text-unrotate-right{
-  transform: rotate(-90deg);
-}
-.text-unrotate-backward{
-  transform: rotate(180deg);
-}
+/* ===== Sidebars & Hamburger ===== */
 
 
-.inventory{
-  grid-area: inventory;
-  background-color: yellow;
-}
+
+
+
+/* ===== Title ===== */
+/* ========================= */
+
+/*My palette:: 
+
+/*#067BC2 #84BCDA #ECC30B #F37748 #D56062*/
+/*#D7DEDC #CFCFCd #9A879D #7A3B69 #563440*/
+/*#696D7D #6F9283 #8D9F87 #CDC6A5 #F0DCCA*/
+/*#0A369D #4472CA #5E7CE2 #92B4F4 #CFDEE7*/
+/*#D62839 #BA324f #175676 #4BA3C3 #CCE6F4*/
+/*#638475 #90E39A #DDF093 #F6D0B1 #CE4760*/
+/*#4C5454 #FF715B #FFFFFF #1EA896 #523F38*/
+/*#2DE1FC #2AFC98 #09E85E #16C172 #214F4B*/
+/*#201E1F #FF4000 #FAAA8D #FEEFDD #50B2C0*/
+/*#BF4E30 #C6CCB2 #093824 #E5EAFA #78FECF*/
+/*#E3C0D3 #95818D #576066 #2C514C #122932*/
