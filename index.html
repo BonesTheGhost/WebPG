@@ -16,6 +16,9 @@
   <!--Button Styling for controls-->
   <link rel="stylesheet" href="controlButtons.css">
 
+  <!--Console Styling-->
+  <link rel="stylesheet" href="consoleStyle.css">
+
 </head>
 <body>
   
@@ -65,8 +68,38 @@
       <!--The global CSS grid for the main game.-->
       <section class="global-grid">
 
+
+
         <!--Console Section For Game Text Output-->
-        <section class="console">Console</section>
+        <section class="console">
+
+          <!-- The Console can take 176 characters with current stylings! -->
+          
+          <!--OVERWORLD-->
+          <section class="overworld">
+            <p id="ow1">Overworld</p>
+            <p id="ow2">Area: Grassy Fields</p>
+          </section>
+
+          <!--EXPOSE-->
+          <section class="expose">
+            <p id="exp1">You are standing in a grassy field. A soft breeze causes the fields to sway like an ocean.</p>
+            <p id="exp2">The night is upon you! Purple-orange hues fill the sky as the sun retreats ever lower.</p>
+            <p id="exp3">A chill is creeping into the air.</p>
+            <p id="exp4">This is a sentence that is precisely 114 characters long. As you can see, it should be enough for most exposition! There's even room for a little extra!! And then some!!! 12345</p>
+          </section>
+
+          <section class="playerComms">
+            <p id="com0">What will you do?</p>
+            <p id="com1">Travel</p>
+            <p id="com2">Make Camp</p>
+            <p id="com3">Survey The Land</p>
+            <p id="com4">Use Item</p>
+          </section>
+          
+        </section>
+
+
 
         <!--The overall controls container on the main grid level-->
         <section class="controls">

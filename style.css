@@ -130,7 +130,7 @@ h1{
   right: 25%;
   transform: translateY(100%);
   z-index: 900;
-  background-color: #76f721;
+  background-color: #535353;
   transition: transform .3s;
 }
 /* ========================= */
@@ -147,6 +147,7 @@ h1{
   "controls"
   "footer";
 }
+/* Console WINDOW styling */
 .console{
   grid-area: console;
   display: fixed;

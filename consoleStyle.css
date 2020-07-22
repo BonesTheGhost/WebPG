@@ -1,0 +1,47 @@
+/* Console CONTENTS styling */
+.console{
+  color: rgb(13, 165, 13);
+  text-decoration:none;
+  font-size: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: .25fr 1fr 1fr;
+  grid-template-areas: 
+  "overworld"
+  "expose"
+  "playerComms";
+}
+
+.overworld p{
+  background-color: green;
+  grid-area: overworld;
+  font-size: 3rem;
+  margin: 0;
+  padding: 0;
+}
+#ow1{
+  padding-top: 1rem;
+  padding-right: 0rem;
+  padding-bottom: .5rem;
+  padding-left: 3rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#ow2{
+  font-size: 2.5rem;
+  padding-top: 0rem;
+  padding-right: 0rem;
+  padding-bottom: .5rem;
+  padding-left: 5rem;
+}
+
+.expose{
+  background-color: red;
+  grid-area: expose;
+}
+.playerComms{
+  background-color: blue;
+  grid-area: playerComms;
+  display: relative;
+  bottom: 0;
+}
