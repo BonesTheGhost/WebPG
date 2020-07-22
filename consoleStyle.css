@@ -101,6 +101,32 @@
 
   padding: 0;
   padding-left: 10rem;
+  padding-top: 1rem;
+  display: inline-block;
+}
+.playerComms i{
+  padding: .5rem;
+  padding-right: 2rem;
+}
+#input1{
+  padding-left: 1rem;
+  padding-right: 5rem;
+  color:rgb(230, 230, 230);
+}
+#input2{
+  padding-left: 1rem;
+  padding-right: 5rem;
+  color:rgb(230, 230, 230);
+}
+#input3{
+  padding-left: 1rem;
+  padding-right: 5rem;
+  color:rgb(230, 230, 230);
+}
+#input4{
+  padding-left: 1rem;
+  padding-right: 5rem;
+  color:rgb(230, 230, 230);
 }
 #com0{
   grid-area: com0;
@@ -111,7 +137,6 @@
 }
 #com1{
   grid-area: com1;
-  padding-top: 1rem;
   padding-left: 12rem;
 }
 #com2{
