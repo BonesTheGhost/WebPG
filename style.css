@@ -77,14 +77,14 @@ nav{
   left: 0;
   transform: translateX(-100%);
   z-index: 1000;
-  background-color: #1de9b6;
+  background-color: #01634a;
 }
 .sidebar.stats{
   bottom: 0;
   right: 0;
   transform: translateX(100%);
   z-index: 1100;
-  background-color: #6cd1d1;
+  background-color: #006b6b;
 }
 .active.sidebar{
   transform: translateX(0);
@@ -124,35 +124,40 @@ nav{
 .console{
   grid-area: console;
   display: fixed;
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: 10%;
+  margin-right: 10%;
   width: auto;
   justify-content: center;
-  background-color: #18ffff;
+  background-color: #074444;
   overflow: hidden;
 }
 .controls{
-  grid-area:controls;
+  grid-area: controls;
   display: fixed;
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: 10%;
+  margin-right: 10%;
   justify-content: center;
   width: auto;
-  background: #73ffba;
+  background: #103824;
 }
 .control-grid{
-  background: red;
+  text-transform: uppercase;
+  color: #cfdee7;
+  background: gray;
+
   display: grid;
-  margin-left: 40%;
-  margin-right: 40%;
-  height: 20vh;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  margin-left: 30%;
+  margin-right: 30%;
+  width: auto;
+  height: 25vh;
+  grid-gap: .6rem;
+
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: 
-  "defend moveForward attack"
-  "moveLeft . moveRight"
-  ". moveBackward ."
-  "inspect help next";
+  ". moveForward . . attack . inspect"
+  "moveLeft . moveRight . defend . help"
+  ". moveBackward . . item . next";
 }
 .defend{
   background-color: blue;
@@ -183,8 +188,12 @@ nav{
   grid-area: inspect;
 }
 .help{
-  background-color: palegoldenrod;
-  grid-area:  help;
+  background-color: darkslateblue;
+  grid-area: help;
+}
+.item{
+  background-color: seagreen;
+  grid-area: item;
 }
 .next{
   background-color: purple;
@@ -192,9 +201,55 @@ nav{
 }
 .footer{
   grid-area: footer;
-  background: #a7ffeb;
+  background: #547e74;
 }
 /* ========================= */
+
+
+
+
+/* ===== Media Queries ===== */
+@media screen and (max-width: 500px) {
+  .control-grid{
+    background: red;
+    display: grid;
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 35vh;
+    grid-gap: .2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "defend moveForward attack"
+    "moveLeft . moveRight"
+    ". moveBackward ."
+    "inspect help next";
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .control-grid{
+    background: red;
+    display: grid;
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 30vh;
+    grid-gap: .4rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "defend moveForward attack"
+    "moveLeft . moveRight"
+    ". moveBackward ."
+    "inspect help next";
+  }
+}
+/* ========================= */
+
+
+
+
+
 
 
 
