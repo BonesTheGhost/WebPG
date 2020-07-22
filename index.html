@@ -8,8 +8,13 @@
   <!--Font Awesome CDN-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 
+  
+
   <!--My Stylesheet-->
   <link rel="stylesheet" href="style.css">
+
+  <!--Button Styling for controls-->
+  <link rel="stylesheet" href="controlButtons.css">
 
 </head>
 <body>
@@ -68,25 +73,92 @@
 
           <!--The CSS Grid layout of the buttons themselves-->
           <section class="control-grid">
-            <section class="defend">Defend</section>
-            <section class="moveForward">Forward</section>
-            <section class="attack">Attack</section>
-            <section class="moveLeft">Left</section>
+
+            <!--Defend Button and Icon-->
+            <section class="defend">
+              <button class="controlButton">
+                <i class="fas fa-shield-alt"></i>
+              </button>
+            </section>
+
+            <!--Defend Button and Icon-->
+            <section class="moveForward">
+              <button class="controlButton">
+                <i class="fas fa-caret-up"></i>
+              </button>
+            </section>
+
+            <!--Defend Button and Icon-->
+            <section class="attack">
+              <button class="controlButton">
+                <i class="fas fa-skull"></i>
+              </button>
+            </section>
+
+            <!--Left Button and Icon-->
+            <section class="moveLeft">
+              <button class="controlButton">
+                <i class="fas fa-caret-left"></i>
+              </button>
+            </section>
+
+            <!--Blank Button and Icon-->
+            <section></button>
+            </section>
+
+            <!--Right Button and Icon-->
+            <section class="moveRight">
+              <button class="controlButton">
+                <i class="fas fa-caret-right"></i>
+              </button>
+            </section>
+
+            <!--Blank Button and Icon-->
             <section></section>
-            <section class="moveRight">Right</section>
-            <section></section>
-            <section class="moveBackward">Backward</section>
-            <section class="item">Item</section>
-            <section class="inspect">Inspect</section>
-            <section class="help">Help</section>
-            <section class="next">Next</section>
+
+            <!--Backward Button and Icon-->
+            <section class="moveBackward">
+              <button class="controlButton">
+                <i class="fas fa-caret-down"></i>
+              </button>
+            </section>
+
+            <!--Item Button and Icon-->
+            <section class="item">
+              <button class="controlButton">
+                <i class="fas fa-flask"></i>
+              </button>
+            </section>
+
+            <!--Inspect Button and Icon-->
+            <section class="inspect">
+              <button class="controlButton">
+                <i class="fas fa-search"></i>
+              </button>
+            </section>
+
+            <!--Help Button and Icon-->
+            <section class="help">
+              <button class="controlButton">
+                <i class="fas fa-question"></i>
+              </button>
+            </section>
+
+            <!--Next Button and Icon-->
+            <section class="next">
+              <button class="controlButton">
+                <i class="fas fa-angle-double-right"></i>
+              </button>
+            </section>
+
           </section>
         </section>
 
         <!--Footer under controls-->
         <section class="footer">
-          <section class="settings"></section>
-          <button>Settings</button>
+          <section class="settings">
+            <button class="big-button">Settings</button>
+          </section>
         </section>
 
       </section>
@@ -97,6 +169,8 @@
 
   </main>
 
+  <!--Font Awesome-->
+  <script src="https://kit.fontawesome.com/03bfcad967.js" crossorigin="anonymous"></script>
 
   <!--My Javascript File-->
   <script src="app.js"></script>
