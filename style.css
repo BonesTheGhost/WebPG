@@ -139,6 +139,7 @@ h1{
 .global-grid{
   display: grid;
   height: 100vh;
+  grid-gap: .5rem;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr .25fr .1fr;
   grid-template-areas:
@@ -151,10 +152,12 @@ h1{
   display: fixed;
   margin-left: 10%;
   margin-right: 10%;
+  margin-top: 6vh;
   width: auto;
   justify-content: center;
   background-color: #074444;
   overflow: hidden;
+  border-radius: 1.5rem;
 }
 .controls{
   grid-area: controls;
@@ -163,14 +166,15 @@ h1{
   margin-right: 10%;
   justify-content: center;
   width: auto;
+  border-radius: 1.5rem;
   background: #103824;
 }
 .footer{
   grid-area: footer;
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
-  height: 6vh;
+  height: 100%;
   justify-content: center;
   background: #547e74;
   z-index: 500;
