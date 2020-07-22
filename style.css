@@ -12,6 +12,11 @@ html{
   font-size: 10px;
 }
 
+body{
+  margin: 0;
+  padding: 0;
+}
+
 a{
   text-decoration: none;
 }
@@ -20,11 +25,14 @@ a{
 /* ===== Navbar & Logo ===== */
 nav{
   display: flex;
+  position: fixed;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   min-height: 5vh;
   font-family: 'Rubik', sans-serif;
   background-color: #067bc2;
+  z-index: 3000;
 }
 .logo{
   color: #cfdee7;
@@ -64,7 +72,7 @@ nav{
 .sidebar{
   position: fixed;
   width: 28rem;
-  height: 88vh;
+  height: 92vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -108,12 +116,26 @@ nav{
 .toggle .line6{
   transform: rotate(-45deg) translate(0.7rem,-.5rem);
 }
+.settings{
+  position: fixed;
+  width: auto;
+  height: 80vh;
+  display: fixed;
+  padding: 1.6rem;
+  bottom: 0;
+  left: 25%;
+  right: 25%;
+  transform: translateY(100%);
+  z-index: 1000;
+  background-color: #76f721;
+  transition: transform .3s;
+}
 /* ========================= */
 
-/* ======= CSS Grid ======== */
+/* ======= Global CSS Grid ======== */
 .global-grid{
   display: grid;
-  height: 91vh;
+  height: 100vh;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr .25fr .1fr;
   grid-template-areas:
@@ -140,6 +162,15 @@ nav{
   width: auto;
   background: #103824;
 }
+.footer{
+  grid-area: footer;
+  display: fixed;
+  justify-content: center;
+  background: #547e74;
+}
+/* ====================================== */
+
+/* ========= Controls Grid ========= */
 .control-grid{
   text-transform: uppercase;
   color: #cfdee7;
@@ -199,10 +230,7 @@ nav{
   background-color: purple;
   grid-area: next;
 }
-.footer{
-  grid-area: footer;
-  background: #547e74;
-}
+
 /* ========================= */
 
 
