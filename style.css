@@ -43,13 +43,18 @@ nav{
 .burger.left{
   margin-left: 1rem;
 }
+.burger.left div{
+  background-color: #1de9b6;
+}
 .burger.right{
   margin-right: 1rem;
+}
+.burger.right div{
+  background-color: #6cd1d1;
 }
 .burger div{
   width: 2.8rem;
   height: .5rem;
-  background-color: red;
   margin-top: .5rem;
   margin-bottom: .25rem;
   margin-left: .1rem;
@@ -72,18 +77,19 @@ nav{
   left: 0;
   transform: translateX(-100%);
   z-index: 1000;
-  background-color: #16C172;
+  background-color: #1de9b6;
 }
 .sidebar.stats{
   bottom: 0;
   right: 0;
   transform: translateX(100%);
   z-index: 1100;
-  background-color: #0A369D;
+  background-color: #6cd1d1;
 }
 .active.sidebar{
   transform: translateX(0);
 }
+/*These are for the burger menu animations*/
 .toggle .line1{
   transform: rotate(-45deg) translate(-1rem,.8rem);
 }
@@ -93,17 +99,6 @@ nav{
 .toggle .line3{
   transform: rotate(45deg) translate(-.7rem,-.4rem);
 }
-/*
-.toggle .line4{
-  transform: /*rotate(45deg) translate(.5rem,1.2rem);
-}
-.toggle .line5{
-  opacity: 0;
-}
-.toggle .line6{
-  transform: /*rotate(-45deg) translate(.2rem,-.8rem);
-}
-*/
 .toggle .line4{
   transform: rotate(45deg) translate(.8rem,0.8rem);
 }
@@ -113,6 +108,96 @@ nav{
 .toggle .line6{
   transform: rotate(-45deg) translate(0.7rem,-.5rem);
 }
+/* ========================= */
+
+/* ======= CSS Grid ======== */
+.global-grid{
+  display: grid;
+  height: 91vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr .25fr .1fr;
+  grid-template-areas:
+  "console"
+  "controls"
+  "footer";
+}
+.console{
+  grid-area: console;
+  display: fixed;
+  margin-left: 15%;
+  margin-right: 15%;
+  width: auto;
+  justify-content: center;
+  background-color: #18ffff;
+  overflow: hidden;
+}
+.controls{
+  grid-area:controls;
+  display: fixed;
+  margin-left: 15%;
+  margin-right: 15%;
+  justify-content: center;
+  width: auto;
+  background: #73ffba;
+}
+.control-grid{
+  background: red;
+  display: grid;
+  margin-left: 40%;
+  margin-right: 40%;
+  height: 20vh;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas: 
+  "defend moveForward attack"
+  "moveLeft . moveRight"
+  ". moveBackward ."
+  "inspect help next";
+}
+.defend{
+  background-color: blue;
+  grid-area: defend;
+}
+.moveForward{
+  background-color: green;
+  grid-area: moveForward;
+}
+.attack{
+  background-color: red;
+  grid-area: attack;
+}
+.moveLeft{
+  background-color: green;
+  grid-area: moveLeft;
+}
+.moveRight{
+  background-color: green;
+  grid-area: moveRight;
+}
+.moveBackward{
+  background-color: green;
+  grid-area:  moveBackward;
+}
+.inspect{
+  background-color: pink;
+  grid-area: inspect;
+}
+.help{
+  background-color: palegoldenrod;
+  grid-area:  help;
+}
+.next{
+  background-color: purple;
+  grid-area: next;
+}
+.footer{
+  grid-area: footer;
+  background: #a7ffeb;
+}
+/* ========================= */
+
+
+
 
 
 
