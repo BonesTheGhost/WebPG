@@ -116,10 +116,14 @@ areaLibrary = [
 
 //Current Choices will be passed to provideChoices()
 let playerCurrentChoices = 0;
+
+//The ORDER of 'legalChoices' and 'choiceIcons' is RESPECTIVE!!!
 let playerGlobalChoices = [
   {
     name: "OverWorld Choices",
     legalChoices: ["forwardControl","rightControl","backwardControl","itemControl"],
+    choiceIcons: ["fa-caret-up","fa-caret-right","fa-caret-down","fa-flask"],
+    flavorIcons: ["fa-hiking","fa-binoculars","fa-fire-alt","fa-drumstick-bite"],
     choice1: "Travel.",
     choice2: "Survey the land.",
     choice3: "Make camp where you are.",
@@ -128,6 +132,8 @@ let playerGlobalChoices = [
   {
     name: "Travel",
     legalChoices: ["forwardControl","rightControl","backwardControl","leftControl"],
+    choiceIcons: ["fas fa-caret-up","fas fa-caret-right","fas fa-caret-down","fas fa-caret-right"],
+    flavorIcons: ["fa-compass","fa-compass","fa-compass","fa-compass"],
     choice1: "Travel North",
     choice2: "Travel East",
     choice3: "Travel South",
@@ -242,6 +248,33 @@ let enableButtons = (buttons) => {
     }
   }
 }
+//For game start
+let resetUI = () => {
+  enableButtons([
+    "defendControl", 
+    "attackControl", 
+    "forwardControl", 
+    "rightControl", 
+    "backwardControl", 
+    "leftControl", 
+    "itemControl", 
+    "inspectControl", 
+    "helpControl", 
+    "nextControl"
+  ]);
+  setTheseInputsAsValid([
+    "defendControl", 
+    "attackControl", 
+    "forwardControl", 
+    "rightControl", 
+    "backwardControl", 
+    "leftControl", 
+    "itemControl", 
+    "inspectControl", 
+    "helpControl", 
+    "nextControl"
+  ]);
+}
 
 let setTheseInputsAsValid = (buttons) => {
   //This is where you pass the inputs that you want to be acceptable. Pass Arrays
@@ -301,11 +334,11 @@ let outputToExpose = (areaEXP) => {
 let outputToPlayerComms = (availablePlayerChoices) => {
   //Outputs the player choices.
 
-  //Gets the number of choices -1 to account for the name, and legalChoices[].
-  let howManyChoices = checkObjectSize(availablePlayerChoices)-2;
+  //Gets the number of choices -4 to account for the name, legalChoices[], choiceIcons[], and flavorIcons[].
+  let howManyChoices = checkObjectSize(availablePlayerChoices)-4;
   console.log("[the length of the current choices]: "+howManyChoices);
 
-  switch (howManyChoices) {
+  switch (howManyChoices) { 
     case 1:
       console.log("There is 1 choice");
       console.log(availablePlayerChoices.name);
@@ -330,14 +363,28 @@ let outputToPlayerComms = (availablePlayerChoices) => {
     case 4:
       console.log("There are 4 choices");
       console.log(availablePlayerChoices.name);
+
       document.getElementById("com0").textContent = availablePlayerChoices.name;
       document.getElementById("com1").textContent = availablePlayerChoices.choice1;
+      document.getElementById("input1").classList.add(availablePlayerChoices.choiceIcons[0]);
+      document.getElementById("choice1").classList.add(availablePlayerChoices.flavorIcons[0]);
+
       document.getElementById("com2").textContent = availablePlayerChoices.choice2;
+      document.getElementById("input2").classList.add(availablePlayerChoices.choiceIcons[1]);
+      document.getElementById("choice2").classList.add(availablePlayerChoices.flavorIcons[1]);
+
       document.getElementById("com3").textContent = availablePlayerChoices.choice3;
+      document.getElementById("input3").classList.add(availablePlayerChoices.choiceIcons[2]);
+      document.getElementById("choice3").classList.add(availablePlayerChoices.flavorIcons[2]);
+
       document.getElementById("com4").textContent = availablePlayerChoices.choice4;
+      document.getElementById("input4").classList.add(availablePlayerChoices.choiceIcons[3]);
+      document.getElementById("choice4").classList.add(availablePlayerChoices.flavorIcons[3]);
+
       break;
   }
 }
+
 
 let provideChoices = (playerGlobalChoicesIndex) => {
   //0:Overworld Choices, 1:Travel Choices
@@ -528,16 +575,21 @@ let validateInput = (input) => {
 let gamePipeline = () => {
   //The main game pipeline to keep the order of events flowing properly.
 
+  
   getPlayerLocation();
+
   
 }
 //==========================================================================
 
+
+//=========================== SETUP =======================================
 //Initialize the onclick listeners.
 onClickLogic();
-
 //Initialize the Burger Menus
 attachBurgerMenus();
+//Reset the UI
+resetUI();
 
 //turn "0" => start the game.
 gamePipeline();

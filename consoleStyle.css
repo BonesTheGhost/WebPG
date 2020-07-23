@@ -122,14 +122,7 @@
   padding-top: 1rem;
   display: inline-block;
 
-  width: 0;
-
-  /*Ensures content isn't show until the animation completes:*/
-  overflow:hidden;
-  /*keeps text on its own line as the container grows:*/
-  white-space: nowrap;
-  animation: typing 2s steps(60, end) 3s;
-  animation-fill-mode: forwards;
+  
 }
 .playerComms i{
   padding: .5rem;
@@ -161,22 +154,67 @@
   font-weight: bold;
   text-transform: uppercase;
   font-size: 2rem;
+
+  width: 0;
+
+  /*Ensures content isn't show until the animation completes:*/
+  overflow:hidden;
+  /*keeps text on its own line as the container grows:*/
+  white-space: nowrap;
+  animation: typing 2s steps(60, end) 3s;
+  animation-fill-mode: forwards;
 }
 #com1Div{
   grid-area: com1Div;
   padding-left: 1rem;
+
+  width: 0;
+
+  /*Ensures content isn't show until the animation completes:*/
+  overflow:hidden;
+  /*keeps text on its own line as the container grows:*/
+  white-space: nowrap;
+  animation: typing 2s steps(60, end) 3s;
+  animation-fill-mode: forwards;
 }
 #com2Div{
   grid-area: com2Div;
   padding-left: 1rem;
+
+  width: 0;
+
+  /*Ensures content isn't show until the animation completes:*/
+  overflow:hidden;
+  /*keeps text on its own line as the container grows:*/
+  white-space: nowrap;
+  animation: typing 2s steps(60, end) 3s;
+  animation-fill-mode: forwards;
 }
 #com3Div{
   grid-area: com3Div;
   padding-left: 1rem;
+
+  width: 0;
+
+  /*Ensures content isn't show until the animation completes:*/
+  overflow:hidden;
+  /*keeps text on its own line as the container grows:*/
+  white-space: nowrap;
+  animation: typing 2s steps(60, end) 3s;
+  animation-fill-mode: forwards;
 }
 #com4Div{
   grid-area: com4Div;
   padding-left: 1rem;
+
+  width: 0;
+
+  /*Ensures content isn't show until the animation completes:*/
+  overflow:hidden;
+  /*keeps text on its own line as the container grows:*/
+  white-space: nowrap;
+  animation: typing 2s steps(60, end) 3s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes typing {
