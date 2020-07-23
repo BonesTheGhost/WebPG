@@ -1,9 +1,5 @@
 console.log("[app.js]:: Attached and working!");
 
-const output = (variable, explanation, variableReturn) =>{
-  console.log("["+variable+"]:: "+explanation+" == "+variableReturn);
-}
-
 //================= CSS Animation Script ===================
 const burgerLeft = document.querySelector('.burger.left');
 const burgerRight = document.querySelector('.burger.right');
@@ -48,6 +44,9 @@ let canMove = true;
 let canUseItem = false;
 let canInspect = false;
 
+//INPUT Branch Check
+let validInputs = [];
+
 //COMBAT Branch Checks
 let inCombat = false;
 let canAttack = false;
@@ -59,7 +58,14 @@ let globalWaitTimer = 100000;
 
 // *** GAME DATA *** => Will probably need to add things from the Map Tool!!!
 
-mapArray = [[00###],[00###],[000XX],[000XX],[000XX]];
+//The length of a single sub-array from mapArray!!
+let mapHeight = 5;
+
+//The number of sub-arrays in mapArray!!
+let mapWidth = 5;
+
+//Map, Map Locations, and Choices.
+mapArray = [["0","0","#","#","#"],["0","0","#","#","#"],["0","0","0","X","X"],["0","0","0","X","X"],["0","0","0","X","X"]];
 areaLibrary = [
   {
     char: '0', 
@@ -83,5 +89,118 @@ areaLibrary = [
     "You see nothing of value."]
   }
 ];
+
+let playerGlobalChoices = [
+  {
+    name: "Overworld Choices",
+    choice1: "Travel.",
+    choice2: "Survey the land.",
+    choice3: "Make camp where you are."
+  },
+  {
+    name: "Travel",
+    choice1: "Travel North",
+    choice2: "Travel East",
+    choice3: "Travel South",
+    choice4: "Travel West"
+  }
+];
 //============================================================================
 
+//============================== UI FUNCTIONS ================================
+let disableButtons = (buttons) => {
+  //A function for disabling buttons and adding the CSS styling to show they're disabled. Pass Arrays
+}
+
+let setTheseInputsAsValid = (buttons) => {
+  //This is where you pass the inputs that you want to be acceptable. Pass Arrays
+}
+
+let outputToOverworld = (title, subTitle) => {
+  //This is for printing major events/area names.
+}
+
+let outputToExpose = (areaExp) => {
+  //Outputs exposition text. Expecting an areaLibrary[#].areaEXP
+}
+
+let outputToPlayerComms = (availablePlayerChoices) => {
+  //Outputs the player choices.
+}
+
+//===========================================================================
+
+//========================== MOVEMENT FUNCTIONS ==============================
+let getPlayerLocation = () => {
+  //Check the coordinates, find the location in the areaLibrary, then pass the correct exposition to the appropriate output function.
+}
+
+let movePlayer = () => {
+
+}
+//===========================================================================
+
+//============================ CORE ENGINE ==================================
+
+let updateGameCLock = () => {
+  //Control The Game Clock here. 0 to pass without moving, 1 to update +=1?
+}
+
+let attachClickListeners = () => {
+  //Bulk attach the clickListeners on gameCLock = 0, then don't touch again.
+
+  console.log("[_______Control]:: Event Listeners Attached")
+
+  document.getElementById("defendControl").addEventListener('click', () => {
+    console.log("[DEFEND]:: clicked!")
+  });
+  document.getElementById("forwardControl").addEventListener('click', () => {
+    console.log("[FORWARD]:: clicked!")
+  });
+  document.getElementById("attackControl").addEventListener('click', () => {
+    console.log("[ATTACK]:: clicked!")
+  });
+  document.getElementById("leftControl").addEventListener('click', () => {
+    console.log("[LEFT]:: clicked!")
+  });
+  document.getElementById("rightControl").addEventListener('click', () => {
+    console.log("[RIGHT]:: clicked!")
+  });
+  document.getElementById("backwardControl").addEventListener('click', () => {
+    console.log("[BACKWARD]:: clicked!")
+  });
+  document.getElementById("itemControl").addEventListener('click', () => {
+    console.log("[ITEM]:: clicked!")
+  });
+  document.getElementById("inspectControl").addEventListener('click', () => {
+    console.log("[INSPECT]:: clicked!")
+  });
+  document.getElementById("helpControl").addEventListener('click', () => {
+    console.log("[HELP]:: clicked!")
+  });
+  document.getElementById("nextControl").addEventListener('click', () => {
+    console.log("[NEXT]:: clicked!")
+  });
+}
+
+let updateButtonEnableForVariables = () => {
+  //This function will run at each iteration of the game clock? It enables/disables buttons
+  //via the 2 UI functions to update the player for each "turn".
+}
+
+let validateInput = (input) => {
+  //Checks the input for this turn against the validInputs and then ONLY if the input is valid, calls the game loop.
+}
+
+
+
+let gamePipeline = () => {
+  //The main game pipeline to keep the order of events flowing properly.
+
+  attachClickListeners();
+
+  console.log("[mapArray Syntax Check]:: position(0,0) == ", mapArray[2][2]);
+}
+//==========================================================================
+
+gamePipeline();
