@@ -25,7 +25,7 @@ burgerRight.addEventListener('click', ()=> {
 //GAME CLOCK
 let gameClock = 0;
 
-//Player Position Checks
+//Player Position Checks. 
 let playerX = 0;
 let playerY = 0;
 let inTown = false;
@@ -50,7 +50,7 @@ let validInputs = [];
 //COMBAT Branch Checks
 let inCombat = false;
 let canAttack = false;
-let canDefend = true;
+let canDefend = false;
 
 
 //Timer Control Variable (milliseconds)
@@ -63,6 +63,10 @@ let mapHeight = 5;
 
 //The number of sub-arrays in mapArray!!
 let mapWidth = 5;
+
+//OFFSETS to compensate for different map sizes!!
+let playerPositionOffsetX = Math.floor(mapWidth/2);
+let playerPositionOffsetY = Math.floor(mapHeight/2);
 
 //Map, Map Locations, and Choices.
 mapArray = [["0","0","#","#","#"],["0","0","#","#","#"],["0","0","0","X","X"],["0","0","0","X","X"],["0","0","0","X","X"]];
@@ -133,9 +137,48 @@ let outputToPlayerComms = (availablePlayerChoices) => {
 //========================== MOVEMENT FUNCTIONS ==============================
 let getPlayerLocation = () => {
   //Check the coordinates, find the location in the areaLibrary, then pass the correct exposition to the appropriate output function.
+
+  //Converts the players Cartesian Coordinate System Variables to the 0-based index array values. Y must be inverted because of monitor draw direciton
+  let playerArrayX = playerX + playerPositionOffsetX;
+  let playerArrayY = (-1*playerY) + playerPositionOffsetY;
+
+  //For checking the position of the player and if it accurately lines up with the mapArray.
+  //For an odd X/Y value, "spawn" should be the center tile. For an even X/Y value, it should be offset towards 0
+  //console.log("[mapArray Offset Check]:: position(0,0) == ", mapArray[playerPositionOffsetX][playerPositionOffsetY]);
+  //console.log("playerX: "+playerX+" | playerArrayX: "+playerArrayX);
+  //console.log("playerX: "+playerY+" | playerArrayX: "+playerArrayY);
+
+  let currentIndex = 0;
+  let testChar = "";
+  let chosenIndex = 0;
+
+  //Used a while loop here so that if the character is found sooner, can exit the loop.
+  while(currentIndex < areaLibrary.length){
+    testChar = areaLibrary[currentIndex].char;
+    console.log("Current Test Char: "+testChar)
+
+    switch (testChar == mapArray[playerArrayX][playerArrayY]){
+      case true:
+        console.log("character matched!")
+        //store the correct index for the areaLibrary
+        chosenIndex = currentIndex;
+
+        //Break the loop early
+        currentIndex = (areaLibrary.length + 1);
+      break;
+      case false:
+        console.log("character didn't match")
+        currentIndex++
+      break;
+      default:
+        console.log("retrieve char WHILE error...")
+    }
+  }
+  console.log("Chosen areaLibrary Index: "+chosenIndex);
 }
 
 let movePlayer = () => {
+  //Kinda obvious.
 
 }
 //===========================================================================
@@ -146,41 +189,72 @@ let updateGameCLock = () => {
   //Control The Game Clock here. 0 to pass without moving, 1 to update +=1?
 }
 
-let attachClickListeners = () => {
+let grabID = (event) => {
+  console.log(event);
+}
+
+let onClickLogic = () => {
   //Bulk attach the clickListeners on gameCLock = 0, then don't touch again.
 
-  console.log("[_______Control]:: Event Listeners Attached")
+  //DEFEND BUTTON
+  document.getElementById("defendControl").onclick = function() {
 
-  document.getElementById("defendControl").addEventListener('click', () => {
-    console.log("[DEFEND]:: clicked!")
-  });
-  document.getElementById("forwardControl").addEventListener('click', () => {
-    console.log("[FORWARD]:: clicked!")
-  });
-  document.getElementById("attackControl").addEventListener('click', () => {
-    console.log("[ATTACK]:: clicked!")
-  });
-  document.getElementById("leftControl").addEventListener('click', () => {
-    console.log("[LEFT]:: clicked!")
-  });
-  document.getElementById("rightControl").addEventListener('click', () => {
-    console.log("[RIGHT]:: clicked!")
-  });
-  document.getElementById("backwardControl").addEventListener('click', () => {
-    console.log("[BACKWARD]:: clicked!")
-  });
-  document.getElementById("itemControl").addEventListener('click', () => {
-    console.log("[ITEM]:: clicked!")
-  });
-  document.getElementById("inspectControl").addEventListener('click', () => {
-    console.log("[INSPECT]:: clicked!")
-  });
-  document.getElementById("helpControl").addEventListener('click', () => {
-    console.log("[HELP]:: clicked!")
-  });
-  document.getElementById("nextControl").addEventListener('click', () => {
-    console.log("[NEXT]:: clicked!")
-  });
+    grabID(this.id + "clicked");
+  };
+
+  //FORWARD BUTTON
+  document.getElementById("forwardControl").onclick = function() {
+    
+    grabID(this.id + " clicked");
+  };
+
+  //ATTACK BUTTON
+  document.getElementById("attackControl").onclick = function() {
+    
+    grabID(this.id + " clicked");
+  };
+
+  //LEFT BUTTON
+  document.getElementById("leftControl").onclick = function() {
+    
+    grabID(this.id + " clicked");
+  };
+
+  //RIGHT BUTTON
+  document.getElementById("rightControl").onclick = function() {
+    
+    grabID(this.id + " clicked");
+  };
+
+  //BACKWARD BUTTON
+  document.getElementById("backwardControl").onclick = function() {
+    
+    grabID(this.id + " clicked");
+  };
+
+  //ITEM BUTTON
+  document.getElementById("itemControl").onclick = function() {
+    
+    grabID(this.id + " clicked");
+  };
+
+  //INSPECT BUTTON
+  document.getElementById("inspectControl").onclick = function() {
+    
+    grabID(this.id + " clicked");
+  };
+
+  //HELP BUTTON
+  document.getElementById("helpControl").onclick = function() {
+    
+    grabID(this.id + " clicked");
+  };
+
+  //NEXT BUTTON
+  document.getElementById("nextControl").onclick = function() {
+    
+    grabID(this.id + " clicked");
+  };
 }
 
 let updateButtonEnableForVariables = () => {
@@ -197,10 +271,14 @@ let validateInput = (input) => {
 let gamePipeline = () => {
   //The main game pipeline to keep the order of events flowing properly.
 
-  attachClickListeners();
+  getPlayerLocation();
 
-  console.log("[mapArray Syntax Check]:: position(0,0) == ", mapArray[2][2]);
+  
 }
 //==========================================================================
 
+//Initialize the onclick listeners.
+onClickLogic();
+
+//turn "0" => start the game.
 gamePipeline();
