@@ -31,6 +31,11 @@ let com1BaseText = document.getElementById("com1").innerHTML;
 let com2BaseText = document.getElementById("com2").textContent;
 let com3BaseText = document.getElementById("com3").textContent;
 let com4BaseText = document.getElementById("com4").textContent;
+//Has to do with the typewriter function.
+let renderSpeed = 100;
+let renderCursor = 0;
+let currentID = "";
+let currentStuffToRender = "";
 
 //Player Position Checks. 
 let playerX = 0;
@@ -105,7 +110,7 @@ areaLibrary = [
 let playerCurrentChoices = 0;
 let playerGlobalChoices = [
   {
-    name: "Overworld Choices",
+    name: "OverWorld Choices",
     choice1: "Travel.",
     choice2: "Survey the land.",
     choice3: "Make camp where you are.",
@@ -134,11 +139,43 @@ let outputToOverworld = (title, subTitle) => {
   //This is for printing major events/area names.
   console.log("[outputToOverworld() >> title, subTitle]: "+title+", "+subTitle);
 
+  document.getElementById("ow1").textContent = title;
+  document.getElementById("ow2").textContent = subTitle;
 }
 
 let outputToExpose = (areaEXP) => {
   //Outputs exposition text. Expecting an areaLibrary[#].areaEXP
   console.log("[outputToExpose(areaIndex).areaEXP]: "+areaEXP);
+  console.log("[areaEXP.length]: ", areaEXP.length);
+
+  switch (areaEXP.length) {
+    case 1:
+      console.log("There is 1 line of exposition.");
+      console.log("[areaEXP.length]: ", areaEXP.length);
+      document.getElementById("exp1").textContent = areaEXP[0];
+      break;
+    case 2:
+      console.log("There are 2 lines of exposition.");
+      console.log("[areaEXP.length]: ", areaEXP.length);
+      document.getElementById("exp1").textContent = areaEXP[0];
+      document.getElementById("exp2").textContent = areaEXP[1];
+      break;
+    case 3:
+      console.log("There are 3 lines of exposition.");
+      console.log("[areaEXP.length]: ", areaEXP.length);
+      document.getElementById("exp1").textContent = areaEXP[0];
+      document.getElementById("exp2").textContent = areaEXP[1];
+      document.getElementById("exp3").textContent = areaEXP[2];
+      break;
+    case 4:
+      console.log("There are 4 lines of exposition.");
+      console.log("[areaEXP.length]: ", areaEXP.length);
+      document.getElementById("exp1").textContent = areaEXP[0];
+      document.getElementById("exp2").textContent = areaEXP[1];
+      document.getElementById("exp3").textContent = areaEXP[2];
+      document.getElementById("exp4").textContent = areaEXP[3];
+      break;
+  }
 }
 
 let outputToPlayerComms = (availablePlayerChoices) => {
