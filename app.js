@@ -31,11 +31,7 @@ let com1BaseText = document.getElementById("com1").innerHTML;
 let com2BaseText = document.getElementById("com2").textContent;
 let com3BaseText = document.getElementById("com3").textContent;
 let com4BaseText = document.getElementById("com4").textContent;
-//Has to do with the typewriter function.
-let renderSpeed = 100;
-let renderCursor = 0;
-let currentID = "";
-let currentStuffToRender = "";
+
 
 //Player Position Checks. 
 let playerX = 0;
@@ -56,8 +52,20 @@ let canMove = true;
 let canUseItem = false;
 let canInspect = false;
 
-//INPUT Branch Check
+//INPUT Branch Check & Global input reference for quickly deciding which inputs to enable/disable;
 let validInputs = [];
+let globalInputs = [
+  "defendControl", 
+  "attackControl", 
+  "forwardControl", 
+  "rightControl", 
+  "backwardControl", 
+  "leftControl", 
+  "itemControl", 
+  "inspectControl", 
+  "helpControl", 
+  "nextControl"
+];
 
 //COMBAT Branch Checks
 let inCombat = false;
@@ -111,6 +119,7 @@ let playerCurrentChoices = 0;
 let playerGlobalChoices = [
   {
     name: "OverWorld Choices",
+    legalChoices: ["forwardControl","rightControl","backwardControl","itemControl"],
     choice1: "Travel.",
     choice2: "Survey the land.",
     choice3: "Make camp where you are.",
@@ -118,6 +127,7 @@ let playerGlobalChoices = [
   },
   {
     name: "Travel",
+    legalChoices: ["forwardControl","rightControl","backwardControl","leftControl"],
     choice1: "Travel North",
     choice2: "Travel East",
     choice3: "Travel South",
@@ -127,12 +137,122 @@ let playerGlobalChoices = [
 //============================================================================
 
 //============================== UI FUNCTIONS ================================
+
+//There are two separate button enable/disable functions to make the code more clear as to what is enabled/disabled and when.
+// A single toggle function could work as well, but would become confusing to deal with after multiple turns of game logic.
 let disableButtons = (buttons) => {
   //A function for disabling buttons and adding the CSS styling to show they're disabled. Pass Arrays
+  
+  console.log("disableButtons(): "+buttons);
+
+  for(i=0;i<buttons.length;i++){
+    
+    switch (buttons[i]){
+      case "defendControl":
+        console.log("[DEFEND]: disabled.");
+        document.getElementById("defendControl").classList.add('disabled');
+        break;
+      case "forwardControl":
+        console.log("[FORWARD]: disabled.");
+        document.getElementById("forwardControl").classList.add('disabled');
+        break;
+      case "attackControl":
+        console.log("[ATTACK]: disabled.");
+        document.getElementById("attackControl").classList.add('disabled');
+        break;
+      case "leftControl":
+        console.log("[LEFT]: disabled.");
+        document.getElementById("leftControl").classList.add('disabled');
+        break;
+      case "rightControl":
+        console.log("[RIGHT]: disabled.");
+        document.getElementById("rightControl").classList.add('disabled');
+        break;
+      case "backwardControl":
+        console.log("[BACKWARD]: disabled.");
+        document.getElementById("backwardControl").classList.add('disabled');
+        break;
+      case "itemControl":
+        console.log("[ITEM]: disabled.");
+        document.getElementById("itemControl").classList.add('disabled');
+        break;
+      case "inspectControl":
+        console.log("[INSPECT]: disabled.");
+        document.getElementById("inspectControl").classList.add('disabled');
+        break;
+      case "helpControl":
+        console.log("[HELP]: disabled.");
+        document.getElementById("helpControl").classList.add('disabled');
+        break;
+      case "nextControl":
+        console.log("[NEXT]: disabled.");
+        document.getElementById("nextControl").classList.add('disabled');
+        break;
+    }
+  }
+}
+let enableButtons = (buttons) => {
+  //A function for disabling buttons and adding the CSS styling to show they're disabled. Pass Arrays
+  
+  console.log("disableButtons(): "+buttons);
+
+  for(i=0;i<buttons.length;i++){
+    
+    switch (buttons[i]){
+      case "defendControl":
+        console.log("[DEFEND]: enabled!");
+        document.getElementById("defendControl").classList.remove('disabled');
+        break;
+      case "forwardControl":
+        console.log("[FORWARD]: enabled!");
+        document.getElementById("forwardControl").classList.remove('disabled');
+        break;
+      case "attackControl":
+        console.log("[ATTACK]: enabled!");
+        document.getElementById("attackControl").classList.remove('disabled');
+        break;
+      case "leftControl":
+        console.log("[LEFT]: enabled!");
+        document.getElementById("leftControl").classList.remove('disabled');
+        break;
+      case "rightControl":
+        console.log("[RIGHT]: enabled!");
+        document.getElementById("rightControl").classList.remove('disabled');
+        break;
+      case "backwardControl":
+        console.log("[BACKWARD]: enabled!");
+        document.getElementById("backwardControl").classList.remove('disabled');
+        break;
+      case "itemControl":
+        console.log("[ITEM]: enabled!");
+        document.getElementById("itemControl").classList.remove('disabled');
+        break;
+      case "inspectControl":
+        console.log("[INSPECT]: enabled!");
+        document.getElementById("inspectControl").classList.remove('disabled');
+        break;
+      case "helpControl":
+        console.log("[HELP]: enabled!");
+        document.getElementById("helpControl").classList.remove('disabled');
+        break;
+      case "nextControl":
+        console.log("[NEXT]: enabled!");
+        document.getElementById("nextControl").classList.remove('disabled');
+        break;
+    }
+  }
 }
 
 let setTheseInputsAsValid = (buttons) => {
   //This is where you pass the inputs that you want to be acceptable. Pass Arrays
+  //reset the array!!
+  validInputs = [];
+
+  for(i=0;i<buttons.length;i++){
+    validInputs.push(buttons[i]);
+    console.log("VALID INPUTS: "+validInputs);
+  }
+
 }
 
 let outputToOverworld = (title, subTitle) => {
@@ -181,8 +301,8 @@ let outputToExpose = (areaEXP) => {
 let outputToPlayerComms = (availablePlayerChoices) => {
   //Outputs the player choices.
 
-  //Gets the number of choices -1 to account for the name.
-  let howManyChoices = checkObjectSize(availablePlayerChoices)-1;
+  //Gets the number of choices -1 to account for the name, and legalChoices[].
+  let howManyChoices = checkObjectSize(availablePlayerChoices)-2;
   console.log("[the length of the current choices]: "+howManyChoices);
 
   switch (howManyChoices) {
@@ -223,9 +343,30 @@ let provideChoices = (playerGlobalChoicesIndex) => {
   //0:Overworld Choices, 1:Travel Choices
 
   //Using the playerCurrentChoices global control variable, pick the choices you want to provide and send to output.
-  // **** Will need to update the valid inputs and button disable as a result.
   console.log("[Selected Choices]: "+playerGlobalChoices[playerGlobalChoicesIndex].name);
   outputToPlayerComms(playerGlobalChoices[playerGlobalChoicesIndex]);
+
+  //Setting whatever choices are legal as valid inputs.
+  setTheseInputsAsValid(playerGlobalChoices[playerGlobalChoicesIndex].legalChoices);
+
+  //Making sure the valid inputs are enabled.
+  enableButtons(playerGlobalChoices[playerGlobalChoicesIndex].legalChoices);
+
+
+
+  //Make a copy of the global Array to modify.
+  let buttonsToDisable = globalInputs;
+
+  //For each input in the legal choices array, find it in the global input array copy and remove it; leaving unnecessary buttons.
+  for(i=0;i<playerGlobalChoices[playerGlobalChoicesIndex].legalChoices.length;i++){
+    var index = buttonsToDisable.indexOf(playerGlobalChoices[playerGlobalChoicesIndex].legalChoices[i]);
+    buttonsToDisable.splice(index, 1);
+  }
+  //console.log("Final Disable",buttonsToDisable);
+
+  //Disable unnecessary buttons.
+  disableButtons(buttonsToDisable);
+  
 }
 
 let checkObjectSize = (object) => {
@@ -388,7 +529,6 @@ let gamePipeline = () => {
   //The main game pipeline to keep the order of events flowing properly.
 
   getPlayerLocation();
-
   
 }
 //==========================================================================
