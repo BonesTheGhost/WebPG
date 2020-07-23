@@ -26,6 +26,12 @@ let attachBurgerMenus = () => {
 //GAME CLOCK
 let gameClock = 0;
 
+//Output Formatting
+let com1BaseText = document.getElementById("com1").innerHTML;
+let com2BaseText = document.getElementById("com2").textContent;
+let com3BaseText = document.getElementById("com3").textContent;
+let com4BaseText = document.getElementById("com4").textContent;
+
 //Player Position Checks. 
 let playerX = 0;
 let playerY = 0;
@@ -102,7 +108,8 @@ let playerGlobalChoices = [
     name: "Overworld Choices",
     choice1: "Travel.",
     choice2: "Survey the land.",
-    choice3: "Make camp where you are."
+    choice3: "Make camp where you are.",
+    choice4: "Use an item."
   },
   {
     name: "Travel",
@@ -139,14 +146,46 @@ let outputToPlayerComms = (availablePlayerChoices) => {
 
   //Gets the number of choices -1 to account for the name.
   let howManyChoices = checkObjectSize(availablePlayerChoices)-1;
-
   console.log("[the length of the current choices]: "+howManyChoices);
+
+  switch (howManyChoices) {
+    case 1:
+      console.log("There is 1 choice");
+      console.log(availablePlayerChoices.name);
+      document.getElementById("com0").textContent = availablePlayerChoices.name;
+      document.getElementById("com1").textContent = availablePlayerChoices.choice1;
+      break;
+    case 2:
+      console.log("There are 2 choices");
+      console.log(availablePlayerChoices.name);
+      document.getElementById("com0").textContent = availablePlayerChoices.name;
+      document.getElementById("com1").textContent = availablePlayerChoices.choice1;
+      document.getElementById("com2").textContent = availablePlayerChoices.choice2;
+      break;
+    case 3:
+      console.log("There are 3 choices");
+      console.log(availablePlayerChoices.name);
+      document.getElementById("com0").textContent = availablePlayerChoices.name;
+      document.getElementById("com1").textContent = availablePlayerChoices.choice1;
+      document.getElementById("com2").textContent = availablePlayerChoices.choice2;
+      document.getElementById("com3").textContent = availablePlayerChoices.choice3;
+      break;
+    case 4:
+      console.log("There are 4 choices");
+      console.log(availablePlayerChoices.name);
+      document.getElementById("com0").textContent = availablePlayerChoices.name;
+      document.getElementById("com1").textContent = availablePlayerChoices.choice1;
+      document.getElementById("com2").textContent = availablePlayerChoices.choice2;
+      document.getElementById("com3").textContent = availablePlayerChoices.choice3;
+      document.getElementById("com4").textContent = availablePlayerChoices.choice4;
+      break;
+  }
 }
 
 let provideChoices = (playerGlobalChoicesIndex) => {
   //0:Overworld Choices, 1:Travel Choices
 
-  //Using the playerCurrentChoices global control variable, pick the choices you want to provide.
+  //Using the playerCurrentChoices global control variable, pick the choices you want to provide and send to output.
   // **** Will need to update the valid inputs and button disable as a result.
   console.log("[Selected Choices]: "+playerGlobalChoices[playerGlobalChoicesIndex].name);
   outputToPlayerComms(playerGlobalChoices[playerGlobalChoicesIndex]);
