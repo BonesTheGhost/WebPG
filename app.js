@@ -6,17 +6,18 @@ const burgerRight = document.querySelector('.burger.right');
 const inventory = document.getElementById('inventorySidebar');
 const stats = document.getElementById('statsSidebar');
 
-//Click events for burger menus
-burgerLeft.addEventListener('click', ()=> {
-  output(burgerLeft.classList,"Left burger menu clicked.", burgerLeft);
-  inventory.classList.toggle('active');
-  burgerLeft.classList.toggle('toggle');
-})
-burgerRight.addEventListener('click', ()=> {
-  output(burgerRight.classList,"Right burger menu clicked.", burgerRight);
-  stats.classList.toggle('active');
-  burgerRight.classList.toggle('toggle');
-})
+let attachBurgerMenus = () => {
+  //Click events for burger menus
+  burgerLeft.addEventListener('click', ()=> {
+    inventory.classList.toggle('active');
+    burgerLeft.classList.toggle('toggle');
+  });
+  burgerRight.addEventListener('click', ()=> {
+    stats.classList.toggle('active');
+    burgerRight.classList.toggle('toggle');
+  });
+};
+
 
 //==========================================================
 
@@ -94,6 +95,8 @@ areaLibrary = [
   }
 ];
 
+//Current Choices will be passed to provideChoices()
+let playerCurrentChoices = 0;
 let playerGlobalChoices = [
   {
     name: "Overworld Choices",
@@ -122,21 +125,50 @@ let setTheseInputsAsValid = (buttons) => {
 
 let outputToOverworld = (title, subTitle) => {
   //This is for printing major events/area names.
+  console.log("[outputToOverworld() >> title, subTitle]: "+title+", "+subTitle);
+
 }
 
-let outputToExpose = (areaExp) => {
+let outputToExpose = (areaEXP) => {
   //Outputs exposition text. Expecting an areaLibrary[#].areaEXP
+  console.log("[outputToExpose(areaIndex).areaEXP]: "+areaEXP);
 }
 
 let outputToPlayerComms = (availablePlayerChoices) => {
   //Outputs the player choices.
+
+  //Gets the number of choices -1 to account for the name.
+  let howManyChoices = checkObjectSize(availablePlayerChoices)-1;
+
+  console.log("[the length of the current choices]: "+howManyChoices);
 }
+
+let provideChoices = (playerGlobalChoicesIndex) => {
+  //0:Overworld Choices, 1:Travel Choices
+
+  //Using the playerCurrentChoices global control variable, pick the choices you want to provide.
+  // **** Will need to update the valid inputs and button disable as a result.
+  console.log("[Selected Choices]: "+playerGlobalChoices[playerGlobalChoicesIndex].name);
+  outputToPlayerComms(playerGlobalChoices[playerGlobalChoicesIndex]);
+}
+
+let checkObjectSize = (object) => {
+  //This is the correct way of checking how many choices there are in the sub-object,
+  // which I NEED to do in order to correctly SWITCH in the outputToPlayerComms().
+  let size = 0;
+  for (key in object){
+    if(object.hasOwnProperty(key)) size++;
+  }
+  return size;
+};
 
 //===========================================================================
 
 //========================== MOVEMENT FUNCTIONS ==============================
 let getPlayerLocation = () => {
   //Check the coordinates, find the location in the areaLibrary, then pass the correct exposition to the appropriate output function.
+
+  //***Keep in mind what the global control variable playerCurrentChoices is doing!!
 
   //Converts the players Cartesian Coordinate System Variables to the 0-based index array values. Y must be inverted because of monitor draw direciton
   let playerArrayX = playerX + playerPositionOffsetX;
@@ -175,6 +207,14 @@ let getPlayerLocation = () => {
     }
   }
   console.log("Chosen areaLibrary Index: "+chosenIndex);
+
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(areaLibrary[chosenIndex].name, areaLibrary[chosenIndex].name);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose(areaLibrary[chosenIndex].areaEXP);
+  //Pass the currently acceptable global Control variable based on what the player is actually doing.
+  console.log("[playerCurrentChoices]: "+playerCurrentChoices);
+  provideChoices(playerCurrentChoices);
 }
 
 let movePlayer = () => {
@@ -279,6 +319,9 @@ let gamePipeline = () => {
 
 //Initialize the onclick listeners.
 onClickLogic();
+
+//Initialize the Burger Menus
+attachBurgerMenus();
 
 //turn "0" => start the game.
 gamePipeline();
