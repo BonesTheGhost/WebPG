@@ -1,4 +1,4 @@
-console.log("[app.js]:: Attached and working!");
+//console.log("[app.js]:: Attached and working!");
 
 //================= CSS Animation Script ===================
 
@@ -27,7 +27,7 @@ let attachBurgerMenus = () => {
 
 //GAME CLOCK
 let gameClock = 1;
-let previousClockState = 0
+let previousClockState = 0;
 
 //Player Position Checks. 
 let playerX = 0;
@@ -117,7 +117,7 @@ let playerCurrentChoices = 0;
 let expositionArray = [
   {
     name: "Travel",
-    EXP: ["You have chosen to set off!", "Which direction would you like to go?"]
+    EXP: ["You have chosen to set off!"]
   }
 ]
 
@@ -125,7 +125,7 @@ let expositionArray = [
 //The ORDER of 'legalChoices' and 'choiceIcons' is RESPECTIVE!!!
 let playerGlobalChoices = [
   {
-    name: "OverWorld Choices",
+    name: "Map - What will you do?",
     legalChoices: ["forwardControl","rightControl","backwardControl","itemControl"],
     choiceIcons: ["fa-caret-up","fa-caret-right","fa-caret-down","fa-flask"],
     flavorIcons: ["fa-hiking","fa-binoculars","fa-fire-alt","fa-drumstick-bite"],
@@ -135,7 +135,7 @@ let playerGlobalChoices = [
     choice4: "Use an item."
   },
   {
-    name: "Travel",
+    name: "Adventuring - Which way would you like to go?",
     legalChoices: ["forwardControl","rightControl","backwardControl","leftControl"],
     choiceIcons: ["fa-caret-up","fa-caret-right","fa-caret-down","fa-caret-left"],
     flavorIcons: ["fa-compass","fa-compass","fa-compass","fa-compass"],
@@ -154,9 +154,11 @@ let playerGlobalChoices = [
 let disableButtons = (buttons) => {
   //A function for disabling buttons and adding the CSS styling to show they're disabled. Pass Arrays
   
-  console.log("disableButtons(): "+buttons);
+  //console.log("disableButtons(): "+buttons);
+  console.log("buttons to disable:",buttons);
 
   for(i=0;i<buttons.length;i++){
+    
     
     switch (buttons[i]){
       case "defendControl":
@@ -209,43 +211,43 @@ let enableButtons = (buttons) => {
     
     switch (buttons[i]){
       case "defendControl":
-        console.log("[DEFEND]: enabled!");
+        //console.log("[DEFEND]: enabled!");
         document.getElementById("defendControl").classList.remove('disabled');
         break;
       case "forwardControl":
-        console.log("[FORWARD]: enabled!");
+        //console.log("[FORWARD]: enabled!");
         document.getElementById("forwardControl").classList.remove('disabled');
         break;
       case "attackControl":
-        console.log("[ATTACK]: enabled!");
+        //console.log("[ATTACK]: enabled!");
         document.getElementById("attackControl").classList.remove('disabled');
         break;
       case "leftControl":
-        console.log("[LEFT]: enabled!");
+        //console.log("[LEFT]: enabled!");
         document.getElementById("leftControl").classList.remove('disabled');
         break;
       case "rightControl":
-        console.log("[RIGHT]: enabled!");
+        //console.log("[RIGHT]: enabled!");
         document.getElementById("rightControl").classList.remove('disabled');
         break;
       case "backwardControl":
-        console.log("[BACKWARD]: enabled!");
+        //console.log("[BACKWARD]: enabled!");
         document.getElementById("backwardControl").classList.remove('disabled');
         break;
       case "itemControl":
-        console.log("[ITEM]: enabled!");
+        //console.log("[ITEM]: enabled!");
         document.getElementById("itemControl").classList.remove('disabled');
         break;
       case "inspectControl":
-        console.log("[INSPECT]: enabled!");
+        //console.log("[INSPECT]: enabled!");
         document.getElementById("inspectControl").classList.remove('disabled');
         break;
       case "helpControl":
-        console.log("[HELP]: enabled!");
+        //console.log("[HELP]: enabled!");
         document.getElementById("helpControl").classList.remove('disabled');
         break;
       case "nextControl":
-        console.log("[NEXT]: enabled!");
+        //console.log("[NEXT]: enabled!");
         document.getElementById("nextControl").classList.remove('disabled');
         break;
     }
@@ -253,7 +255,7 @@ let enableButtons = (buttons) => {
 }
 //For game start
 let resetUI = () => {
-  console.log("RESETTING UI + I/O");
+  //console.log("RESETTING UI + I/O");
 
   enableButtons([
     "defendControl", 
@@ -288,8 +290,9 @@ let setTheseInputsAsValid = (buttons) => {
 
   for(i=0;i<buttons.length;i++){
     validInputs.push(buttons[i]);
-    console.log("VALID INPUTS: "+validInputs);
+    
   }
+  console.log("setTheseInputsAsValid: "+validInputs);
 
 }
 
@@ -297,15 +300,15 @@ let setTheseInputsAsValid = (buttons) => {
 //Area Targeting and String printing functions. USE THE TOP TWO FUNCTIONS TO PRINT STUFF, FOR THE THIRD USE provideChoices();
 let outputToOverworld = (title, subTitle) => {
   //This is for printing major events/area names.
-  console.log("[outputToOverworld() >> title, subTitle]: "+title+", "+subTitle);
+  //console.log("[outputToOverworld() >> title, subTitle]: "+title+", "+subTitle);
 
   document.getElementById("ow1").textContent = title;
   document.getElementById("ow2").textContent = subTitle;
 }
 let outputToExpose = (exposition) => {
   //Outputs exposition text. Expecting an areaLibrary[#].areaEXP
-  console.log("[outputToExpose(areaIndex).areaEXP]: "+exposition);
-  console.log("[areaEXP.length]: ", exposition.length);
+  //console.log("[outputToExpose(areaIndex).areaEXP]: "+exposition);
+  //console.log("[areaEXP.length]: ", exposition.length);
 
   //Reset the area.
   document.getElementById("exp1").textContent = "";
@@ -348,7 +351,7 @@ let outputToPlayerComms = (availablePlayerChoices) => {
 
   //Gets the number of choices -4 to account for the name, legalChoices[], choiceIcons[], and flavorIcons[].
   let howManyChoices = checkObjectSize(availablePlayerChoices)-4;
-  console.log("[the length of the current choices]: "+howManyChoices);
+  //console.log("[the length of the current choices]: "+howManyChoices);
 
   //Resetting the icons
   document.getElementById("input1").className = "fas";
@@ -497,8 +500,9 @@ let getPlayerLocation = () => {
   //For checking the position of the player and if it accurately lines up with the mapArray.
   //For an odd X/Y value, "spawn" should be the center tile. For an even X/Y value, it should be offset towards 0
   //console.log("[mapArray Offset Check]:: position(0,0) == ", mapArray[playerPositionOffsetX][playerPositionOffsetY]);
-  //console.log("playerX: "+playerX+" | playerArrayX: "+playerArrayX);
-  //console.log("playerX: "+playerY+" | playerArrayX: "+playerArrayY);
+  console.log("(playerX,playerY): " + playerX + " , " + playerY);
+  console.log("playerX: "+playerX+" | playerArrayX: "+playerArrayX);
+  console.log("playerY: "+playerY+" | playerArrayY: "+playerArrayY);
 
   let currentIndex = 0;
   let testChar = "";
@@ -507,11 +511,11 @@ let getPlayerLocation = () => {
   //Used a while loop here so that if the character is found sooner, can exit the loop.
   while(currentIndex < areaLibrary.length){
     testChar = areaLibrary[currentIndex].char;
-    console.log("Current Test Char: "+testChar)
+    //console.log("Current Test Char: " + testChar);
 
     switch (testChar == mapArray[playerArrayX][playerArrayY]){
       case true:
-        console.log("character matched!")
+        //console.log("character matched!");
         //store the correct index for the areaLibrary
         chosenIndex = currentIndex;
 
@@ -519,14 +523,14 @@ let getPlayerLocation = () => {
         currentIndex = (areaLibrary.length + 1);
       break;
       case false:
-        console.log("character didn't match")
-        currentIndex++
+        //console.log("character didn't match");
+        currentIndex++;
       break;
       default:
-        console.log("retrieve char WHILE error...")
+        console.log("retrieve char WHILE error...");
     }
   }
-  console.log("Chosen areaLibrary Index: "+chosenIndex);
+  //console.log("Chosen areaLibrary Index: "+chosenIndex);
 
   //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
   outputToOverworld(areaLibrary[chosenIndex].name, areaLibrary[chosenIndex].name);
@@ -547,14 +551,59 @@ let playerTravel = () => {
   let playerArrayX = playerX + playerPositionOffsetX;
   let playerArrayY = (-1*playerY) + playerPositionOffsetY;
 
+  console.log("playerArrayX (adj): ", playerArrayX);
+  console.log("playerArrayY (adj): ", playerArrayY);
+
+  if(playerArrayX == 0){
+    //disable the move west button.
+    console.log("disabled move west.");
+    disableButtons(["leftControl"]);
+    setTheseInputsAsValid(["forwardControl","rightControl","backwardControl"]);
+  }
+  if(playerArrayX == (mapWidth - 1)){
+    //disable the move east button.
+    console.log("disabled move east.");
+    disableButtons(["rightControl"]);
+    setTheseInputsAsValid(["forwardControl","backwardControl","leftControl"]);
+  }
+  if(playerArrayY == 0){
+    //disable the move north button.
+    console.log("disabled move north.");
+    disableButtons(["forwardControl"]);
+    setTheseInputsAsValid(["rightControl","backwardControl","leftControl"]);
+  }
+  if(playerArrayY == (mapHeight - 1)){
+    //disable the move south button.
+    console.log("disabled move south.");
+    disableButtons(["backwardControl"]);
+    setTheseInputsAsValid(["forwardControl","rightControl","leftControl"]);
+  }
+
   console.log(playerArrayX + "," + playerArrayY);
 }
 
-let movePlayer = () => {
+let movePlayer = (input) => {
   //This will actually update the player coordinates.
 
-  console.log("NORTHWARD!!");
+  console.log("movePlayer Input: ", input);
 
+  //USES CARTESIAN COORD. SYSTEM!
+  switch (input){
+    case "forwardControl":
+      playerY += 1;
+      break;
+    case "rightControl":
+      playerX += 1;
+      break;
+    case "backwardControl":
+      playerY -= 1;
+      break;
+    case "leftControl":
+      playerX -= 1;
+      break;
+  }
+
+  console.log("playerX, playerY: ", playerX+","+playerY);
 }
 //===========================================================================
 
@@ -568,7 +617,7 @@ let movePlayer = () => {
 
 //============================ CORE ENGINE ==================================
 
-let updateGameCLock = () => {
+let updateGameClock = () => {
   //Control The Game Clock here. 0 to pass without moving, 1 to update +=1?
   
   //Preserve the previous time for comparison.
@@ -586,70 +635,70 @@ let grabID = (event) => {
 function onClickLogic(event) {
   //DEFEND BUTTON
   document.getElementById("defendControl").onclick = function() {
+    console.log("\n \n \n");
     grabID(this.id + "clicked");
     mistressOfTurns("defendControl");
   };
 
   //FORWARD BUTTON
-  
-  document.getElementById("forwardControl").addEventListener('mouseup', function(event){
+  document.getElementById("forwardControl").onclick = function() {
+    console.log("\n \n \n");
     console.log("forwardControl Clicked");
-    event.stopImmediatePropagation();
-    event.preventDefault();
     mistressOfTurns("forwardControl");
-  });
+  };
 
-  /*
-  $("#forwardControl").unbind().click(function() {
-    grabID(this.id);
-    mistressOfTurns("forwardControl");
-  })
-  */
-    
   //ATTACK BUTTON
   document.getElementById("attackControl").onclick = function() {
+    console.log("\n \n \n");
     grabID(this.id + " clicked");
     mistressOfTurns("attackControl");
   };
 
   //LEFT BUTTON
   document.getElementById("leftControl").onclick = function() {
+    console.log("\n \n \n");
     grabID(this.id + " clicked");
     mistressOfTurns("leftControl");
   };
 
   //RIGHT BUTTON
   document.getElementById("rightControl").onclick = function() {
+    console.log("\n \n \n");
     grabID(this.id + " clicked");
     mistressOfTurns("rightControl");
   };
 
   //BACKWARD BUTTON
   document.getElementById("backwardControl").onclick = function() {
+    console.log("\n \n \n");
     grabID(this.id + " clicked");
     mistressOfTurns("backwardControl");
   };
 
   //ITEM BUTTON
   document.getElementById("itemControl").onclick = function() {
+    console.log("\n \n \n");
     grabID(this.id + " clicked");
     mistressOfTurns("itemControl");
   };
 
   //INSPECT BUTTON
   document.getElementById("inspectControl").onclick = function() {
+    console.log("\n \n \n");
     grabID(this.id + " clicked");
     mistressOfTurns("inspectControl");
   };
 
   //HELP BUTTON
   document.getElementById("helpControl").onclick = function() {
+    console.log("\n \n \n");
     grabID(this.id + " clicked");
     mistressOfTurns("helpControl");
   };
 
   //NEXT BUTTON
   document.getElementById("nextControl").onclick = function() {
+    console.log("\n \n \n");
     grabID(this.id + " clicked");
     mistressOfTurns("nextControl");
   };
@@ -657,16 +706,19 @@ function onClickLogic(event) {
 
 let mistressOfTurns = (playerInput) => {
 
-  
+  console.log("========================");
+  console.log(" TURN: " + gameClock);
+  console.log("[validInputs[]: ",validInputs);
+
   if(validInputs.includes(playerInput) && (gameClock > previousClockState)){
 
     setTimeout(function(){
-      console.log("NEW TURN KILL TIME");
+      
 
       //The MASTER Switch Statement
     switch (gameModeCheck){
 
-      //For exploring the main map.
+      //Main map actions.
       case "overworld":
         switch(playerInput){
           case "forwardControl":
@@ -674,9 +726,12 @@ let mistressOfTurns = (playerInput) => {
             //Y: GAME EXPOSITION FOR TRAVELLING.
             //N: GAME EXPOSITION FOR BEING UNABLE TO TRAVEL.
             console.log("You decide to travel.");
+            //check for map boundary and disable buttons if needed.
             playerTravel();
+            //set check for next input.
             gameModeCheck = "travel";
-            updateGameCLock();
+            //update the game clock so next turn can proceed
+            updateGameClock();
             return;
             break;
           case "rightControl":
@@ -685,80 +740,68 @@ let mistressOfTurns = (playerInput) => {
             //DO FOR EACH CARDINAL DIRECTION.
             //MAKE SURE THERE ARE TILES AVAILABLE - compensate for map edge.
             console.log("You survey the land.");
+            return;
             break;
           case "backwardControl":
             //RUN THE CAMP FUNCTION USING THE VALUES OF THAT AREA.
             //LATER CAN ADD BONUSES BASED ON ITEMS IN INVENTORY +Health:meat, +Mana:softmat, +Stamina:cot, etc.
             console.log("You set up camp here.");
+            return;
             break;
           case "itemControl":
             //CHECK FOR ITEM USE
             //Y: USE ITEM FUNCTION, GAME EXPOSITION.
             //N: GAME EXPOSITION FOR NO.
             console.log("You use an item from your pack.");
+            return;
             break;
           default: 
             console.log("[X] FATAL ERROR - MoT: Overworld Choices!");
         }
     
+      //The Travel Menu of the overworld.
       case "travel":
           switch(playerInput){
             case "forwardControl":
               console.log("You travel to the north.");
-              gameModeCheck = "extra1"
-              //movePlayer();
+              gameModeCheck = "overworld";
+              movePlayer(playerInput);
+              getPlayerLocation();
+              updateGameClock();
               return;
               break;
             case "rightControl":
               console.log("You travel to the east.");
+              gameModeCheck = "overworld";
+              movePlayer(playerInput);
+              getPlayerLocation();
+              updateGameClock();
+              return;
               break;
             case "backwardControl":
-              //RUN THE CAMP FUNCTION USING THE VALUES OF THAT AREA.
-              //LATER CAN ADD BONUSES BASED ON ITEMS IN INVENTORY +Health:meat, +Mana:softmat, +Stamina:cot, etc.
               console.log("You travel south.");
+              gameModeCheck = "overworld";
+              movePlayer(playerInput);
+              getPlayerLocation();
+              
+              updateGameClock();
+              return;
               break;
             case "leftControl":
-              //CHECK FOR ITEM USE
-              //Y: USE ITEM FUNCTION, GAME EXPOSITION.
-              //N: GAME EXPOSITION FOR NO.
               console.log("You travel west.");
+              //set game check for next turn back to map.
+              gameModeCheck = "overworld";
+              //moves player and updates coordinates
+              movePlayer(playerInput);
+              //re-update the screen with the new area.
+              getPlayerLocation();
+              //update game clock for next turn.
+              updateGameClock();
+              return;
               break;
             default: 
               console.log("[X] FATAL ERROR - MoT: Travel Choices!");
           }
-
-      case "extra1":
-        switch(playerInput){
-          case "forwardControl":
-            console.log("Click travelled +1");
-            gameModeCheck = "extra2"
-            return;
-            break;
-          default: 
-            console.log("[X] FATAL ERROR - MoT: Travel Choices!");
-        }
-      
-      case "extra2":
-        switch(playerInput){
-          case "forwardControl":
-            console.log("Click travelled +2");
-            gameModeCheck = "extra3";
-            return;
-            break;
-          default: 
-            console.log("[X] FATAL ERROR - MoT: Travel Choices!");
-        }
-      
-      case "extra3":
-        switch(playerInput){
-          case "forwardControl":
-            console.log("Click travelled +3");
-            gameModeCheck = "extra4";
-            return;
-            break;
-          default: 
-            console.log("[X] FATAL ERROR - MoT: Travel Choices!");
-        }
 
 
       //MASTER SWITCH CLOSE  
@@ -766,8 +809,11 @@ let mistressOfTurns = (playerInput) => {
     }, 500);
     
     } else {
+      //The FIRST undefined will be passed because of the initial call of MoT in gamePipeline();
       console.log("ILLEGAL INPUT: "+playerInput);
+      updateGameClock();
     }
+    
 
 }
 
