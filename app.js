@@ -47,9 +47,10 @@ let playerHealth = 10;
 let playerAgility = 7;
 
 
-//Branch Checks
+//mistressOfTurns() Branch Checks
+let gameModeCheck = "overworld";
 let canMove = true;
-let canUseItem = false;
+let canUseItem = true;
 let canInspect = false;
 
 //INPUT Branch Check & Global input reference for quickly deciding which inputs to enable/disable;
@@ -73,10 +74,8 @@ let canAttack = false;
 let canDefend = false;
 
 
-//Timer Control Variable (milliseconds)
-let globalWaitTimer = 100000;
 
-// *** GAME DATA *** => Will probably need to add things from the Map Tool!!!
+//========================= *** GAME DATA *** => Will probably need to add things from the Map Tool!!! ======================================================================================
 
 //The length of a single sub-array from mapArray!!
 let mapHeight = 5;
@@ -87,6 +86,7 @@ let mapWidth = 5;
 //OFFSETS to compensate for different map sizes!!
 let playerPositionOffsetX = Math.floor(mapWidth/2);
 let playerPositionOffsetY = Math.floor(mapHeight/2);
+
 
 //Map, Map Locations, and Choices.
 mapArray = [["0","0","#","#","#"],["0","0","#","#","#"],["0","0","0","X","X"],["0","0","0","X","X"],["0","0","0","X","X"]];
@@ -117,7 +117,11 @@ areaLibrary = [
 //Current Choices will be passed to provideChoices()
 let playerCurrentChoices = 0;
 
+//GLOBAL GAME EXPOSITION :: EXP ARRAY CAN ONLY HOLD UP TO >> 4 << THINGS!!!
+//This section is for transition explanations and the smoothing over of the various game "modes": entering/leaving combat, being unable to use items, etc.
+//Even if its simply exposition it will require a 'choice' of next!
 //The ORDER of 'legalChoices' and 'choiceIcons' is RESPECTIVE!!!
+//When adding combat later may need to 'split' the function by the variable pass <X to go globalChoicesArray or globalCombatArray...
 let playerGlobalChoices = [
   {
     name: "OverWorld Choices",
@@ -199,8 +203,6 @@ let disableButtons = (buttons) => {
 }
 let enableButtons = (buttons) => {
   //A function for disabling buttons and adding the CSS styling to show they're disabled. Pass Arrays
-  
-  console.log("disableButtons(): "+buttons);
 
   for(i=0;i<buttons.length;i++){
     
@@ -288,6 +290,8 @@ let setTheseInputsAsValid = (buttons) => {
 
 }
 
+
+//Area Targeting and String printing functions.
 let outputToOverworld = (title, subTitle) => {
   //This is for printing major events/area names.
   console.log("[outputToOverworld() >> title, subTitle]: "+title+", "+subTitle);
@@ -295,7 +299,6 @@ let outputToOverworld = (title, subTitle) => {
   document.getElementById("ow1").textContent = title;
   document.getElementById("ow2").textContent = subTitle;
 }
-
 let outputToExpose = (areaEXP) => {
   //Outputs exposition text. Expecting an areaLibrary[#].areaEXP
   console.log("[outputToExpose(areaIndex).areaEXP]: "+areaEXP);
@@ -303,26 +306,26 @@ let outputToExpose = (areaEXP) => {
 
   switch (areaEXP.length) {
     case 1:
-      console.log("There is 1 line of exposition.");
-      console.log("[areaEXP.length]: ", areaEXP.length);
+      //console.log("There is 1 line of exposition.");
+      //console.log("[areaEXP.length]: ", areaEXP.length);
       document.getElementById("exp1").textContent = areaEXP[0];
       break;
     case 2:
-      console.log("There are 2 lines of exposition.");
-      console.log("[areaEXP.length]: ", areaEXP.length);
+      //console.log("There are 2 lines of exposition.");
+      //console.log("[areaEXP.length]: ", areaEXP.length);
       document.getElementById("exp1").textContent = areaEXP[0];
       document.getElementById("exp2").textContent = areaEXP[1];
       break;
     case 3:
-      console.log("There are 3 lines of exposition.");
-      console.log("[areaEXP.length]: ", areaEXP.length);
+      //console.log("There are 3 lines of exposition.");
+      //console.log("[areaEXP.length]: ", areaEXP.length);
       document.getElementById("exp1").textContent = areaEXP[0];
       document.getElementById("exp2").textContent = areaEXP[1];
       document.getElementById("exp3").textContent = areaEXP[2];
       break;
     case 4:
-      console.log("There are 4 lines of exposition.");
-      console.log("[areaEXP.length]: ", areaEXP.length);
+      //console.log("There are 4 lines of exposition.");
+      //console.log("[areaEXP.length]: ", areaEXP.length);
       document.getElementById("exp1").textContent = areaEXP[0];
       document.getElementById("exp2").textContent = areaEXP[1];
       document.getElementById("exp3").textContent = areaEXP[2];
@@ -330,7 +333,6 @@ let outputToExpose = (areaEXP) => {
       break;
   }
 }
-
 let outputToPlayerComms = (availablePlayerChoices) => {
   //Outputs the player choices.
 
@@ -344,21 +346,36 @@ let outputToPlayerComms = (availablePlayerChoices) => {
       console.log(availablePlayerChoices.name);
       document.getElementById("com0").textContent = availablePlayerChoices.name;
       document.getElementById("com1").textContent = availablePlayerChoices.choice1;
+      document.getElementById("input1").classList.add(availablePlayerChoices.choiceIcons[0]);
+      document.getElementById("choice1").classList.add(availablePlayerChoices.flavorIcons[0]);
       break;
     case 2:
       console.log("There are 2 choices");
       console.log(availablePlayerChoices.name);
       document.getElementById("com0").textContent = availablePlayerChoices.name;
       document.getElementById("com1").textContent = availablePlayerChoices.choice1;
+      document.getElementById("input1").classList.add(availablePlayerChoices.choiceIcons[0]);
+      document.getElementById("choice1").classList.add(availablePlayerChoices.flavorIcons[0]);
+
       document.getElementById("com2").textContent = availablePlayerChoices.choice2;
+      document.getElementById("input2").classList.add(availablePlayerChoices.choiceIcons[1]);
+      document.getElementById("choice2").classList.add(availablePlayerChoices.flavorIcons[1]);
       break;
     case 3:
       console.log("There are 3 choices");
       console.log(availablePlayerChoices.name);
       document.getElementById("com0").textContent = availablePlayerChoices.name;
       document.getElementById("com1").textContent = availablePlayerChoices.choice1;
+      document.getElementById("input1").classList.add(availablePlayerChoices.choiceIcons[0]);
+      document.getElementById("choice1").classList.add(availablePlayerChoices.flavorIcons[0]);
+
       document.getElementById("com2").textContent = availablePlayerChoices.choice2;
+      document.getElementById("input2").classList.add(availablePlayerChoices.choiceIcons[1]);
+      document.getElementById("choice2").classList.add(availablePlayerChoices.flavorIcons[1]);
+
       document.getElementById("com3").textContent = availablePlayerChoices.choice3;
+      document.getElementById("input3").classList.add(availablePlayerChoices.choiceIcons[2]);
+      document.getElementById("choice3").classList.add(availablePlayerChoices.flavorIcons[2]);
       break;
     case 4:
       console.log("There are 4 choices");
@@ -385,19 +402,35 @@ let outputToPlayerComms = (availablePlayerChoices) => {
   }
 }
 
+//Choices Object Checking and Output Behavior itself.
+let provideChoices = (arrayIndicator, arrayIndex) => {
 
-let provideChoices = (playerGlobalChoicesIndex) => {
-  //0:Overworld Choices, 1:Travel Choices
+  let currentArray = [];
+  switch(arrayIndicator){
+    case "playerGlobalChoices":
+      currentArray = playerGlobalChoices;
+      break;
+    case "expositionArray":
+      //Set to array for transitions etc.
+      break;
+    case "itemArray":
+      //Set to item Array
+    case "enemyArray":
+      //Set to enemy array
+    default:
+      console.log("[X] FATAL ERROR IN OUTPUT FUNCTION!")
+  }
+
 
   //Using the playerCurrentChoices global control variable, pick the choices you want to provide and send to output.
-  console.log("[Selected Choices]: "+playerGlobalChoices[playerGlobalChoicesIndex].name);
-  outputToPlayerComms(playerGlobalChoices[playerGlobalChoicesIndex]);
+  console.log("[Selected Choices]: "+currentArray[arrayIndex].name);
+  outputToPlayerComms(currentArray[arrayIndex]);
 
   //Setting whatever choices are legal as valid inputs.
-  setTheseInputsAsValid(playerGlobalChoices[playerGlobalChoicesIndex].legalChoices);
+  setTheseInputsAsValid(currentArray[arrayIndex].legalChoices);
 
   //Making sure the valid inputs are enabled.
-  enableButtons(playerGlobalChoices[playerGlobalChoicesIndex].legalChoices);
+  enableButtons(currentArray[arrayIndex].legalChoices);
 
 
 
@@ -405,8 +438,8 @@ let provideChoices = (playerGlobalChoicesIndex) => {
   let buttonsToDisable = globalInputs;
 
   //For each input in the legal choices array, find it in the global input array copy and remove it; leaving unnecessary buttons.
-  for(i=0;i<playerGlobalChoices[playerGlobalChoicesIndex].legalChoices.length;i++){
-    var index = buttonsToDisable.indexOf(playerGlobalChoices[playerGlobalChoicesIndex].legalChoices[i]);
+  for(i=0;i<currentArray[arrayIndex].legalChoices.length;i++){
+    var index = buttonsToDisable.indexOf(currentArray[arrayIndex].legalChoices[i]);
     buttonsToDisable.splice(index, 1);
   }
   //console.log("Final Disable",buttonsToDisable);
@@ -415,7 +448,6 @@ let provideChoices = (playerGlobalChoicesIndex) => {
   disableButtons(buttonsToDisable);
   
 }
-
 let checkObjectSize = (object) => {
   //This is the correct way of checking how many choices there are in the sub-object,
   // which I NEED to do in order to correctly SWITCH in the outputToPlayerComms().
@@ -434,7 +466,7 @@ let getPlayerLocation = () => {
 
   //***Keep in mind what the global control variable playerCurrentChoices is doing!!
 
-  //Converts the players Cartesian Coordinate System Variables to the 0-based index array values. Y must be inverted because of monitor draw direciton
+  //Converts the players Cartesian Coordinate System Variables to the 0-based index array values. Y must be inverted because of monitor draw direction
   let playerArrayX = playerX + playerPositionOffsetX;
   let playerArrayY = (-1*playerY) + playerPositionOffsetY;
 
@@ -476,15 +508,26 @@ let getPlayerLocation = () => {
   outputToOverworld(areaLibrary[chosenIndex].name, areaLibrary[chosenIndex].name);
   //Grab the exposition from that same area and pass it to the output.
   outputToExpose(areaLibrary[chosenIndex].areaEXP);
-  //Pass the currently acceptable global Control variable based on what the player is actually doing.
-  console.log("[playerCurrentChoices]: "+playerCurrentChoices);
-  provideChoices(playerCurrentChoices);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 0);
 }
 
 let movePlayer = () => {
-  //Kinda obvious.
+  //First Check to See if the player is near map boundaries.
+  let playerArrayX = playerX + playerPositionOffsetX;
+  let playerArrayY = (-1*playerY) + playerPositionOffsetY;
 
+  // 1 = Travel Grabs the necessary UI STUFF From the Global Choices Array.
+  provideChoices(1);
 }
+//===========================================================================
+
+//========================== GAME 'MODE' FUNCTIONS ==============================
+
+//SURVEY LAND
+
+//ITEM FUNCTION
+
 //===========================================================================
 
 //============================ CORE ENGINE ==================================
@@ -502,83 +545,112 @@ let onClickLogic = () => {
 
   //DEFEND BUTTON
   document.getElementById("defendControl").onclick = function() {
-
     grabID(this.id + "clicked");
+    mistressOfTurns("defendControl");
   };
 
   //FORWARD BUTTON
   document.getElementById("forwardControl").onclick = function() {
-    
     grabID(this.id + " clicked");
+    mistressOfTurns("forwardControl");
   };
 
   //ATTACK BUTTON
   document.getElementById("attackControl").onclick = function() {
-    
     grabID(this.id + " clicked");
+    mistressOfTurns("attackControl");
   };
 
   //LEFT BUTTON
   document.getElementById("leftControl").onclick = function() {
-    
     grabID(this.id + " clicked");
+    mistressOfTurns("leftControl");
   };
 
   //RIGHT BUTTON
   document.getElementById("rightControl").onclick = function() {
-    
     grabID(this.id + " clicked");
+    mistressOfTurns("rightControl");
   };
 
   //BACKWARD BUTTON
   document.getElementById("backwardControl").onclick = function() {
-    
     grabID(this.id + " clicked");
+    mistressOfTurns("backwardControl");
   };
 
   //ITEM BUTTON
   document.getElementById("itemControl").onclick = function() {
-    
     grabID(this.id + " clicked");
+    mistressOfTurns("itemControl");
   };
 
   //INSPECT BUTTON
   document.getElementById("inspectControl").onclick = function() {
-    
     grabID(this.id + " clicked");
+    mistressOfTurns("inspectControl");
   };
 
   //HELP BUTTON
   document.getElementById("helpControl").onclick = function() {
-    
     grabID(this.id + " clicked");
+    mistressOfTurns("helpControl");
   };
 
   //NEXT BUTTON
   document.getElementById("nextControl").onclick = function() {
-    
     grabID(this.id + " clicked");
+    mistressOfTurns("nextControl");
   };
 }
 
-let updateButtonEnableForVariables = () => {
-  //This function will run at each iteration of the game clock? It enables/disables buttons
-  //via the 2 UI functions to update the player for each "turn".
-}
+let mistressOfTurns = (playerInput) => {
 
-let validateInput = (input) => {
-  //Checks the input for this turn against the validInputs and then ONLY if the input is valid, calls the game loop.
+  if(validInputs.includes(playerInput)){
+
+  } else {
+    console.log("ILLEGAL INPUT: "+playerInput);
+  }
+  //The MASTER Switch Statement
+  switch (gameModeCheck){
+
+    //For exploring the main map.
+    case "overworld":
+      switch(playerInput){
+        case "forwardControl":
+          //CHECK IF canMove.
+          //Y: GAME EXPOSITION FOR TRAVELLING.
+          //N: GAME EXPOSITION FOR BEING UNABLE TO TRAVEL.
+          console.log("You decide to travel.");
+          break;
+        case "rightControl":
+          //GET THE VISIBILITY VALUE FROM THE AREA.
+          //CALCULATE THE AVG TILE, IF NO AVG TILE RETURN CLOSEST TILE.
+          //DO FOR EACH CARDINAL DIRECTION.
+          //MAKE SURE THERE ARE TILES AVAILABLE - compensate for map edge.
+          console.log("You survey the land.");
+          break;
+        case "backwardControl":
+          //RUN THE CAMP FUNCTION USING THE VALUES OF THAT AREA.
+          //LATER CAN ADD BONUSES BASED ON ITEMS IN INVENTORY +Health:meat, +Mana:softmat, +Stamina:cot, etc.
+          console.log("You set up camp here.");
+          break;
+        case "itemControl":
+          //CHECK FOR ITEM USE
+          //Y: USE ITEM FUNCTION, GAME EXPOSITION.
+          //N: GAME EXPOSITION FOR NO.
+          console.log("You use an item from your pack.");
+      }
+
+  }
 }
 
 
 
 let gamePipeline = () => {
   //The main game pipeline to keep the order of events flowing properly.
-
-  
   getPlayerLocation();
-
-  
+  mistressOfTurns();
 }
 //==========================================================================
 
