@@ -1,6 +1,7 @@
 console.log("[app.js]:: Attached and working!");
 
 //================= CSS Animation Script ===================
+
 const burgerLeft = document.querySelector('.burger.left');
 const burgerRight = document.querySelector('.burger.right');
 const inventory = document.getElementById('inventorySidebar');
@@ -19,19 +20,14 @@ let attachBurgerMenus = () => {
 };
 
 
+
 //==========================================================
 
 //======================== GLOBAL CONTROL VARIABLES ==========================
 
 //GAME CLOCK
-let gameClock = 0;
-
-//Output Formatting
-let com1BaseText = document.getElementById("com1").innerHTML;
-let com2BaseText = document.getElementById("com2").textContent;
-let com3BaseText = document.getElementById("com3").textContent;
-let com4BaseText = document.getElementById("com4").textContent;
-
+let gameClock = 1;
+let previousClockState = 0
 
 //Player Position Checks. 
 let playerX = 0;
@@ -72,8 +68,6 @@ let globalInputs = [
 let inCombat = false;
 let canAttack = false;
 let canDefend = false;
-
-
 
 //========================= *** GAME DATA *** => Will probably need to add things from the Map Tool!!! ======================================================================================
 
@@ -313,6 +307,12 @@ let outputToExpose = (exposition) => {
   console.log("[outputToExpose(areaIndex).areaEXP]: "+exposition);
   console.log("[areaEXP.length]: ", exposition.length);
 
+  //Reset the area.
+  document.getElementById("exp1").textContent = "";
+  document.getElementById("exp2").textContent = "";
+  document.getElementById("exp3").textContent = "";
+  document.getElementById("exp4").textContent = "";
+
   switch (exposition.length) {
     case 1:
       //console.log("There is 1 line of exposition.");
@@ -534,16 +534,27 @@ let getPlayerLocation = () => {
   outputToExpose(areaLibrary[chosenIndex].areaEXP);
   //Pass the name of the array that we want and the specific INDEX We want
   provideChoices("playerGlobalChoices", 0);
-}
+} 
 
-let movePlayer = () => {
-  //First Check to See if the player is near map boundaries.
+let playerTravel = () => {
+  //Grab the travel exposition.
+  outputToExpose(expositionArray[0].EXP);
+
+  //Provide the standard travel choices (& set valid inputs/buttons)
+  provideChoices("playerGlobalChoices", 1);
+
+  //Check to See if the player is near map boundaries. Do this NOW to set up input check!
   let playerArrayX = playerX + playerPositionOffsetX;
   let playerArrayY = (-1*playerY) + playerPositionOffsetY;
 
-  // 1 = Travel Grabs the necessary UI STUFF From the Global Choices Array.
-  outputToExpose(expositionArray[0].EXP);
-  provideChoices("playerGlobalChoices", 1);
+  console.log(playerArrayX + "," + playerArrayY);
+}
+
+let movePlayer = () => {
+  //This will actually update the player coordinates.
+
+  console.log("NORTHWARD!!");
+
 }
 //===========================================================================
 
@@ -559,15 +570,20 @@ let movePlayer = () => {
 
 let updateGameCLock = () => {
   //Control The Game Clock here. 0 to pass without moving, 1 to update +=1?
+  
+  //Preserve the previous time for comparison.
+  previousClockState = gameClock;
+
+  //increment the game clock.
+  gameClock += 1;
+  console.log("[GAME CLOCK]: (+1) = ", gameClock);
 }
 
 let grabID = (event) => {
   console.log(event);
 }
 
-let onClickLogic = () => {
-  //Bulk attach the clickListeners on gameCLock = 0, then don't touch again.
-
+function onClickLogic(event) {
   //DEFEND BUTTON
   document.getElementById("defendControl").onclick = function() {
     grabID(this.id + "clicked");
@@ -575,11 +591,21 @@ let onClickLogic = () => {
   };
 
   //FORWARD BUTTON
-  document.getElementById("forwardControl").onclick = function() {
-    grabID(this.id + " clicked");
+  
+  document.getElementById("forwardControl").addEventListener('mouseup', function(event){
+    console.log("forwardControl Clicked");
+    event.stopImmediatePropagation();
+    event.preventDefault();
     mistressOfTurns("forwardControl");
-  };
+  });
 
+  /*
+  $("#forwardControl").unbind().click(function() {
+    grabID(this.id);
+    mistressOfTurns("forwardControl");
+  })
+  */
+    
   //ATTACK BUTTON
   document.getElementById("attackControl").onclick = function() {
     grabID(this.id + " clicked");
@@ -631,44 +657,118 @@ let onClickLogic = () => {
 
 let mistressOfTurns = (playerInput) => {
 
-  if(validInputs.includes(playerInput)){
+  
+  if(validInputs.includes(playerInput) && (gameClock > previousClockState)){
 
-  } else {
-    console.log("ILLEGAL INPUT: "+playerInput);
-  }
-  //The MASTER Switch Statement
-  switch (gameModeCheck){
+    setTimeout(function(){
+      console.log("NEW TURN KILL TIME");
 
-    //For exploring the main map.
-    case "overworld":
-      switch(playerInput){
-        case "forwardControl":
-          //CHECK IF canMove.
-          //Y: GAME EXPOSITION FOR TRAVELLING.
-          //N: GAME EXPOSITION FOR BEING UNABLE TO TRAVEL.
-          console.log("You decide to travel.");
-          movePlayer();
-          break;
-        case "rightControl":
-          //GET THE VISIBILITY VALUE FROM THE AREA.
-          //CALCULATE THE AVG TILE, IF NO AVG TILE RETURN CLOSEST TILE.
-          //DO FOR EACH CARDINAL DIRECTION.
-          //MAKE SURE THERE ARE TILES AVAILABLE - compensate for map edge.
-          console.log("You survey the land.");
-          break;
-        case "backwardControl":
-          //RUN THE CAMP FUNCTION USING THE VALUES OF THAT AREA.
-          //LATER CAN ADD BONUSES BASED ON ITEMS IN INVENTORY +Health:meat, +Mana:softmat, +Stamina:cot, etc.
-          console.log("You set up camp here.");
-          break;
-        case "itemControl":
-          //CHECK FOR ITEM USE
-          //Y: USE ITEM FUNCTION, GAME EXPOSITION.
-          //N: GAME EXPOSITION FOR NO.
-          console.log("You use an item from your pack.");
+      //The MASTER Switch Statement
+    switch (gameModeCheck){
+
+      //For exploring the main map.
+      case "overworld":
+        switch(playerInput){
+          case "forwardControl":
+            //CHECK IF canMove.
+            //Y: GAME EXPOSITION FOR TRAVELLING.
+            //N: GAME EXPOSITION FOR BEING UNABLE TO TRAVEL.
+            console.log("You decide to travel.");
+            playerTravel();
+            gameModeCheck = "travel";
+            updateGameCLock();
+            return;
+            break;
+          case "rightControl":
+            //GET THE VISIBILITY VALUE FROM THE AREA.
+            //CALCULATE THE AVG TILE, IF NO AVG TILE RETURN CLOSEST TILE.
+            //DO FOR EACH CARDINAL DIRECTION.
+            //MAKE SURE THERE ARE TILES AVAILABLE - compensate for map edge.
+            console.log("You survey the land.");
+            break;
+          case "backwardControl":
+            //RUN THE CAMP FUNCTION USING THE VALUES OF THAT AREA.
+            //LATER CAN ADD BONUSES BASED ON ITEMS IN INVENTORY +Health:meat, +Mana:softmat, +Stamina:cot, etc.
+            console.log("You set up camp here.");
+            break;
+          case "itemControl":
+            //CHECK FOR ITEM USE
+            //Y: USE ITEM FUNCTION, GAME EXPOSITION.
+            //N: GAME EXPOSITION FOR NO.
+            console.log("You use an item from your pack.");
+            break;
+          default: 
+            console.log("[X] FATAL ERROR - MoT: Overworld Choices!");
+        }
+    
+      case "travel":
+          switch(playerInput){
+            case "forwardControl":
+              console.log("You travel to the north.");
+              gameModeCheck = "extra1"
+              //movePlayer();
+              return;
+              break;
+            case "rightControl":
+              console.log("You travel to the east.");
+              break;
+            case "backwardControl":
+              //RUN THE CAMP FUNCTION USING THE VALUES OF THAT AREA.
+              //LATER CAN ADD BONUSES BASED ON ITEMS IN INVENTORY +Health:meat, +Mana:softmat, +Stamina:cot, etc.
+              console.log("You travel south.");
+              break;
+            case "leftControl":
+              //CHECK FOR ITEM USE
+              //Y: USE ITEM FUNCTION, GAME EXPOSITION.
+              //N: GAME EXPOSITION FOR NO.
+              console.log("You travel west.");
+              break;
+            default: 
+              console.log("[X] FATAL ERROR - MoT: Travel Choices!");
+          }
+
+      case "extra1":
+        switch(playerInput){
+          case "forwardControl":
+            console.log("Click travelled +1");
+            gameModeCheck = "extra2"
+            return;
+            break;
+          default: 
+            console.log("[X] FATAL ERROR - MoT: Travel Choices!");
+        }
+      
+      case "extra2":
+        switch(playerInput){
+          case "forwardControl":
+            console.log("Click travelled +2");
+            gameModeCheck = "extra3";
+            return;
+            break;
+          default: 
+            console.log("[X] FATAL ERROR - MoT: Travel Choices!");
+        }
+      
+      case "extra3":
+        switch(playerInput){
+          case "forwardControl":
+            console.log("Click travelled +3");
+            gameModeCheck = "extra4";
+            return;
+            break;
+          default: 
+            console.log("[X] FATAL ERROR - MoT: Travel Choices!");
+        }
+
+
+      //MASTER SWITCH CLOSE  
       }
+    }, 500);
+    
+    } else {
+      console.log("ILLEGAL INPUT: "+playerInput);
+    }
 
-  }
 }
 
 
