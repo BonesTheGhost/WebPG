@@ -156,7 +156,7 @@ i{
 .controlButton.disabled {
   background-color: rgba(0,0,0,0.8);
   /* Trying to time the button fade with the choices popping up */
-  transition: all 1s 3s;
+  transition: all .8s 0s;
 }
 .controlButton.disabled:hover{
   background-color: rgba(0,0,0,0.8);

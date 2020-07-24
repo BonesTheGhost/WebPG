@@ -120,8 +120,15 @@ let playerCurrentChoices = 0;
 //GLOBAL GAME EXPOSITION :: EXP ARRAY CAN ONLY HOLD UP TO >> 4 << THINGS!!!
 //This section is for transition explanations and the smoothing over of the various game "modes": entering/leaving combat, being unable to use items, etc.
 //Even if its simply exposition it will require a 'choice' of next!
+let expositionArray = [
+  {
+    name: "Travel",
+    EXP: ["You have chosen to set off!", "Which direction would you like to go?"]
+  }
+]
+
+//playerGlobalChoices is for OVERWORLD CHOICES, TOWN CHOICES.
 //The ORDER of 'legalChoices' and 'choiceIcons' is RESPECTIVE!!!
-//When adding combat later may need to 'split' the function by the variable pass <X to go globalChoicesArray or globalCombatArray...
 let playerGlobalChoices = [
   {
     name: "OverWorld Choices",
@@ -136,7 +143,7 @@ let playerGlobalChoices = [
   {
     name: "Travel",
     legalChoices: ["forwardControl","rightControl","backwardControl","leftControl"],
-    choiceIcons: ["fas fa-caret-up","fas fa-caret-right","fas fa-caret-down","fas fa-caret-right"],
+    choiceIcons: ["fa-caret-up","fa-caret-right","fa-caret-down","fa-caret-left"],
     flavorIcons: ["fa-compass","fa-compass","fa-compass","fa-compass"],
     choice1: "Travel North",
     choice2: "Travel East",
@@ -252,6 +259,8 @@ let enableButtons = (buttons) => {
 }
 //For game start
 let resetUI = () => {
+  console.log("RESETTING UI + I/O");
+
   enableButtons([
     "defendControl", 
     "attackControl", 
@@ -291,7 +300,7 @@ let setTheseInputsAsValid = (buttons) => {
 }
 
 
-//Area Targeting and String printing functions.
+//Area Targeting and String printing functions. USE THE TOP TWO FUNCTIONS TO PRINT STUFF, FOR THE THIRD USE provideChoices();
 let outputToOverworld = (title, subTitle) => {
   //This is for printing major events/area names.
   console.log("[outputToOverworld() >> title, subTitle]: "+title+", "+subTitle);
@@ -299,46 +308,60 @@ let outputToOverworld = (title, subTitle) => {
   document.getElementById("ow1").textContent = title;
   document.getElementById("ow2").textContent = subTitle;
 }
-let outputToExpose = (areaEXP) => {
+let outputToExpose = (exposition) => {
   //Outputs exposition text. Expecting an areaLibrary[#].areaEXP
-  console.log("[outputToExpose(areaIndex).areaEXP]: "+areaEXP);
-  console.log("[areaEXP.length]: ", areaEXP.length);
+  console.log("[outputToExpose(areaIndex).areaEXP]: "+exposition);
+  console.log("[areaEXP.length]: ", exposition.length);
 
-  switch (areaEXP.length) {
+  switch (exposition.length) {
     case 1:
       //console.log("There is 1 line of exposition.");
       //console.log("[areaEXP.length]: ", areaEXP.length);
-      document.getElementById("exp1").textContent = areaEXP[0];
+      document.getElementById("exp1").textContent = exposition[0];
       break;
     case 2:
       //console.log("There are 2 lines of exposition.");
       //console.log("[areaEXP.length]: ", areaEXP.length);
-      document.getElementById("exp1").textContent = areaEXP[0];
-      document.getElementById("exp2").textContent = areaEXP[1];
+      document.getElementById("exp1").textContent = exposition[0];
+      document.getElementById("exp2").textContent = exposition[1];
       break;
     case 3:
       //console.log("There are 3 lines of exposition.");
       //console.log("[areaEXP.length]: ", areaEXP.length);
-      document.getElementById("exp1").textContent = areaEXP[0];
-      document.getElementById("exp2").textContent = areaEXP[1];
-      document.getElementById("exp3").textContent = areaEXP[2];
+      document.getElementById("exp1").textContent = exposition[0];
+      document.getElementById("exp2").textContent = exposition[1];
+      document.getElementById("exp3").textContent = exposition[2];
       break;
     case 4:
       //console.log("There are 4 lines of exposition.");
       //console.log("[areaEXP.length]: ", areaEXP.length);
-      document.getElementById("exp1").textContent = areaEXP[0];
-      document.getElementById("exp2").textContent = areaEXP[1];
-      document.getElementById("exp3").textContent = areaEXP[2];
-      document.getElementById("exp4").textContent = areaEXP[3];
+      document.getElementById("exp1").textContent = exposition[0];
+      document.getElementById("exp2").textContent = exposition[1];
+      document.getElementById("exp3").textContent = exposition[2];
+      document.getElementById("exp4").textContent = exposition[3];
       break;
   }
 }
+//Use the provide choices, not this specifically if it can be helped.
 let outputToPlayerComms = (availablePlayerChoices) => {
   //Outputs the player choices.
 
   //Gets the number of choices -4 to account for the name, legalChoices[], choiceIcons[], and flavorIcons[].
   let howManyChoices = checkObjectSize(availablePlayerChoices)-4;
   console.log("[the length of the current choices]: "+howManyChoices);
+
+  //Resetting the icons
+  document.getElementById("input1").className = "fas";
+  document.getElementById("choice1").className = "fas";
+
+  document.getElementById("input2").className = "fas";
+  document.getElementById("choice2").className = "fas";
+
+  document.getElementById("input3").className = "fas";
+  document.getElementById("choice3").className = "fas";
+
+  document.getElementById("input4").className = "fas";
+  document.getElementById("choice4").className = "fas";
 
   switch (howManyChoices) { 
     case 1:
@@ -402,16 +425,17 @@ let outputToPlayerComms = (availablePlayerChoices) => {
   }
 }
 
+//I MAY NOT NEED THIS SET UP THIS WAY, ALL CHOICES WILL GO THROUGH playerGlobalChoices, but the EXP will come from elsewhere as needed!
 //Choices Object Checking and Output Behavior itself.
 let provideChoices = (arrayIndicator, arrayIndex) => {
-
+  
   let currentArray = [];
   switch(arrayIndicator){
     case "playerGlobalChoices":
       currentArray = playerGlobalChoices;
       break;
     case "expositionArray":
-      //Set to array for transitions etc.
+      //currentArray = expositionArray;
       break;
     case "itemArray":
       //Set to item Array
@@ -421,6 +445,7 @@ let provideChoices = (arrayIndicator, arrayIndex) => {
       console.log("[X] FATAL ERROR IN OUTPUT FUNCTION!")
   }
 
+  resetUI();
 
   //Using the playerCurrentChoices global control variable, pick the choices you want to provide and send to output.
   console.log("[Selected Choices]: "+currentArray[arrayIndex].name);
@@ -433,16 +458,15 @@ let provideChoices = (arrayIndicator, arrayIndex) => {
   enableButtons(currentArray[arrayIndex].legalChoices);
 
 
-
   //Make a copy of the global Array to modify.
-  let buttonsToDisable = globalInputs;
+  let buttonsToDisable = [...globalInputs];
 
   //For each input in the legal choices array, find it in the global input array copy and remove it; leaving unnecessary buttons.
   for(i=0;i<currentArray[arrayIndex].legalChoices.length;i++){
     var index = buttonsToDisable.indexOf(currentArray[arrayIndex].legalChoices[i]);
-    buttonsToDisable.splice(index, 1);
+    delete buttonsToDisable[index];
   }
-  //console.log("Final Disable",buttonsToDisable);
+  console.log("Final Disable",buttonsToDisable);
 
   //Disable unnecessary buttons.
   disableButtons(buttonsToDisable);
@@ -518,7 +542,8 @@ let movePlayer = () => {
   let playerArrayY = (-1*playerY) + playerPositionOffsetY;
 
   // 1 = Travel Grabs the necessary UI STUFF From the Global Choices Array.
-  provideChoices(1);
+  outputToExpose(expositionArray[0].EXP);
+  provideChoices("playerGlobalChoices", 1);
 }
 //===========================================================================
 
@@ -622,6 +647,7 @@ let mistressOfTurns = (playerInput) => {
           //Y: GAME EXPOSITION FOR TRAVELLING.
           //N: GAME EXPOSITION FOR BEING UNABLE TO TRAVEL.
           console.log("You decide to travel.");
+          movePlayer();
           break;
         case "rightControl":
           //GET THE VISIBILITY VALUE FROM THE AREA.
