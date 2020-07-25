@@ -529,6 +529,8 @@ let checkObjectSize = (object) => {
   return size;
 };
 
+
+// *******************************************************************
 //ANY TIME THERE IS OUTPUT TO CONSOLE, INCLUDE THIS!!
 let toggleTypeAnim = () => {
   document.getElementById("ow1").classList.toggle("resetAnim");
@@ -546,120 +548,168 @@ let toggleTypeAnim = () => {
   document.getElementById("com4Div").classList.toggle("resetAnim");
 }
 
-//Button hover effect.
+
+
+//=========================== UI EFFECTS FOR SELECTIONS AND TEXT ===============================
+//Button hover effect. Exit function removes blink when no longer hovered.
 $(".controlButton").hover(function(){
+  let currentClasses = [...this.classList];
+
   let controlButtonIcon = $(this).children()[0].classList[1];
   let choiceIcons = [];
 
   controlButtonIcon.trim();
-  
-  //console.log("Current number of choices: ",currentNumberOfChoices);
-  //console.log("Syntax check for input1:",$("#com1Div").children()[0].classList[1]);
 
-  console.log($("#com1Div").children()[0].classList[1]);
-  console.log($("#com2Div").children()[0].classList[1]);
-  console.log($("#com3Div").children()[0].classList[1]);
-  console.log($("#com4Div").children()[0].classList[1]);
+    //Make sure the button isn't disabled.
+    if(!currentClasses.includes('disabled')){
 
-  switch(currentNumberOfChoices){
-    case 1:
-      console.log("There is 1 choice.");
-      choiceIcons.push(
-        $("#com1Div").children()[0].classList[1],
-        $("#com2Div").children()[0].classList[1],
-        $("#com3Div").children()[0].classList[1],
-        $("#com4Div").children()[0].classList[1]
-        );
+      
+      
+      //console.log("Current number of choices: ",currentNumberOfChoices);
+      //console.log("Syntax check for input1:",$("#com1Div").children()[0].classList[1]);
 
-      switch (controlButtonIcon){
-        case choiceIcons[0]:
-          console.log("MATCHED: "+controlButtonIcon);
-          $("#com1Div").addClass("blink");
+      console.log($("#com1Div").children()[0].classList[1]);
+      console.log($("#com2Div").children()[0].classList[1]);
+      console.log($("#com3Div").children()[0].classList[1]);
+      console.log($("#com4Div").children()[0].classList[1]);
+
+      switch(currentNumberOfChoices){
+        case 1:
+          console.log("There is 1 choice.");
+          choiceIcons.push(
+            $("#com1Div").children()[0].classList[1],
+            $("#com2Div").children()[0].classList[1],
+            $("#com3Div").children()[0].classList[1],
+            $("#com4Div").children()[0].classList[1]
+            );
+
+          switch (controlButtonIcon){
+            case choiceIcons[0]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com1Div").addClass("blink");
+              break;
+            default:
+              console.log("[X] FATAL ERROR HOVER CHOICE 3");
+          }
           break;
+        case 2:
+          console.log("There are 2 choices.");
+          choiceIcons.push(
+            $("#com1Div").children()[0].classList[1],
+            $("#com2Div").children()[0].classList[1],
+            $("#com3Div").children()[0].classList[1],
+            $("#com4Div").children()[0].classList[1]
+            );
+
+          switch (controlButtonIcon){
+            case choiceIcons[0]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com1Div").addClass("blink");
+              break;
+            case choiceIcons[1]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com2Div").addClass("blink");
+              break;
+            default:
+              console.log("[X] FATAL ERROR HOVER CHOICE 3");
+          }
+          break;
+        case 3:
+          console.log("There are 3 choices.");
+          choiceIcons.push(
+            $("#com1Div").children()[0].classList[1],
+            $("#com2Div").children()[0].classList[1],
+            $("#com3Div").children()[0].classList[1],
+            $("#com4Div").children()[0].classList[1]
+            );
+
+          switch (controlButtonIcon){
+            case choiceIcons[0]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com1Div").addClass("blink");
+              break;
+            case choiceIcons[1]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com2Div").addClass("blink");
+              break;
+            case choiceIcons[2]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com3Div").addClass("blink");
+              break;
+            default:
+              console.log("[X] FATAL ERROR HOVER CHOICE 3");
+          }
+          break;
+        case 4:
+          console.log("There are 4 choices.");
+          choiceIcons.push(
+            $("#com1Div").children()[0].classList[1],
+            $("#com2Div").children()[0].classList[1],
+            $("#com3Div").children()[0].classList[1],
+            $("#com4Div").children()[0].classList[1]
+            );
+
+          switch (controlButtonIcon){
+            case choiceIcons[0]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com1Div").addClass("blink");
+              break;
+            case choiceIcons[1]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com2Div").addClass("blink");
+              break;
+            case choiceIcons[2]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com3Div").addClass("blink");
+              break;
+            case choiceIcons[3]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com4Div").addClass("blink");
+              break;
+            default:
+              console.log("[X] FATAL ERROR HOVER CHOICE 4");
+          }
+          break;
+        case 5:
+        console.log("There are 4 choices ( + inspect ).");
+          choiceIcons.push(
+            $("#com1Div").children()[0].classList[1],
+            $("#com2Div").children()[0].classList[1],
+            $("#com3Div").children()[0].classList[1],
+            $("#com4Div").children()[0].classList[1]
+            );
+
+            console.log(choiceIcons);
+
+          switch (controlButtonIcon){
+            case choiceIcons[0]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com1Div").addClass("blink");
+              break;
+            case choiceIcons[1]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com2Div").addClass("blink");
+              break;
+            case choiceIcons[2]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com3Div").addClass("blink");
+              break;
+            case choiceIcons[3]:
+              console.log("MATCHED: "+controlButtonIcon);
+              $("#com4Div").addClass("blink");
+              break;
+            default:
+              console.log("[X] FATAL ERROR HOVER CHOICE 5");
+          }
+        break;
         default:
-          console.log("[X] FATAL ERROR HOVER CHOICE 3");
+          console.log("[X] FATAL ERROR IN HOVER CHOICE COUNT!")
       }
-      break;
-    case 2:
-      console.log("There are 2 choices.");
-      choiceIcons.push(
-        $("#com1Div").children()[0].classList[1],
-        $("#com2Div").children()[0].classList[1],
-        $("#com3Div").children()[0].classList[1],
-        $("#com4Div").children()[0].classList[1]
-        );
 
-      switch (controlButtonIcon){
-        case choiceIcons[0]:
-          console.log("MATCHED: "+controlButtonIcon);
-          $("#com1Div").addClass("blink");
-          break;
-        case choiceIcons[1]:
-          console.log("MATCHED: "+controlButtonIcon);
-          $("#com2Div").addClass("blink");
-          break;
-        default:
-          console.log("[X] FATAL ERROR HOVER CHOICE 3");
-      }
-      break;
-    case 3:
-      console.log("There are 3 choices.");
-      choiceIcons.push(
-        $("#com1Div").children()[0].classList[1],
-        $("#com2Div").children()[0].classList[1],
-        $("#com3Div").children()[0].classList[1],
-        $("#com4Div").children()[0].classList[1]
-        );
+    } else {
+      console.log("THIS BUTTON IS DISABLED; NO BLINK");
 
-      switch (controlButtonIcon){
-        case choiceIcons[0]:
-          console.log("MATCHED: "+controlButtonIcon);
-          $("#com1Div").addClass("blink");
-          break;
-        case choiceIcons[1]:
-          console.log("MATCHED: "+controlButtonIcon);
-          $("#com2Div").addClass("blink");
-          break;
-        case choiceIcons[2]:
-          console.log("MATCHED: "+controlButtonIcon);
-          $("#com3Div").addClass("blink");
-          break;
-        default:
-          console.log("[X] FATAL ERROR HOVER CHOICE 3");
-      }
-      break;
-    case 4:
-      console.log("There are 4 choices.");
-      choiceIcons.push(
-        $("#com1Div").children()[0].classList[1],
-        $("#com2Div").children()[0].classList[1],
-        $("#com3Div").children()[0].classList[1],
-        $("#com4Div").children()[0].classList[1]
-        );
-
-      switch (controlButtonIcon){
-        case choiceIcons[0]:
-          console.log("MATCHED: "+controlButtonIcon);
-          $("#com1Div").addClass("blink");
-          break;
-        case choiceIcons[1]:
-          console.log("MATCHED: "+controlButtonIcon);
-          $("#com2Div").addClass("blink");
-          break;
-        case choiceIcons[2]:
-          console.log("MATCHED: "+controlButtonIcon);
-          $("#com3Div").addClass("blink");
-          break;
-        case choiceIcons[3]:
-          console.log("MATCHED: "+controlButtonIcon);
-          $("#com4Div").addClass("blink");
-          break;
-        default:
-          console.log("[X] FATAL ERROR HOVER CHOICE 4");
-      }
-      break;
-    case 5:
-    console.log("There are 4 choices ( + inspect ).");
+      //Grab the icons that are there.
       choiceIcons.push(
         $("#com1Div").children()[0].classList[1],
         $("#com2Div").children()[0].classList[1],
@@ -672,26 +722,23 @@ $(".controlButton").hover(function(){
       switch (controlButtonIcon){
         case choiceIcons[0]:
           console.log("MATCHED: "+controlButtonIcon);
-          $("#com1Div").addClass("blink");
+          $("#com1Div").addClass("notAvailable");
           break;
         case choiceIcons[1]:
           console.log("MATCHED: "+controlButtonIcon);
-          $("#com2Div").addClass("blink");
+          $("#com2Div").addClass("notAvailable");
           break;
         case choiceIcons[2]:
           console.log("MATCHED: "+controlButtonIcon);
-          $("#com3Div").addClass("blink");
+          $("#com3Div").addClass("notAvailable");
           break;
         case choiceIcons[3]:
           console.log("MATCHED: "+controlButtonIcon);
-          $("#com4Div").addClass("blink");
+          $("#com4Div").addClass("notAvailable");
           break;
         default:
-          console.log("[X] FATAL ERROR HOVER CHOICE 5");
-      }
-    break;
-    default:
-      console.log("[X] FATAL ERROR IN HOVER CHOICE COUNT!")
+          console.log("[X] FATAL ERROR DISABLE BUTTON HOVER");
+    }
   }
 },
 function() {
@@ -699,9 +746,42 @@ function() {
   $("#com2Div").removeClass("blink");
   $("#com3Div").removeClass("blink");
   $("#com4Div").removeClass("blink");
+
+  $("#com1Div").removeClass("notAvailable");
+  $("#com2Div").removeClass("notAvailable");
+  $("#com3Div").removeClass("notAvailable");
+  $("#com4Div").removeClass("notAvailable");
+})
+//This prevents disabled buttons from continuing to blink their choice on next turn.
+$(".controlButton").on("click", function() {
+  $("#com1Div").removeClass("blink");
+  $("#com2Div").removeClass("blink");
+  $("#com3Div").removeClass("blink");
+  $("#com4Div").removeClass("blink");
 })
 
-
+//Exposition highlight quality of life feature on hover.
+$("#exp1").hover(function(){
+  $("#exp1").addClass("highlight");
+}, function(){
+  $("#exp1").removeClass("highlight");
+})
+$("#exp2").hover(function(){
+  $("#exp2").addClass("highlight");
+}, function(){
+  $("#exp2").removeClass("highlight");
+})
+$("#exp3").hover(function(){
+  $("#exp3").addClass("highlight");
+}, function(){
+  $("#exp3").removeClass("highlight");
+})
+$("#exp4").hover(function(){
+  $("#exp4").addClass("highlight");
+}, function(){
+  $("#exp4").removeClass("highlight");
+})
+//======================================================================================
 //===========================================================================
 
 //========================== MOVEMENT FUNCTIONS ==============================
