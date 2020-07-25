@@ -29,6 +29,8 @@
   text-transform: uppercase;
   font-weight: bold;
 
+  white-space: nowrap;
+
   /*Ensures content isn't show until the animation completes*/
   overflow:hidden;
   /* to keep all on one line: white-space: nowrap; */
@@ -42,6 +44,8 @@
   padding-right: 0rem;
   padding-bottom: 1rem;
   padding-left: 5rem;
+
+  white-space: nowrap;
 
   /*Ensures content isn't show until the animation completes*/
   overflow:hidden;
@@ -161,7 +165,7 @@
   overflow:hidden;
   /*keeps text on its own line as the container grows:*/
   white-space: nowrap;
-  animation: typing 2s steps(60, end) 3s;
+  animation: typing 2s steps(60, end) 1.5s;
   animation-fill-mode: forwards;
 }
 #com1Div{
@@ -174,7 +178,7 @@
   overflow:hidden;
   /*keeps text on its own line as the container grows:*/
   white-space: nowrap;
-  animation: typing 2s steps(60, end) 3s;
+  animation: typing 2s steps(60, end) 1.5s;
   animation-fill-mode: forwards;
 }
 #com2Div{
@@ -187,7 +191,7 @@
   overflow:hidden;
   /*keeps text on its own line as the container grows:*/
   white-space: nowrap;
-  animation: typing 2s steps(60, end) 3s;
+  animation: typing 2s steps(60, end) 1.5s;
   animation-fill-mode: forwards;
 }
 #com3Div{
@@ -200,7 +204,7 @@
   overflow:hidden;
   /*keeps text on its own line as the container grows:*/
   white-space: nowrap;
-  animation: typing 2s steps(60, end) 3s;
+  animation: typing 2s steps(60, end) 1.5s;
   animation-fill-mode: forwards;
 }
 #com4Div{
@@ -214,7 +218,7 @@
   overflow:hidden;
   /*keeps text on its own line as the container grows:*/
   white-space: nowrap;
-  animation: typing 2s steps(60, end) 3s;
+  animation: typing 2s steps(60, end) 1.5s;
   animation-fill-mode: forwards;
 }
 
@@ -226,4 +230,56 @@
   to {
     width: 100%;
   }
+}
+
+@keyframes typing2 {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+
+/* SECOND VERSION TO TOGGLE ANIMATION ON EACH UPDATE.*/
+/* According to CSS-Tricks, this is the easiest way to accomplish the effect I want
+(a text scrolling animation on each text output to the console area) due to CSS animations
+not being simply "restart-able". I played with removing the animation, setting display to none
+for the respective elements, etc. Anim's seem to run almost asynchronously, like setTimeout, their
+runs are set and completed in a separate handler that has a consistent state even if the
+anim is overwritten or the element is removed. Its bloaty, but unfortunately this is what I have.*/
+#ow1.resetAnim{
+  animation: typing2 2s steps(60, end) 0s;
+  animation-fill-mode: forwards;
+}
+#ow2.resetAnim{
+  animation: typing2 2s steps(60, end) 0s;
+  animation-fill-mode: forwards;
+}
+
+.expose p.resetAnim{
+  animation: typing2 2s steps(60, end) 0s;
+  animation-fill-mode: forwards;
+}
+
+#com0.resetAnim{
+  animation: typing2 2s steps(60, end) 1.5s;
+  animation-fill-mode: forwards;
+}
+#com1Div.resetAnim{
+  animation: typing2 2s steps(60, end) 1.5s;
+  animation-fill-mode: forwards;
+}
+#com2Div.resetAnim{
+  animation: typing2 2s steps(60, end) 1.5s;
+  animation-fill-mode: forwards;
+}
+#com3Div.resetAnim{
+  animation: typing2 2s steps(60, end) 1.5s;
+  animation-fill-mode: forwards;
+}
+#com4Div.resetAnim{
+  animation: typing2 2s steps(60, end) 1.5s;
+  animation-fill-mode: forwards;
 }

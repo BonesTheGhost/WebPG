@@ -525,10 +525,28 @@ let checkObjectSize = (object) => {
   return size;
 };
 
+//ANY TIME THERE IS OUTPUT TO CONSOLE, INCLUDE THIS!!
+let toggleTypeAnim = () => {
+  document.getElementById("ow1").classList.toggle("resetAnim");
+  document.getElementById("ow2").classList.toggle("resetAnim");
+
+  document.getElementById("exp1").classList.toggle("resetAnim");
+  document.getElementById("exp2").classList.toggle("resetAnim");
+  document.getElementById("exp3").classList.toggle("resetAnim");
+  document.getElementById("exp4").classList.toggle("resetAnim");
+
+  document.getElementById("com0").classList.toggle("resetAnim");
+  document.getElementById("com1Div").classList.toggle("resetAnim");
+  document.getElementById("com2Div").classList.toggle("resetAnim");
+  document.getElementById("com3Div").classList.toggle("resetAnim");
+  document.getElementById("com4Div").classList.toggle("resetAnim");
+}
+
 //===========================================================================
 
 //========================== MOVEMENT FUNCTIONS ==============================
 let getPlayerLocation = () => {
+  toggleTypeAnim();
   //Check the coordinates, find the location in the areaLibrary, then pass the correct exposition to the appropriate output function.
 
   //***Keep in mind what the global control variable playerCurrentChoices is doing!!
@@ -585,6 +603,8 @@ let getPlayerLocation = () => {
 } 
 
 let playerTravel = () => {
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
   outputToOverworld(expositionArray[0].name, expositionArray[0].subName);
   //Grab the travel exposition.
   outputToExpose(expositionArray[0].EXP);
@@ -655,6 +675,9 @@ let movePlayer = (input) => {
 
 let inspectThis = () => {
   console.log("INSPECTING...");
+
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
   //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
   outputToOverworld(areaLibrary[playerCurrentTileIndex].name, areaLibrary[playerCurrentTileIndex].subName);
   //Grab the exposition from that same area and pass it to the output.
@@ -733,6 +756,9 @@ let surveyTheLand = () => {
 
   //Add those 'name descriptions' to a specific array in expositionArray purposely for this function.
   expositionArray[1].EXP.push("NORTH: "+northernName,"WEST: "+westernName,"EAST: "+easternName,"SOUTH: "+southernName);
+
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
 
   //Grab the expositionArray stuff for this function: the title update, expose, and next choice.
   outputToOverworld(expositionArray[1].name, expositionArray[1].subName);
