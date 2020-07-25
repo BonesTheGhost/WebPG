@@ -209,6 +209,7 @@
 
   width: 0;
 
+  
   /*Ensures content isn't show until the animation completes:*/
   overflow:hidden;
   /*keeps text on its own line as the container grows:*/
@@ -216,6 +217,7 @@
   animation: typing 2s steps(60, end) 3s;
   animation-fill-mode: forwards;
 }
+
 
 @keyframes typing {
   from {

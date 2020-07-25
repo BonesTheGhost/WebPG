@@ -98,7 +98,7 @@ areaLibrary = [
   {
     char: '0', 
     name: 'Windswept Field',
-    subName: 'Dalkadia - Plains of Peace',
+    subName: '- Current Location -',
     areaEXP: ["The grass is knee high and very soft.", 
     "A gentle warm breeze waves through the plains, an ebb and flow, an ocean of life.", 
     "You can see for quite some distance."],
@@ -109,7 +109,7 @@ areaLibrary = [
   {
     char: '#', 
     name: 'Tranquil - Forest',
-    subName: "Dal'dara - Grove of Elves",
+    subName: '- Current Location -',
     areaEXP: ["The trees are tall and thick.", 
     "The rustle of leaves and chirping of birds gives off a healthy feeling.", 
     "The air is clear but a little stagnant."],
@@ -120,7 +120,7 @@ areaLibrary = [
   {
     char: 'X', 
     name: 'Barren Wasteland',
-    subName: "Toka Badlands",
+    subName: '- Current Location -',
     areaEXP: ["Shale and cracked earth stretch out before you.", 
     "The air is heavy and sour smelling. Only small thorny brush dots the landscape.", 
     "You see nothing of value."],
@@ -139,7 +139,13 @@ let playerCurrentChoices = 0;
 let expositionArray = [
   {
     name: "Travel",
+    subName: "Preparing to move",
     EXP: ["You have chosen to set off!"]
+  },
+  {
+    name: "Survey Findings",
+    subName: "Its hard to be sure, but you mostly see:",
+    EXP: []
   }
 ]
 
@@ -579,9 +585,9 @@ let getPlayerLocation = () => {
 } 
 
 let playerTravel = () => {
+  outputToOverworld(expositionArray[0].name, expositionArray[0].subName);
   //Grab the travel exposition.
   outputToExpose(expositionArray[0].EXP);
-
   //Provide the standard travel choices (& set valid inputs/buttons)
   provideChoices("playerGlobalChoices", 1);
 
@@ -656,10 +662,14 @@ let inspectThis = () => {
   //Pass the name of the array that we want and the specific INDEX We want
   provideChoices("playerGlobalChoices", 2);
 
-  //SET VALID INPUTS, SET BUTTONS
 }
 
 let surveyTheLand = () => {
+  console.log("SURVEYING...")
+
+  //Reset the terrain array in case the player has moved and thus the survey results are now different.
+  expositionArray[1].EXP = [];
+
   //Get the ARRAY position to check how far we can go in each direction.
   let playerArrayX = playerX + playerPositionOffsetX;
   let playerArrayY = (-1*playerY) + playerPositionOffsetY;
@@ -699,30 +709,37 @@ let surveyTheLand = () => {
   let easternTerrain = mostFreqStr(tilesEast);
   let southernTerrain = mostFreqStr(tilesSouth);
 
+  //For finding the index of each character we have in the areaLibrary array.
   let cardinalDirection = [northernTerrain, westernTerrain, easternTerrain,southernTerrain];
   let areaCharIndexMap = [];
 
-  //Grab the character at index 0 of areaLibrary, and put here.
+  //Grab the character at index 0 of areaLibrary, and put here. Repeat for each char available. Because the for loop starts at 0,
+  // the indexes are in the SAME order as the area library.
   for(i=0; i < areaLibrary.length; i++){
     areaCharIndexMap.push(areaLibrary[i].char);
   }
 
+  //Meaning we can now match the character we have for each direction with the index in the match array, and it will mirror the char's actual position.
   let northernIndex = areaCharIndexMap.indexOf(cardinalDirection[0]);
   let westernIndex = areaCharIndexMap.indexOf(cardinalDirection[1]);
   let easternIndex = areaCharIndexMap.indexOf(cardinalDirection[2]);
   let southernIndex = areaCharIndexMap.indexOf(cardinalDirection[3]);
 
+  //Assign the name for that match to the variables.
   let northernName = areaLibrary[northernIndex].name;
   let westernName = areaLibrary[westernIndex].name;
   let easternName = areaLibrary[easternIndex].name;
   let southernName = areaLibrary[southernIndex].name;
 
-  console.log("Terrain to the north: "+northernName);
-  console.log("Terrain to the west: "+westernName);
-  console.log("Terrain to the east: "+easternName);
-  console.log("Terrain to the south: "+southernName);
+  //Add those 'name descriptions' to a specific array in expositionArray purposely for this function.
+  expositionArray[1].EXP.push("NORTH: "+northernName,"WEST: "+westernName,"EAST: "+easternName,"SOUTH: "+southernName);
 
-
+  //Grab the expositionArray stuff for this function: the title update, expose, and next choice.
+  outputToOverworld(expositionArray[1].name, expositionArray[1].subName);
+  //Output the terrain names we just grabbed earlier in this function.
+  outputToExpose(expositionArray[1].EXP);
+  //Provide only the 'next' choice, to give the player a chance to read.
+  provideChoices("playerGlobalChoices", 2);
 }
 
 //For finding the most common string in the cardinal tiles Arrays.
