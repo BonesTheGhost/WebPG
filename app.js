@@ -335,6 +335,16 @@ let setTheseInputsAsValid = (buttons) => {
 
 }
 
+//Make Sure to ADD references when stats are added later! This just grabs the latest stat and updates it!!
+let updateStatMenu = () => {
+  $("#statPlayerName").text(player.playerName);
+  $("#statPlayerHealth").text(player.playerHealth);
+  $("#statPlayerAgility").text(player.playerAgility);
+  $("#statPlayerAttack").text(player.playerATK);
+  $("#statPlayerDefense").text(player.playerDEF);
+
+}
+
 
 //Area Targeting and String printing functions. USE THE TOP TWO FUNCTIONS TO PRINT STUFF, FOR THE THIRD USE provideChoices();
 let outputToOverworld = (title, subTitle) => {
@@ -1283,6 +1293,8 @@ onClickLogic();
 attachBurgerMenus();
 //Reset the UI
 resetUI();
+//Update The stats for start of game
+updateStatMenu();
 
 //turn "0" => start the game.
 gamePipeline();
