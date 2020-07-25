@@ -32,6 +32,10 @@ let previousClockState = 0;
 //Player Position Checks. 
 let playerX = 0;
 let playerY = 0;
+
+//For Controlling various functions, like inspect based on location vs. item. vs. mob.
+let playerCurrentTile = "";
+let playerCurrentTileIndex = 0;
 let inTown = false;
 let inDungeon = false;
 
@@ -87,24 +91,36 @@ mapArray = [["0","0","#","#","#"],["0","0","#","#","#"],["0","0","0","X","X"],["
 areaLibrary = [
   {
     char: '0', 
-    name: 'GrassyField',
+    name: 'Windswept Field',
+    subName: 'Dalkadia - Plains of Peace',
     areaEXP: ["The grass is knee high and very soft.", 
     "A gentle warm breeze waves through the plains, an ebb and flow, an ocean of life.", 
-    "You can see for quite some distance."]
+    "You can see for quite some distance."],
+    inspectEXP: ["You kneel down to examine the grass further.", 
+    "The plant-life is so dense that it appears nothing dangerous could hide in it.", 
+    "This would make for an ideal camping spot!","You are completely at ease."]
   },
   {
     char: '#', 
-    name: 'TranquilForest',
+    name: 'Tranquil - Forest',
+    subName: "Dal'dara - Grove of Elves",
     areaEXP: ["The trees are tall and thick.", 
     "The rustle of leaves and chirping of birds gives off a healthy feeling.", 
-    "The air is clear but a little stagnant."]
+    "The air is clear but a little stagnant."],
+    inspectEXP: ["You crouch to examine the forest floor.", 
+    "The forest is clearly healthy, there may be the occasional predator.", 
+    "Camping here could prove, invigorating.","It is peaceful here."]
   },
   {
     char: 'X', 
-    name: 'Wasteland',
+    name: 'Barren Wasteland',
+    subName: "Toka Badlands",
     areaEXP: ["Shale and cracked earth stretch out before you.", 
     "The air is heavy and sour smelling. Only small thorny brush dots the landscape.", 
-    "You see nothing of value."]
+    "You see nothing of value."],
+    inspectEXP: ["You bend to claw at the dirt.", 
+    "The clay is pale and hard, leaving a sandy residue on your hand.", 
+    "This area is completely exposed...","Something might be watching you..."]
   }
 ];
 
@@ -126,7 +142,7 @@ let expositionArray = [
 let playerGlobalChoices = [
   {
     name: "Map - What will you do?",
-    legalChoices: ["forwardControl","rightControl","backwardControl","itemControl"],
+    legalChoices: ["forwardControl","rightControl","backwardControl","itemControl","inspectControl"],
     choiceIcons: ["fa-caret-up","fa-caret-right","fa-caret-down","fa-flask"],
     flavorIcons: ["fa-hiking","fa-binoculars","fa-fire-alt","fa-drumstick-bite"],
     choice1: "Travel.",
@@ -143,6 +159,13 @@ let playerGlobalChoices = [
     choice2: "Travel East",
     choice3: "Travel South",
     choice4: "Travel West"
+  },
+  {
+    name: "Finished inspecting...",
+    legalChoices: ["nextControl"],
+    choiceIcons: ["fa-angle-double-right"],
+    flavorIcons: ["fa-map"],
+    choice1: "Click 'NEXT' to continue..."
   }
 ];
 //============================================================================
@@ -366,6 +389,11 @@ let outputToPlayerComms = (availablePlayerChoices) => {
   document.getElementById("input4").className = "fas";
   document.getElementById("choice4").className = "fas";
 
+  document.getElementById("com1").textContent = "";
+  document.getElementById("com2").textContent = "";
+  document.getElementById("com3").textContent = "";
+  document.getElementById("com4").textContent = "";
+
   switch (howManyChoices) { 
     case 1:
       console.log("There is 1 choice");
@@ -532,8 +560,12 @@ let getPlayerLocation = () => {
   }
   //console.log("Chosen areaLibrary Index: "+chosenIndex);
 
+  //Save these for later in case the current area needs to be quickly referenced (i.e. INSPECT);
+  playerCurrentTileIndex = chosenIndex;
+  playerCurrentTile = areaLibrary[chosenIndex].char;
+
   //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-  outputToOverworld(areaLibrary[chosenIndex].name, areaLibrary[chosenIndex].name);
+  outputToOverworld(areaLibrary[chosenIndex].name, areaLibrary[chosenIndex].subName);
   //Grab the exposition from that same area and pass it to the output.
   outputToExpose(areaLibrary[chosenIndex].areaEXP);
   //Pass the name of the array that we want and the specific INDEX We want
@@ -608,6 +640,18 @@ let movePlayer = (input) => {
 //===========================================================================
 
 //========================== GAME 'MODE' FUNCTIONS ==============================
+
+let inspectThis = () => {
+  console.log("INSPECTING...");
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(areaLibrary[playerCurrentTileIndex].name, areaLibrary[playerCurrentTileIndex].subName);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose(areaLibrary[playerCurrentTileIndex].inspectEXP);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 2);
+
+  //SEET VALID INPUTS, SET BUTTONS
+}
 
 //SURVEY LAND
 
@@ -717,7 +761,8 @@ let mistressOfTurns = (playerInput) => {
 
       //The MASTER Switch Statement
     switch (gameModeCheck){
-
+      default:
+        console.log("[X]: FATAL ERROR IN gameModeCheck! MoT.")
       //Main map actions.
       case "overworld":
         switch(playerInput){
@@ -753,6 +798,12 @@ let mistressOfTurns = (playerInput) => {
             //Y: USE ITEM FUNCTION, GAME EXPOSITION.
             //N: GAME EXPOSITION FOR NO.
             console.log("You use an item from your pack.");
+            return;
+            break;
+          case "inspectControl":
+            inspectThis();
+            gameModeCheck = "inspecting";
+            updateGameClock();
             return;
             break;
           default: 
@@ -802,6 +853,12 @@ let mistressOfTurns = (playerInput) => {
             default: 
               console.log("[X] FATAL ERROR - MoT: Travel Choices!");
           }
+      case "inspecting":
+        getPlayerLocation();
+        gameModeCheck = "overworld";
+        updateGameClock();
+        return;
+        break;
 
 
       //MASTER SWITCH CLOSE  

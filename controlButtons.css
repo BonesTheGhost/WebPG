@@ -152,17 +152,25 @@ i{
   transform: translateY(4px);
 }
 
-/*This is to overwrite the previous button-specific styling when disbled*/
+
+
+/*This is to overwrite the previous button-specific styling when DISABLED*/
 .controlButton.disabled {
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(128, 128, 128, 0.8);
   /* Trying to time the button fade with the choices popping up */
   transition: all .8s 0s;
+  opacity: .8;
+}
+.controlButton.disabled i{
+  /* Trying to time the button fade with the choices popping up */
+  transition: all .8s 0s;
+  opacity: .8;
 }
 .controlButton.disabled:hover{
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(129, 129, 129, 0.8);
 }
 .controlButton.disabled:active {
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(129, 129, 129, 0.8);
   box-shadow: 0px 5px 0 rgba(0,0,0,0.5);
   transform: translateY(0px);
 }
