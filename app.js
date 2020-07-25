@@ -40,11 +40,17 @@ let inTown = false;
 let inDungeon = false;
 
 //Player Stats
-let playerName = "Zorus";
-let playerATK = 3;
-let playerDEF = 5;
-let playerHealth = 10;
-let playerAgility = 7;
+player = {
+  playerName: "Zorus",
+  playerATK: 3,
+  playerDEF: 5,
+  playerHealth: 10,
+  playerAgility: 7
+};
+
+//WEATHER & ENVIRONMENT
+let currentVisibility = 5;
+
 
 
 //mistressOfTurns() Branch Checks
@@ -87,7 +93,7 @@ let playerPositionOffsetY = Math.floor(mapHeight/2);
 
 
 //Map, Map Locations, and Choices.
-mapArray = [["0","0","#","#","#"],["0","0","#","#","#"],["0","0","0","X","X"],["0","0","0","X","X"],["0","0","0","X","X"]];
+mapArray = [["0","0","#","#","#"],["0","0","#","#","#"],["0","0","0","X","X"],["0","0","0","X","X"],["0","0","X","X","X"]];
 areaLibrary = [
   {
     char: '0', 
@@ -650,9 +656,97 @@ let inspectThis = () => {
   //Pass the name of the array that we want and the specific INDEX We want
   provideChoices("playerGlobalChoices", 2);
 
-  //SEET VALID INPUTS, SET BUTTONS
+  //SET VALID INPUTS, SET BUTTONS
 }
 
+let surveyTheLand = () => {
+  //Get the ARRAY position to check how far we can go in each direction.
+  let playerArrayX = playerX + playerPositionOffsetX;
+  let playerArrayY = (-1*playerY) + playerPositionOffsetY;
+
+  /*
+  //Distance to '0' on the mapHeight Column index.
+  let surveyViewNorth = playerArrayY;
+  //Distance to '0' on the mapWidth index.
+  let surveyViewWest = playerArrayX;
+  //Total width subtract the array position, subtract 1 to adjust for 0-base.
+  let surveyViewEast = (mapWidth - playerArrayX) -1;
+  //Total height subtract the array position, subtract 1 to adjust for 0-base.
+  let surveyViewSouth = (mapHeight - playerArrayY) -1;
+  */
+
+
+  let tilesNorth = [];
+  let tilesWest = [];
+  let tilesEast = [];
+  let tilesSouth = [];
+
+  for(i=(playerArrayY-1); i >= 0; i--){
+    tilesNorth.push(mapArray[playerArrayX][i]);
+  }
+  for(i=(playerArrayX-1); i >= 0; i--){
+    tilesWest.push(mapArray[i][playerArrayY]);
+  }
+  for(i=(playerArrayX+1); i<mapWidth; i++){
+    tilesEast.push(mapArray[i][playerArrayY]);
+  }
+  for(i=(playerArrayY+1); i<mapHeight; i++){
+    tilesSouth.push(mapArray[playerArrayX][i]);
+  }
+
+  let northernTerrain = mostFreqStr(tilesNorth);
+  let westernTerrain = mostFreqStr(tilesWest);
+  let easternTerrain = mostFreqStr(tilesEast);
+  let southernTerrain = mostFreqStr(tilesSouth);
+
+  let cardinalDirection = [northernTerrain, westernTerrain, easternTerrain,southernTerrain];
+  let areaCharIndexMap = [];
+
+  //Grab the character at index 0 of areaLibrary, and put here.
+  for(i=0; i < areaLibrary.length; i++){
+    areaCharIndexMap.push(areaLibrary[i].char);
+  }
+
+  let northernIndex = areaCharIndexMap.indexOf(cardinalDirection[0]);
+  let westernIndex = areaCharIndexMap.indexOf(cardinalDirection[1]);
+  let easternIndex = areaCharIndexMap.indexOf(cardinalDirection[2]);
+  let southernIndex = areaCharIndexMap.indexOf(cardinalDirection[3]);
+
+  let northernName = areaLibrary[northernIndex].name;
+  let westernName = areaLibrary[westernIndex].name;
+  let easternName = areaLibrary[easternIndex].name;
+  let southernName = areaLibrary[southernIndex].name;
+
+  console.log("Terrain to the north: "+northernName);
+  console.log("Terrain to the west: "+westernName);
+  console.log("Terrain to the east: "+easternName);
+  console.log("Terrain to the south: "+southernName);
+
+
+}
+
+//For finding the most common string in the cardinal tiles Arrays.
+function mostFreqStr(arr) {
+  var obj = {}, mostFreq = 0, which = [];
+
+  arr.forEach(ea => {
+    if (!obj[ea]) {
+      obj[ea] = 1;
+    } else {
+      obj[ea]++;
+    }
+
+    if (obj[ea] > mostFreq) {
+      mostFreq = obj[ea];
+      which = [ea];
+    } else if (obj[ea] === mostFreq) {
+      which.push(ea);
+    }
+  });
+
+  //Return the first most common
+  return which[0];
+}
 //SURVEY LAND
 
 //ITEM FUNCTION
@@ -785,6 +879,8 @@ let mistressOfTurns = (playerInput) => {
             //DO FOR EACH CARDINAL DIRECTION.
             //MAKE SURE THERE ARE TILES AVAILABLE - compensate for map edge.
             console.log("You survey the land.");
+            surveyTheLand();
+            updateGameClock();
             return;
             break;
           case "backwardControl":
