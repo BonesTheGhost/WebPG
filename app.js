@@ -103,34 +103,55 @@ areaLibrary = [
     char: '0', 
     name: 'Windswept Field',
     subName: '- Current Location -',
+    campName: 'Breezy Hilltop (Windswept Field)',
+    campSubName: '- Camping -',
     areaEXP: ["The grass is knee high and very soft.", 
     "A gentle warm breeze waves through the plains, an ebb and flow, an ocean of life.", 
     "You can see for quite some distance."],
     inspectEXP: ["You kneel down to examine the grass further.", 
     "The plant-life is so dense that it appears nothing dangerous could hide in it.", 
-    "This would make for an ideal camping spot!","You are completely at ease."]
+    "This would make for an ideal camping spot!","You are completely at ease."],
+    campEXP: ["You stop in a small clearing.", 
+    "A small fire-pit is prepared, with ample blocking for the wind!", 
+    "All of the extra grass makes cozy bedding.", "The night is calm and cool."],
+    campValues: ["Health", 5],
+    campTempValues: ["Agility", 3]
   },
   {
     char: '#', 
-    name: 'Tranquil - Forest',
+    name: 'Tranquil Forest',
     subName: '- Current Location -',
+    campName: 'Green Grotto (Tranquil Forest)',
+    campSubName: '- Camping -',
     areaEXP: ["The trees are tall and thick.", 
     "The rustle of leaves and chirping of birds gives off a healthy feeling.", 
     "The air is clear but a little stagnant."],
     inspectEXP: ["You crouch to examine the forest floor.", 
     "The forest is clearly healthy, there may be the occasional predator.", 
-    "Camping here could prove, invigorating.","It is peaceful here."]
+    "Camping here could prove, invigorating.","It is peaceful here."],
+    campEXP: ["You discover the exposed roots of a giant tree.", 
+    "Camp is prepared tucked against the roots. A humble campfire is lit.", 
+    "The forest becomes very dark, yet you feel secure.", "You rest easily, but keep a weapon near just in case."],
+    campValues: ["Health", 3],
+    campTempValues: ["Defense", 3]
   },
   {
     char: 'X', 
     name: 'Barren Wasteland',
     subName: '- Current Location -',
+    campName: 'Exposed Camp (Barren Wasteland)',
+    campSubName: '- Camping -',
     areaEXP: ["Shale and cracked earth stretch out before you.", 
     "The air is heavy and sour smelling. Only small thorny brush dots the landscape.", 
     "You see nothing of value."],
     inspectEXP: ["You bend to claw at the dirt.", 
     "The clay is pale and hard, leaving a sandy residue on your hand.", 
-    "This area is completely exposed...","Something might be watching you..."]
+    "This area is completely exposed...","Something might be watching you..."],
+    campEXP: ["You halt at a random spot.", 
+    "There is no cover so a fire would be seen for miles.", 
+    "Your meal is cold and unsatisfying.", "Something feels off..."],
+    campValues: ["Health", -3],
+    campTempValues: ["Agility", -3, "Defense", -5, "Attack", 1]
   }
 ];
 
@@ -178,6 +199,13 @@ let playerGlobalChoices = [
   },
   {
     name: "Finished inspecting...",
+    legalChoices: ["nextControl"],
+    choiceIcons: ["fa-angle-double-right"],
+    flavorIcons: ["fa-map"],
+    choice1: "Click 'NEXT' to continue..."
+  },
+  {
+    name: "You attempt to sleep.",
     legalChoices: ["nextControl"],
     choiceIcons: ["fa-angle-double-right"],
     flavorIcons: ["fa-map"],
@@ -578,10 +606,10 @@ $(".controlButton").hover(function(){
       //console.log("Current number of choices: ",currentNumberOfChoices);
       //console.log("Syntax check for input1:",$("#com1Div").children()[0].classList[1]);
 
-      console.log($("#com1Div").children()[0].classList[1]);
-      console.log($("#com2Div").children()[0].classList[1]);
-      console.log($("#com3Div").children()[0].classList[1]);
-      console.log($("#com4Div").children()[0].classList[1]);
+      //console.log($("#com1Div").children()[0].classList[1]);
+      //console.log($("#com2Div").children()[0].classList[1]);
+      //console.log($("#com3Div").children()[0].classList[1]);
+      //console.log($("#com4Div").children()[0].classList[1]);
 
       switch(currentNumberOfChoices){
         case 1:
@@ -595,7 +623,7 @@ $(".controlButton").hover(function(){
 
           switch (controlButtonIcon){
             case choiceIcons[0]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com1Div").addClass("blink");
               break;
             default:
@@ -613,11 +641,11 @@ $(".controlButton").hover(function(){
 
           switch (controlButtonIcon){
             case choiceIcons[0]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com1Div").addClass("blink");
               break;
             case choiceIcons[1]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com2Div").addClass("blink");
               break;
             default:
@@ -635,15 +663,15 @@ $(".controlButton").hover(function(){
 
           switch (controlButtonIcon){
             case choiceIcons[0]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com1Div").addClass("blink");
               break;
             case choiceIcons[1]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com2Div").addClass("blink");
               break;
             case choiceIcons[2]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com3Div").addClass("blink");
               break;
             default:
@@ -661,19 +689,19 @@ $(".controlButton").hover(function(){
 
           switch (controlButtonIcon){
             case choiceIcons[0]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com1Div").addClass("blink");
               break;
             case choiceIcons[1]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com2Div").addClass("blink");
               break;
             case choiceIcons[2]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com3Div").addClass("blink");
               break;
             case choiceIcons[3]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com4Div").addClass("blink");
               break;
             default:
@@ -693,23 +721,23 @@ $(".controlButton").hover(function(){
 
           switch (controlButtonIcon){
             case choiceIcons[0]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com1Div").addClass("blink");
               break;
             case choiceIcons[1]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com2Div").addClass("blink");
               break;
             case choiceIcons[2]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com3Div").addClass("blink");
               break;
             case choiceIcons[3]:
-              console.log("MATCHED: "+controlButtonIcon);
+              //console.log("MATCHED: "+controlButtonIcon);
               $("#com4Div").addClass("blink");
               break;
             default:
-              console.log("[X] FATAL ERROR HOVER CHOICE 5");
+              //console.log("[X] FATAL ERROR HOVER CHOICE 5");
           }
         break;
         default:
@@ -731,19 +759,19 @@ $(".controlButton").hover(function(){
 
       switch (controlButtonIcon){
         case choiceIcons[0]:
-          console.log("MATCHED: "+controlButtonIcon);
+          //console.log("MATCHED: "+controlButtonIcon);
           $("#com1Div").addClass("notAvailable");
           break;
         case choiceIcons[1]:
-          console.log("MATCHED: "+controlButtonIcon);
+          //console.log("MATCHED: "+controlButtonIcon);
           $("#com2Div").addClass("notAvailable");
           break;
         case choiceIcons[2]:
-          console.log("MATCHED: "+controlButtonIcon);
+          //console.log("MATCHED: "+controlButtonIcon);
           $("#com3Div").addClass("notAvailable");
           break;
         case choiceIcons[3]:
-          console.log("MATCHED: "+controlButtonIcon);
+          //console.log("MATCHED: "+controlButtonIcon);
           $("#com4Div").addClass("notAvailable");
           break;
         default:
@@ -929,6 +957,7 @@ let movePlayer = (input) => {
 
 //========================== GAME 'MODE' FUNCTIONS ==============================
 
+//Great example of a single turn function. Anim update,
 let inspectThis = () => {
   console.log("INSPECTING...");
 
@@ -1052,7 +1081,27 @@ function mostFreqStr(arr) {
   //Return the first most common
   return which[0];
 }
-//SURVEY LAND
+
+let makeCamp = () => {
+  console.log("CAMPING");
+
+  console.log(playerCurrentTile);
+  console.log(playerCurrentTileIndex);
+
+  
+
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(areaLibrary[playerCurrentTileIndex].campName, areaLibrary[playerCurrentTileIndex].campSubName);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose(areaLibrary[playerCurrentTileIndex].campEXP);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 3);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[3].legalChoices.length;
+}
 
 //ITEM FUNCTION
 
@@ -1193,6 +1242,9 @@ let mistressOfTurns = (playerInput) => {
             //RUN THE CAMP FUNCTION USING THE VALUES OF THAT AREA.
             //LATER CAN ADD BONUSES BASED ON ITEMS IN INVENTORY +Health:meat, +Mana:softmat, +Stamina:cot, etc.
             console.log("You set up camp here.");
+            makeCamp();
+            gameModeCheck = "camping";
+            updateGameClock();
             return;
             break;
           case "itemControl":
@@ -1261,6 +1313,12 @@ let mistressOfTurns = (playerInput) => {
         updateGameClock();
         return;
         break;
+      case "camping":
+      getPlayerLocation();
+      gameModeCheck = "overworld";
+      updateGameClock();
+      return;
+      break;
 
 
       //MASTER SWITCH CLOSE  
