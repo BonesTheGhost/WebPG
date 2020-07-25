@@ -1,0 +1,117 @@
+.statsContainer{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: .75fr 1fr 1fr;
+  grid-template-areas: 
+  "profile"
+  "statsArea1"
+  " . ";
+
+  height: 100%;
+  background-color: whitesmoke;
+}
+
+.profile{
+  grid-area: profile;
+  display: grid;
+  grid-template-columns: .15fr 1fr .15fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+  ". profilePicture .";
+}
+.profilePicture{
+  grid-area: profilePicture;
+  background-color: gainsboro;
+}
+
+.statsArea1{
+  grid-area: statsArea1;
+
+  grid-gap: .1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+  "stat1 stat2"
+  "stat3 stat4"
+  "stat5 stat6"
+  "stat7 stat8"
+  "stat9 stat10"
+  "stat11 stat12"
+  "stat13 stat14"
+  "stat15 stat16";
+}
+
+.stat1{
+  grid-area: stat1;
+  background-color: rgb(141, 125, 125);
+}
+.stat2{
+  grid-area: stat2;
+  background-color: rgb(141, 125, 125);
+}
+.stat3{
+  grid-area: stat3;
+  background-color: rgb(141, 125, 125);
+}
+.stat4{
+  grid-area: stat4;
+  background-color: rgb(141, 125, 125);
+}
+.stat5{
+  grid-area: stat5;
+  background-color: rgb(141, 125, 125);
+}
+.stat6{
+  grid-area: stat6;
+  background-color: rgb(141, 125, 125);
+}
+.stat7{
+  grid-area: stat7;
+  background-color: rgb(141, 125, 125);
+}
+.stat8{
+  grid-area: stat8;
+  background-color: rgb(141, 125, 125);
+}
+.stat9{
+  grid-area: stat9;
+  background-color: rgb(141, 125, 125);
+}
+.stat10{
+  grid-area: stat10;
+  background-color: rgb(141, 125, 125);
+}
+.stat11{
+  grid-area: stat11;
+  background-color: rgb(141, 125, 125);
+}
+.stat12{
+  grid-area: stat12;
+  background-color: rgb(141, 125, 125);
+}
+.stat13{
+  grid-area: stat13;
+  background-color: rgb(141, 125, 125);
+}
+.stat14{
+  grid-area: stat14;
+  background-color: rgb(141, 125, 125);
+}
+.stat15{
+  grid-area: stat15;
+  background-color: rgb(141, 125, 125);
+}
+.stat16{
+  grid-area: stat16;
+  background-color: rgb(141, 125, 125);
+}
+
+.statName{
+  padding: 0;
+  margin: 0;
+  color: black;
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
