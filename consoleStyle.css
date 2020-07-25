@@ -283,3 +283,28 @@ anim is overwritten or the element is removed. Its bloaty, but unfortunately thi
   animation: typing2 2s steps(60, end) 1.5s;
   animation-fill-mode: forwards;
 }
+
+/* THE BLINKING ANIMATION : the width is crucial because default width is 0 for typing animation!*/
+#com1Div.blink{
+  width: 100%;
+  animation: blink 1s infinite;
+  animation-fill-mode: both;
+}
+#com2Div.blink{
+  width: 100%;
+  animation: blink 1s infinite;
+}
+#com3Div.blink{
+  width: 100%;
+  animation: blink 1s infinite;
+}
+#com4Div.blink{
+  width: 100%;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink{
+  50%{
+    opacity: 50%;
+  }
+}

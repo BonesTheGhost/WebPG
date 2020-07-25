@@ -74,6 +74,10 @@ let globalInputs = [
   "nextControl"
 ];
 
+//For the hover effect and perhaps other reference.
+let currentNumberOfChoices = 0;
+
+
 //COMBAT Branch Checks
 let inCombat = false;
 let canAttack = false;
@@ -130,7 +134,7 @@ areaLibrary = [
   }
 ];
 
-//Current Choices will be passed to provideChoices()
+//Current Choices will be passed AS AN INDEX to provideChoices()
 let playerCurrentChoices = 0;
 
 //GLOBAL GAME EXPOSITION :: EXP ARRAY CAN ONLY HOLD UP TO >> 4 << THINGS!!!
@@ -542,6 +546,162 @@ let toggleTypeAnim = () => {
   document.getElementById("com4Div").classList.toggle("resetAnim");
 }
 
+//Button hover effect.
+$(".controlButton").hover(function(){
+  let controlButtonIcon = $(this).children()[0].classList[1];
+  let choiceIcons = [];
+
+  controlButtonIcon.trim();
+  
+  //console.log("Current number of choices: ",currentNumberOfChoices);
+  //console.log("Syntax check for input1:",$("#com1Div").children()[0].classList[1]);
+
+  console.log($("#com1Div").children()[0].classList[1]);
+  console.log($("#com2Div").children()[0].classList[1]);
+  console.log($("#com3Div").children()[0].classList[1]);
+  console.log($("#com4Div").children()[0].classList[1]);
+
+  switch(currentNumberOfChoices){
+    case 1:
+      console.log("There is 1 choice.");
+      choiceIcons.push(
+        $("#com1Div").children()[0].classList[1],
+        $("#com2Div").children()[0].classList[1],
+        $("#com3Div").children()[0].classList[1],
+        $("#com4Div").children()[0].classList[1]
+        );
+
+      switch (controlButtonIcon){
+        case choiceIcons[0]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com1Div").addClass("blink");
+          break;
+        default:
+          console.log("[X] FATAL ERROR HOVER CHOICE 3");
+      }
+      break;
+    case 2:
+      console.log("There are 2 choices.");
+      choiceIcons.push(
+        $("#com1Div").children()[0].classList[1],
+        $("#com2Div").children()[0].classList[1],
+        $("#com3Div").children()[0].classList[1],
+        $("#com4Div").children()[0].classList[1]
+        );
+
+      switch (controlButtonIcon){
+        case choiceIcons[0]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com1Div").addClass("blink");
+          break;
+        case choiceIcons[1]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com2Div").addClass("blink");
+          break;
+        default:
+          console.log("[X] FATAL ERROR HOVER CHOICE 3");
+      }
+      break;
+    case 3:
+      console.log("There are 3 choices.");
+      choiceIcons.push(
+        $("#com1Div").children()[0].classList[1],
+        $("#com2Div").children()[0].classList[1],
+        $("#com3Div").children()[0].classList[1],
+        $("#com4Div").children()[0].classList[1]
+        );
+
+      switch (controlButtonIcon){
+        case choiceIcons[0]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com1Div").addClass("blink");
+          break;
+        case choiceIcons[1]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com2Div").addClass("blink");
+          break;
+        case choiceIcons[2]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com3Div").addClass("blink");
+          break;
+        default:
+          console.log("[X] FATAL ERROR HOVER CHOICE 3");
+      }
+      break;
+    case 4:
+      console.log("There are 4 choices.");
+      choiceIcons.push(
+        $("#com1Div").children()[0].classList[1],
+        $("#com2Div").children()[0].classList[1],
+        $("#com3Div").children()[0].classList[1],
+        $("#com4Div").children()[0].classList[1]
+        );
+
+      switch (controlButtonIcon){
+        case choiceIcons[0]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com1Div").addClass("blink");
+          break;
+        case choiceIcons[1]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com2Div").addClass("blink");
+          break;
+        case choiceIcons[2]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com3Div").addClass("blink");
+          break;
+        case choiceIcons[3]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com4Div").addClass("blink");
+          break;
+        default:
+          console.log("[X] FATAL ERROR HOVER CHOICE 4");
+      }
+      break;
+    case 5:
+    console.log("There are 4 choices ( + inspect ).");
+      choiceIcons.push(
+        $("#com1Div").children()[0].classList[1],
+        $("#com2Div").children()[0].classList[1],
+        $("#com3Div").children()[0].classList[1],
+        $("#com4Div").children()[0].classList[1]
+        );
+
+        console.log(choiceIcons);
+
+      switch (controlButtonIcon){
+        case choiceIcons[0]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com1Div").addClass("blink");
+          break;
+        case choiceIcons[1]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com2Div").addClass("blink");
+          break;
+        case choiceIcons[2]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com3Div").addClass("blink");
+          break;
+        case choiceIcons[3]:
+          console.log("MATCHED: "+controlButtonIcon);
+          $("#com4Div").addClass("blink");
+          break;
+        default:
+          console.log("[X] FATAL ERROR HOVER CHOICE 5");
+      }
+    break;
+    default:
+      console.log("[X] FATAL ERROR IN HOVER CHOICE COUNT!")
+  }
+},
+function() {
+  $("#com1Div").removeClass("blink");
+  $("#com2Div").removeClass("blink");
+  $("#com3Div").removeClass("blink");
+  $("#com4Div").removeClass("blink");
+})
+
+
 //===========================================================================
 
 //========================== MOVEMENT FUNCTIONS ==============================
@@ -600,6 +760,9 @@ let getPlayerLocation = () => {
   outputToExpose(areaLibrary[chosenIndex].areaEXP);
   //Pass the name of the array that we want and the specific INDEX We want
   provideChoices("playerGlobalChoices", 0);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[0].legalChoices.length;
 } 
 
 let playerTravel = () => {
@@ -610,6 +773,9 @@ let playerTravel = () => {
   outputToExpose(expositionArray[0].EXP);
   //Provide the standard travel choices (& set valid inputs/buttons)
   provideChoices("playerGlobalChoices", 1);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[1].legalChoices.length;
 
   //Check to See if the player is near map boundaries. Do this NOW to set up input check!
   let playerArrayX = playerX + playerPositionOffsetX;
@@ -684,6 +850,9 @@ let inspectThis = () => {
   outputToExpose(areaLibrary[playerCurrentTileIndex].inspectEXP);
   //Pass the name of the array that we want and the specific INDEX We want
   provideChoices("playerGlobalChoices", 2);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[2].legalChoices.length;
 
 }
 
@@ -766,6 +935,9 @@ let surveyTheLand = () => {
   outputToExpose(expositionArray[1].EXP);
   //Provide only the 'next' choice, to give the player a chance to read.
   provideChoices("playerGlobalChoices", 2);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[2].legalChoices.length;
 }
 
 //For finding the most common string in the cardinal tiles Arrays.
@@ -885,6 +1057,7 @@ function onClickLogic(event) {
   };
 }
 
+//A play on "the goddess of time".
 let mistressOfTurns = (playerInput) => {
 
   console.log("========================");
