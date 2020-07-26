@@ -91,6 +91,7 @@ let canDefend = true;
 let playerDefending = false;
 let playerItemEquipped = false;
 
+let enemyIdentifierIndex = 0;
 let enemyTurnControl = 1;
 let enemyDefending = false;
 
@@ -110,18 +111,20 @@ let playerPositionOffsetY = Math.floor(mapHeight/2);
 //ENEMIES
 let enemies = [
   {
-    name: "Corrupted Skeleton",
+    name: "Hard Bones",
     type: "Undead",
     enemyHealth: 5,
     enemyAgility: 6,
     enemyATK: 0,
-    enemyDEF: 10,
+    enemyDEF: 100,
     enemyDexterity: 5,
     enemyBalance: 5,
     enemyStrength: 5,
     enemyAttack1EXP: ["The skeleton lurches forward with a rusty knife!"],
     enemyDefend1EXP: ["The skeleton weakly blocks with its rusty knife!"],
+    enemyPerfectDefendEXP: ["Your attack glances off of the hard bones!", "Hard Bones laughs at you with a hollow clattering..."],
     enemyExperiencePoints: 15,
+    enemyDefaultValues: [5,6,0,10,5,5,5]
   }
 ];
 
@@ -237,7 +240,7 @@ let combatExposition = [
   {
     name: "Player Attack",
     subName: "- In Combat -",
-    EXP: ["Your weapon choices are limited...","You strike with your knife!!"]
+    EXP: ["Your weapon choices are limited...","You strike with your knife for: "]
   },
   {
     name: "Player Defend",
@@ -249,8 +252,17 @@ let combatExposition = [
     subName: "- In Combat -"
   },
   {
-    name: " Defends!",
+    name: " Takes a Defensive stance!",
     subName: "- In Combat -"
+  },
+  {
+    name: " Reduces Your Attack!",
+    subName: "- In Combat -",
+    EXP: [" makes your attack less effective by dodging slightly!", "Your damage is cut in half: "]
+  },
+  {
+    name: " Negates your Attack!!!",
+    subName: "- In Unlucky Combat -"
   }
 ];
 
@@ -1247,7 +1259,7 @@ let enterCombat = () => {
   //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
   outputToOverworld(expositionArray[2].name, expositionArray[playerCurrentTileIndex].subName);
   //Grab the exposition from that same area and pass it to the output.
-  outputToExpose([expositionArray[2].EXP,enemies[0].name]);
+  outputToExpose([expositionArray[2].EXP + enemies[enemyIdentifierIndex].name] + "!");
   //Pass the name of the array that we want and the specific INDEX We want
   provideChoices("playerGlobalChoices", 4);
 
@@ -1302,18 +1314,52 @@ let playerCombatDecision = () => {
   currentNumberOfChoices = playerGlobalChoices[5].legalChoices.length;
 }
 //If the player chose to attack, heres how that goes...
-let playerAttackResults = () => {
-  //Include this to ensure anims play correctly.
-  toggleTypeAnim();
-  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-  outputToOverworld(combatExposition[3].name, combatExposition[3].subName);
-  //Grab the exposition from that same area and pass it to the output.
-  outputToExpose(combatExposition[3].EXP);
-  //Pass the name of the array that we want and the specific INDEX We want
-  provideChoices("playerGlobalChoices", 4);
+let playerAttackResults = (damage) => {
+  
+  if(enemyDefending && damage == 0){
+    //Include this to ensure anims play correctly.
+    toggleTypeAnim();
+    //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+    outputToOverworld(combatExposition[8].name, combatExposition[8].subName);
+    //Grab the exposition from that same area and pass it to the output.
+    outputToExpose(enemies[enemyIdentifierIndex].enemyPerfectDefendEXP);
+    //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
+    //Pass the name of the array that we want and the specific INDEX We want
+    provideChoices("playerGlobalChoices", 4);
 
-  //Update the Hover choice count.
-  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+    //Update the Hover choice count.
+    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+  } else if(enemyDefending){
+    //Include this to ensure anims play correctly.
+    toggleTypeAnim();
+    //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+    outputToOverworld(combatExposition[7].name, combatExposition[7].subName);
+    //Grab the exposition from that same area and pass it to the output.
+    outputToExpose(combatExposition[7].EXP);
+    //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
+    //Pass the name of the array that we want and the specific INDEX We want
+    provideChoices("playerGlobalChoices", 4);
+
+    //Update the Hover choice count.
+    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+  } else {
+    console.log("Standard combat output choices.");
+    //Include this to ensure anims play correctly.
+    toggleTypeAnim();
+    //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+    outputToOverworld(combatExposition[3].name, combatExposition[3].subName);
+    //Grab the exposition from that same area and pass it to the output.
+    outputToExpose(combatExposition[3].EXP);
+    //Pass the name of the array that we want and the specific INDEX We want
+    provideChoices("playerGlobalChoices", 4);
+
+    //Update the Hover choice count.
+    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+  }
+  
+  
+  
+  
 }
 //If the player chose to defend, heres how that goes...
 let playerDefendResults = () => {
@@ -1351,7 +1397,7 @@ let enemyAttackResults = () => {
   currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
 }
 //Communicate to the player that the enemy is defending.
-let enemyDefendResults = () => {
+let enemyDefendSetup = () => {
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
   //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
@@ -1364,6 +1410,8 @@ let enemyDefendResults = () => {
   //Update the Hover choice count.
   currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
 }
+
+
 //We may need an 'interval' function that calculates INDIRECT damage to player or enemy (like poison, etc.)
 
 let updatePreCombatValues = () => {
@@ -1387,6 +1435,32 @@ let calculatePhysicalDamage = (whatEntity, entityIndex) => {
   //Round to nearest whole number. Negative rounds to 0. X.49 rounds down, X.5 rounds up!
   damage = Math.round(damage);
   return damage;
+}
+
+let rollForDefense = (whatEntity, entityIndex) => {
+  //Generate a random number from 1 to defense stat.
+  let defenseNegateValue = 0;
+
+  let character = whatEntity;
+  let enemiesIndex = entityIndex;
+
+  if(character == player.playerName){
+    defenseNegateValue = Math.floor((Math.random() * 100) + 1);
+    if(defenseNegateValue <= player.playerDEF){
+      return 0;
+    } else {
+      return .5;
+    }
+  } else if(character !== player.playerName){
+    defenseNegateValue = Math.floor((Math.random() * 100) + 1);
+    if(defenseNegateValue <= enemies[enemiesIndex].enemyDEF){
+      return 0;
+    } else {
+      return .5;
+    }
+  } else {
+    console.log("[X] FATAL ERROR IN DEFENSE Calculation")
+  }
 }
 
 let updateCombatValues = (whatEntity, entityIndex, whatStats, valueChanges) => {
@@ -1685,27 +1759,39 @@ let mistressOfTurns = (playerInput) => {
 
             switch(playerInput){
               case "attackControl":
+                //Calculate the players physical attack damage
                 let damage = calculatePhysicalDamage(player.playerName, 0);
-                console.log("PLAYER DAMAGE: ", damage);
-                updateCombatValues(enemies[0].name, 0, ["enemyHealth"],[-damage]);
-                playerAttackResults();
+
+                //Roll for blocking enemy damage reduction, then reset defending check.
+                let enemyDamageReduction = .5;
+                if(enemyDefending == true){
+                  enemyDamageReduction = rollForDefense(enemies[enemyIdentifierIndex].name, enemyIdentifierIndex);
+                  damage = damage * enemyDamageReduction;
+                }
+
+                updateCombatValues(enemies[enemyIdentifierIndex].name, enemyIdentifierIndex, ["enemyHealth"],[-damage]);
+                playerAttackResults(damage);
+
+                //Reset defending scenario AFTER it determines what to output.
+                enemyDefending = false;
                 break;
               case "defendControl":
                 //player defend SETUP! WILL HAVE TO APPLY THIS ON NEXT ENEMY ATTACK!
                 playerDefendResults();
+                playerDefending = true;
                 break;
               default:
                 console.log("[X] Fatal Error in Player Combat RESULTS");
             }
 
             //Enemy Death Check. Slightly different because the game must continue after enemy dies.
-            if(enemies[0].enemyHealth <= 0){
+            if(enemies[enemyIdentifierIndex].enemyHealth <= 0){
                 combatPhase = 0;
                 console.log("The enemy has been slain!");
                 gameModeCheck = "overworld";
                 updateGameClock();
                 return;
-            } else if(enemies[0].enemyHealth > 0) {
+            } else if(enemies[enemyIdentifierIndex].enemyHealth > 0) {
               combatPhase = 1;
                 console.log("Enemy survived, combat continues!");
                 gameModeCheck = "combat";
@@ -1731,21 +1817,29 @@ let mistressOfTurns = (playerInput) => {
             
             switch (enemyTurnControl){
               case 1:
-                let damage = calculatePhysicalDamage(enemies[0].name, 0);
-                console.log("ENEMY DAMAGE: ", damage);
+                let damage = calculatePhysicalDamage(enemies[enemyIdentifierIndex].name, enemyIdentifierIndex);
+                
+                let playerDamageReduction = .5;
+                if(playerDefending == true){
+                  playerDamageReduction = rollForDefense(enemies[enemyIdentifierIndex].name, enemyIdentifierIndex);
+                  damage = damage * playerDamageReduction;
+                  playerDefending = false;
+                }
+
                 updateCombatValues(player.playerName, 0, ["playerHealth"],[-damage]);
                 enemyAttackResults();
                 updateStatMenu();
                 break;
               case 2:
-                enemyDefendResults();
+                enemyDefendSetup();
+                enemyDefending = true;
                 break;
             }
 
             //Player Death Check.
             if(player.playerHealth <= 0){
               combatPhase = 0;
-                alert("YOU HAVE DIED!")
+                console.log("YOU HAVE DIED!");
                 gameModeCheck = "new game";
                 gameOver();
             } else if(player.playerHealth > 0) {
