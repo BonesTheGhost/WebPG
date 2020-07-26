@@ -45,7 +45,8 @@ player = {
   playerATK: 3,
   playerDEF: 5,
   playerHealth: 10,
-  playerAgility: 7
+  playerAgility: 7,
+  playerAttack1EXP: ["You strike quickly with your blade!"]
 };
 
 //WEATHER & ENVIRONMENT
@@ -79,7 +80,7 @@ let currentNumberOfChoices = 0;
 
 
 //COMBAT Branch Checks
-let inCombat = false;
+let combatPhase = 1;
 let canAttack = false;
 let canDefend = false;
 
@@ -94,6 +95,20 @@ let mapWidth = 5;
 //OFFSETS to compensate for different map sizes!!
 let playerPositionOffsetX = Math.floor(mapWidth/2);
 let playerPositionOffsetY = Math.floor(mapHeight/2);
+
+
+//ENEMIES
+let enemies = [
+  {
+    name: "Corrupted Skeleton",
+    type: "Undead",
+    enemyHealth: 5,
+    enemyAgility: 6,
+    enemyATK: 2,
+    enemyDEF: 4,
+    enemyAttack1EXP: ["The skeleton lurches forward with a rusty knife!"]
+  }
+];
 
 
 //Map, Map Locations, and Choices.
@@ -160,7 +175,6 @@ let playerCurrentChoices = 0;
 
 //GLOBAL GAME EXPOSITION :: EXP ARRAY CAN ONLY HOLD UP TO >> 4 << THINGS!!!
 //This section is for transition explanations and the smoothing over of the various game "modes": entering/leaving combat, being unable to use items, etc.
-//Even if its simply exposition it will require a 'choice' of next!
 let expositionArray = [
   {
     name: "Travel",
@@ -171,8 +185,50 @@ let expositionArray = [
     name: "Survey Findings",
     subName: "Its hard to be sure, but you mostly see:",
     EXP: []
+  },
+  {
+    name: "You Encounter a Threat!",
+    subName: ">> Entering Combat <<",
+    EXP: ["Something has clawed its way out of the ground, its a "]
   }
-]
+];
+
+//THIS IS FOR COMBAT SPECIFIC EXPOSITION! 
+let combatExposition = [
+  {
+    name: "How Will You Fight?!",
+    subName: "- In Combat -",
+    EXP: ["Your enemy is sizing you up!"],
+    EXP1: ["The beast is staring you down"],
+    EXP2: ["Feral snarling assaults you ears!"]
+  },
+  {
+    name: "First Strike: Enemy",
+    subName: "- In Combat -",
+    EXP: ["The enemy is faster than you are!","It lurches forward to attack!"],
+    EXP1: ["The enemy is faster than you are!","It lunges at you furiously!"],
+    EXP2: ["The enemy is faster than you are!","Un-human speed grants it an opening!"],
+  },
+  {
+    name: "First Strike: "+player.playerName,
+    subName: "- In Combat -",
+    EXP: ["Your reflexes give you first strike!"]
+  },
+  {
+    name: "Player Attack",
+    subName: "- In Combat -",
+    EXP: ["Your weapon choices are limited...","You strike with your knife!!"]
+  },
+  {
+    name: "Player Defend",
+    subName: "- In Combat -",
+    EXP: ["You have little to defend yourself with...","A parry is attempted!!"]
+  },
+  {
+    name: " Attacks!",
+    subName: "- In Combat -"
+  }
+];
 
 //playerGlobalChoices is for OVERWORLD CHOICES, TOWN CHOICES.
 //The ORDER of 'legalChoices' and 'choiceIcons' is RESPECTIVE!!!
@@ -210,6 +266,22 @@ let playerGlobalChoices = [
     choiceIcons: ["fa-angle-double-right"],
     flavorIcons: ["fa-map"],
     choice1: "Click 'NEXT' to continue..."
+  },
+  {
+    name: "",
+    legalChoices: ["nextControl"],
+    choiceIcons: ["fa-angle-double-right"],
+    flavorIcons: ["fa-map"],
+    choice1: "Click 'NEXT' to continue..."
+  },
+  {
+    name: "To Battle!",
+    legalChoices: ["attackControl","defendControl","itemControl"],
+    choiceIcons: ["fa-skull","fa-shield-alt","fa-flask"],
+    flavorIcons: ["fa-gavel","fa-times-circle","fa-drumstick-bite"],
+    choice1: "Attack the Enemy!",
+    choice2: "Defend Yourself!",
+    choice3: "Use an Item."
   }
 ];
 //============================================================================
@@ -613,7 +685,7 @@ $(".controlButton").hover(function(){
 
       switch(currentNumberOfChoices){
         case 1:
-          console.log("There is 1 choice.");
+          //console.log("There is 1 choice.");
           choiceIcons.push(
             $("#com1Div").children()[0].classList[1],
             $("#com2Div").children()[0].classList[1],
@@ -627,11 +699,11 @@ $(".controlButton").hover(function(){
               $("#com1Div").addClass("blink");
               break;
             default:
-              console.log("[X] FATAL ERROR HOVER CHOICE 3");
+              console.log("[X] FATAL ERROR HOVER CHOICE 1");
           }
           break;
         case 2:
-          console.log("There are 2 choices.");
+          //console.log("There are 2 choices.");
           choiceIcons.push(
             $("#com1Div").children()[0].classList[1],
             $("#com2Div").children()[0].classList[1],
@@ -649,11 +721,11 @@ $(".controlButton").hover(function(){
               $("#com2Div").addClass("blink");
               break;
             default:
-              console.log("[X] FATAL ERROR HOVER CHOICE 3");
+              console.log("[X] FATAL ERROR HOVER CHOICE 2");
           }
           break;
         case 3:
-          console.log("There are 3 choices.");
+          //console.log("There are 3 choices.");
           choiceIcons.push(
             $("#com1Div").children()[0].classList[1],
             $("#com2Div").children()[0].classList[1],
@@ -679,7 +751,7 @@ $(".controlButton").hover(function(){
           }
           break;
         case 4:
-          console.log("There are 4 choices.");
+          //console.log("There are 4 choices.");
           choiceIcons.push(
             $("#com1Div").children()[0].classList[1],
             $("#com2Div").children()[0].classList[1],
@@ -709,7 +781,7 @@ $(".controlButton").hover(function(){
           }
           break;
         case 5:
-        console.log("There are 4 choices ( + inspect ).");
+        //console.log("There are 4 choices ( + inspect ).");
           choiceIcons.push(
             $("#com1Div").children()[0].classList[1],
             $("#com2Div").children()[0].classList[1],
@@ -717,7 +789,7 @@ $(".controlButton").hover(function(){
             $("#com4Div").children()[0].classList[1]
             );
 
-            console.log(choiceIcons);
+            //console.log(choiceIcons);
 
           switch (controlButtonIcon){
             case choiceIcons[0]:
@@ -755,7 +827,7 @@ $(".controlButton").hover(function(){
         $("#com4Div").children()[0].classList[1]
         );
 
-        console.log(choiceIcons);
+        //console.log(choiceIcons);
 
       switch (controlButtonIcon){
         case choiceIcons[0]:
@@ -1088,7 +1160,9 @@ let makeCamp = () => {
   console.log(playerCurrentTile);
   console.log(playerCurrentTileIndex);
 
-  
+  //Update the players health
+  player.playerHealth = player.playerHealth + (areaLibrary[playerCurrentTileIndex].campValues[1]);
+  updateStatMenu();
 
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
@@ -1102,6 +1176,142 @@ let makeCamp = () => {
   //Update the Hover choice count.
   currentNumberOfChoices = playerGlobalChoices[3].legalChoices.length;
 }
+
+/*
+player = {
+  playerName: "Zorus",
+  playerATK: 3,
+  playerDEF: 5,
+  playerHealth: 10,
+  playerAgility: 7,
+  playerAttack1EXP: ["You strike quickly with your blade!"]
+};
+
+let enemies = [
+  {
+    name: "Corrupted Skeleton",
+    type: "Undead",
+    enemyHealth: 5,
+    enemyAgility: 6,
+    enemyATK: 2,
+    enemyDEF: 4,
+    enemyAttack1EXP: ["The skeleton lurches forward with a rusty knife!"]
+  }
+];
+*/
+
+//COMBAT ============
+let decideEnemy = () => {
+  //Make a function that provides a number based on the terrain, dungeon, weather, etc.
+};
+
+let enterCombat = () => {
+  console.log("ENTERING COMBAT");
+
+  console.log("INSPECTING...");
+
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(expositionArray[2].name, expositionArray[playerCurrentTileIndex].subName);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose([expositionArray[2].EXP,enemies[0].name]);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 4);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+};
+
+let calculateFirstMove = () => {
+  if(player.playerAgility > enemies[0].enemyAgility){
+
+    //Include this to ensure anims play correctly.
+    toggleTypeAnim();
+    //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+    outputToOverworld(combatExposition[2].name, combatExposition[2].subName);
+    //Grab the exposition from that same area and pass it to the output.
+    outputToExpose(combatExposition[2].EXP);
+    //Pass the name of the array that we want and the specific INDEX We want
+    provideChoices("playerGlobalChoices", 4);
+
+    //Update the Hover choice count.
+    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+
+    return 1;
+  }
+
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(combatExposition[1].name, combatExposition[1].subName);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose(combatExposition[1].EXP);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 4);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+
+  return 3;
+};
+
+let playerCombatDecision = () => {
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(combatExposition[0].name, combatExposition[0].subName);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose(combatExposition[0].EXP);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 5);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[5].legalChoices.length;
+}
+
+let playerAttackResults = () => {
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(combatExposition[3].name, combatExposition[3].subName);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose(combatExposition[3].EXP);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 4);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+}
+
+let playerDefendResults = () => {
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(combatExposition[4].name, combatExposition[4].subName);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose(combatExposition[4].EXP);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 4);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+}
+
+let enemyAttackResults = () => {
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(enemies[0].name+combatExposition[5].name, combatExposition[5].subName);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose(enemies[0].enemyAttack1EXP);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 4);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+}
+//===================
 
 //ITEM FUNCTION
 
@@ -1269,7 +1479,7 @@ let mistressOfTurns = (playerInput) => {
           switch(playerInput){
             case "forwardControl":
               console.log("You travel to the north.");
-              gameModeCheck = "overworld";
+              gameModeCheck = "enterCombat";
               movePlayer(playerInput);
               getPlayerLocation();
               updateGameClock();
@@ -1314,11 +1524,73 @@ let mistressOfTurns = (playerInput) => {
         return;
         break;
       case "camping":
-      getPlayerLocation();
-      gameModeCheck = "overworld";
-      updateGameClock();
-      return;
-      break;
+        getPlayerLocation();
+        gameModeCheck = "overworld";
+        updateGameClock();
+        return;
+        break;
+      case "enterCombat":
+        console.log("MoT: Combat entered...")
+        enterCombat();
+        gameModeCheck = "calculateFirstMove";
+        updateGameClock();
+        return;
+        break;
+      case "calculateFirstMove":
+        console.log("MoT: Combat entered...")
+        combatPhase = calculateFirstMove();
+        gameModeCheck = "combat";
+        updateGameClock();
+        return;
+        break;
+      case "combat":
+        switch (combatPhase){
+          case 1:
+            console.log("Its the players DECISION turn");
+            playerCombatDecision();
+            //Set the combat phase for the next turn.
+            combatPhase = 2;
+            updateGameClock();
+            return;
+            break;
+          case 2:
+            console.log("Its the players RESULTS turn")
+
+            switch(playerInput){
+              case "attackControl":
+                playerAttackResults();
+                break;
+              case "defendControl":
+                //player defend results.
+                break;
+              default:
+                console.log("[X] Fatal Error in Player Combat RESULTS");
+            }
+
+            updateGameClock();
+            combatPhase = 3;
+            return;
+            break;
+          case 3:
+            console.log("Its the enemies DECISION turn");
+            //Calculate some stuff here for the enemy to do.
+            combatPhase = 4;
+
+            updateGameClock();
+            return;
+            break;
+          case 4:
+            console.log("Its the enemies RESULTS turn")
+            enemyAttackResults();
+            combatPhase = 1;
+
+            updateGameClock();
+            gameModeCheck = "overworld";
+            return;
+            break;
+          default:
+            console.log("[X] FATAL ERROR IN COMBAT TURN LOGIC!")
+        }
 
 
       //MASTER SWITCH CLOSE  
