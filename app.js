@@ -45,7 +45,7 @@ player = {
   playerATK: 0,
   playerDEF: 5,
   playerHealth: 5,
-  playerAgility: 4,
+  playerAgility: 5,
   playerDexterity: 5,
   playerBalance: 5,
   playerStrength: 5,
@@ -205,6 +205,11 @@ let expositionArray = [
     name: "You Encounter a Threat!",
     subName: ">> Entering Combat <<",
     EXP: ["Something has clawed its way out of the ground, its a "]
+  },
+  {
+    name: "You Died!!!",
+    subName: "* Thanks For Playing *",
+    EXP: ["This game is currently a proof of concept.", "No permanent plans have been made for the game.", "If you have feedback, you can email me at bonestheghost@gmail.com!", "If there is enough interest I may continue building this :)"]
   }
 ];
 
@@ -301,7 +306,14 @@ let playerGlobalChoices = [
     choice1: "Attack the Enemy!",
     choice2: "Defend Yourself!",
     choice3: "Use an Item."
-  }
+  },
+  {
+    name: "Made By:",
+    legalChoices: ["nextControl"],
+    choiceIcons: ["fa-angle-double-right"],
+    flavorIcons: ["fa-skull-crossbones"],
+    choice1: "BonesTheGhost"
+  },
 ];
 //============================================================================
 
@@ -1322,7 +1334,7 @@ let decideEnemyAction = () => {
   //Generate a random number from 1 to 2.
   let enemyDecision = Math.floor((Math.random() * 2) + 1);
 
-  return 1;
+  return enemyDecision;
 }
 //What happens to the player as a result of enemy attacking.
 let enemyAttackResults = () => {
@@ -1626,6 +1638,13 @@ let mistressOfTurns = (playerInput) => {
         updateGameClock();
         return;
         break;
+
+
+
+
+
+
+
       case "enterCombat":
         console.log("MoT: Combat entered...")
         enterCombat();
@@ -1642,6 +1661,15 @@ let mistressOfTurns = (playerInput) => {
         updateGameClock();
         return;
         break;
+
+
+
+
+
+
+
+
+
       case "combat":
         switch (combatPhase){
           case 1:
@@ -1670,37 +1698,36 @@ let mistressOfTurns = (playerInput) => {
                 console.log("[X] Fatal Error in Player Combat RESULTS");
             }
 
-            //Enemy Death Check.
+            //Enemy Death Check. Slightly different because the game must continue after enemy dies.
             if(enemies[0].enemyHealth <= 0){
-              combatPhase = 0;
-                alert("The enemy has been slain!")
+                combatPhase = 0;
+                console.log("The enemy has been slain!");
                 gameModeCheck = "overworld";
+                updateGameClock();
+                return;
             } else if(enemies[0].enemyHealth > 0) {
               combatPhase = 1;
-                console.log("Enemy survived, combat continues!")
+                console.log("Enemy survived, combat continues!");
                 gameModeCheck = "combat";
+                combatPhase = 3;
+                updateGameClock();
             } else {
               console.log("error in enemy death check MoT");
             }
-
             console.log("ENEMY ENDING HEALTH: ", enemies[0].enemyHealth);
 
             
 
             updateGameClock();
-            combatPhase = 3;
+            
             return;
             break;
           case 3:
-            console.log("Its the enemies DECISION turn");
+            console.log("Its the enemies DECISION event");
             //Calculate some stuff here for the enemy to do.
-            combatPhase = 4;
             enemyTurnControl = decideEnemyAction();
             updateGameClock();
-            return;
-            break;
-          case 4:
-            console.log("Its the enemies RESULTS turn")
+            console.log("Its the enemies RESULTS phase")
             
             switch (enemyTurnControl){
               case 1:
@@ -1719,7 +1746,8 @@ let mistressOfTurns = (playerInput) => {
             if(player.playerHealth <= 0){
               combatPhase = 0;
                 alert("YOU HAVE DIED!")
-                gameModeCheck = "overworld";
+                gameModeCheck = "new game";
+                gameOver();
             } else if(player.playerHealth > 0) {
               combatPhase = 3;
                 console.log("You survived, combat continues!")
@@ -1729,8 +1757,6 @@ let mistressOfTurns = (playerInput) => {
             }
 
             combatPhase = 1;
-
-            
             updateGameClock();
             return;
             break;
@@ -1752,10 +1778,34 @@ let mistressOfTurns = (playerInput) => {
 
 }
 
+let gameOver = () => {
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(expositionArray[3].name, expositionArray[3].subName);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose(expositionArray[3].EXP);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 6);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[6].legalChoices.length;
+}
+
 
 
 let gamePipeline = () => {
   //The main game pipeline to keep the order of events flowing properly.
+  
+  //Initialize the onclick listeners.
+  onClickLogic();
+  //Initialize the Burger Menus
+  attachBurgerMenus();
+  //Reset the UI
+  resetUI();
+  //Update The stats for start of game
+  updateStatMenu();
+  
   getPlayerLocation();
   mistressOfTurns();
 }
@@ -1763,14 +1813,5 @@ let gamePipeline = () => {
 
 
 //=========================== SETUP =======================================
-//Initialize the onclick listeners.
-onClickLogic();
-//Initialize the Burger Menus
-attachBurgerMenus();
-//Reset the UI
-resetUI();
-//Update The stats for start of game
-updateStatMenu();
-
 //turn "0" => start the game.
 gamePipeline();
