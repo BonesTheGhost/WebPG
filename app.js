@@ -42,14 +42,19 @@ let inDungeon = false;
 //Player Stats
 player = {
   playerName: "Zorus",
-  playerATK: 3,
+  playerATK: 0,
   playerDEF: 5,
-  playerHealth: 10,
-  playerAgility: 7,
-  playerAttack1EXP: ["You strike quickly with your blade!"]
+  playerHealth: 5,
+  playerAgility: 4,
+  playerDexterity: 5,
+  playerBalance: 5,
+  playerStrength: 5,
+  playerAttack1EXP: ["You strike quickly with your blade!"],
+  playerLevel: 1,
+  playerExperience: 0,
 };
 
-//WEATHER & ENVIRONMENT
+//WEATHER & ENVIRONMENT - Survey The land?
 let currentVisibility = 5;
 
 
@@ -81,9 +86,13 @@ let currentNumberOfChoices = 0;
 
 //COMBAT Branch Checks
 let combatPhase = 1;
-let canAttack = false;
-let canDefend = false;
+let canAttack = true;
+let canDefend = true;
+let playerDefending = false;
+let playerItemEquipped = false;
+
 let enemyTurnControl = 1;
+let enemyDefending = false;
 
 //========================= *** GAME DATA *** => Will probably need to add things from the Map Tool!!! ======================================================================================
 
@@ -105,10 +114,14 @@ let enemies = [
     type: "Undead",
     enemyHealth: 5,
     enemyAgility: 6,
-    enemyATK: 2,
-    enemyDEF: 4,
+    enemyATK: 0,
+    enemyDEF: 10,
+    enemyDexterity: 5,
+    enemyBalance: 5,
+    enemyStrength: 5,
     enemyAttack1EXP: ["The skeleton lurches forward with a rusty knife!"],
-    enemyDefend1EXP: ["The skeleton weakly blocks with its rusty knife!"]
+    enemyDefend1EXP: ["The skeleton weakly blocks with its rusty knife!"],
+    enemyExperiencePoints: 15,
   }
 ];
 
@@ -300,7 +313,7 @@ let disableButtons = (buttons) => {
   //A function for disabling buttons and adding the CSS styling to show they're disabled. Pass Arrays
   
   //console.log("disableButtons(): "+buttons);
-  console.log("buttons to disable:",buttons);
+  //console.log("buttons to disable:",buttons);
 
   for(i=0;i<buttons.length;i++){
     
@@ -437,7 +450,7 @@ let setTheseInputsAsValid = (buttons) => {
     validInputs.push(buttons[i]);
     
   }
-  console.log("setTheseInputsAsValid: "+validInputs);
+  //console.log("setTheseInputsAsValid: "+validInputs);
 
 }
 
@@ -448,7 +461,9 @@ let updateStatMenu = () => {
   $("#statPlayerAgility").text(player.playerAgility);
   $("#statPlayerAttack").text(player.playerATK);
   $("#statPlayerDefense").text(player.playerDEF);
-
+  $("#statPlayerStrength").text(player.playerStrength);
+  $("#statPlayerBalance").text(player.playerBalance);
+  $("#statPlayerDexterity").text(player.playerDexterity);
 }
 
 
@@ -528,16 +543,16 @@ let outputToPlayerComms = (availablePlayerChoices) => {
 
   switch (howManyChoices) { 
     case 1:
-      console.log("There is 1 choice");
-      console.log(availablePlayerChoices.name);
+      //console.log("There is 1 choice");
+      //console.log(availablePlayerChoices.name);
       document.getElementById("com0").textContent = availablePlayerChoices.name;
       document.getElementById("com1").textContent = availablePlayerChoices.choice1;
       document.getElementById("input1").classList.add(availablePlayerChoices.choiceIcons[0]);
       document.getElementById("choice1").classList.add(availablePlayerChoices.flavorIcons[0]);
       break;
     case 2:
-      console.log("There are 2 choices");
-      console.log(availablePlayerChoices.name);
+      //console.log("There are 2 choices");
+      //console.log(availablePlayerChoices.name);
       document.getElementById("com0").textContent = availablePlayerChoices.name;
       document.getElementById("com1").textContent = availablePlayerChoices.choice1;
       document.getElementById("input1").classList.add(availablePlayerChoices.choiceIcons[0]);
@@ -548,8 +563,8 @@ let outputToPlayerComms = (availablePlayerChoices) => {
       document.getElementById("choice2").classList.add(availablePlayerChoices.flavorIcons[1]);
       break;
     case 3:
-      console.log("There are 3 choices");
-      console.log(availablePlayerChoices.name);
+      //console.log("There are 3 choices");
+      //console.log(availablePlayerChoices.name);
       document.getElementById("com0").textContent = availablePlayerChoices.name;
       document.getElementById("com1").textContent = availablePlayerChoices.choice1;
       document.getElementById("input1").classList.add(availablePlayerChoices.choiceIcons[0]);
@@ -564,8 +579,8 @@ let outputToPlayerComms = (availablePlayerChoices) => {
       document.getElementById("choice3").classList.add(availablePlayerChoices.flavorIcons[2]);
       break;
     case 4:
-      console.log("There are 4 choices");
-      console.log(availablePlayerChoices.name);
+      //console.log("There are 4 choices");
+      //console.log(availablePlayerChoices.name);
 
       document.getElementById("com0").textContent = availablePlayerChoices.name;
       document.getElementById("com1").textContent = availablePlayerChoices.choice1;
@@ -611,7 +626,7 @@ let provideChoices = (arrayIndicator, arrayIndex) => {
   resetUI();
 
   //Using the playerCurrentChoices global control variable, pick the choices you want to provide and send to output.
-  console.log("[Selected Choices]: "+currentArray[arrayIndex].name);
+  //console.log("[Selected Choices]: "+currentArray[arrayIndex].name);
   outputToPlayerComms(currentArray[arrayIndex]);
 
   //Setting whatever choices are legal as valid inputs.
@@ -629,7 +644,7 @@ let provideChoices = (arrayIndicator, arrayIndex) => {
     var index = buttonsToDisable.indexOf(currentArray[arrayIndex].legalChoices[i]);
     delete buttonsToDisable[index];
   }
-  console.log("Final Disable",buttonsToDisable);
+  //console.log("Final Disable",buttonsToDisable);
 
   //Disable unnecessary buttons.
   disableButtons(buttonsToDisable);
@@ -823,7 +838,7 @@ $(".controlButton").hover(function(){
       }
 
     } else {
-      console.log("THIS BUTTON IS DISABLED; NO BLINK");
+      //console.log("THIS BUTTON IS DISABLED; NO BLINK");
 
       //Grab the icons that are there.
       choiceIcons.push(
@@ -853,7 +868,7 @@ $(".controlButton").hover(function(){
           $("#com4Div").addClass("notAvailable");
           break;
         default:
-          console.log("[X] FATAL ERROR DISABLE BUTTON HOVER");
+          //console.log("[X] FATAL ERROR DISABLE BUTTON HOVER");
     }
   }
 },
@@ -1207,14 +1222,13 @@ let enemies = [
 */
 
 //COMBAT ============
+//Pick the enemy
 let decideEnemy = () => {
   //Make a function that provides a number based on the terrain, dungeon, weather, etc.
 };
-
+//"Pokemon grass music!!""
 let enterCombat = () => {
   console.log("ENTERING COMBAT");
-
-  console.log("INSPECTING...");
 
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
@@ -1228,7 +1242,7 @@ let enterCombat = () => {
   //Update the Hover choice count.
   currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
 };
-
+//"Communicate to the player who goes first."
 let calculateFirstMove = () => {
   if(player.playerAgility > enemies[0].enemyAgility){
 
@@ -1261,7 +1275,7 @@ let calculateFirstMove = () => {
 
   return 3;
 };
-
+//Player decision screen.
 let playerCombatDecision = () => {
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
@@ -1275,7 +1289,7 @@ let playerCombatDecision = () => {
   //Update the Hover choice count.
   currentNumberOfChoices = playerGlobalChoices[5].legalChoices.length;
 }
-
+//If the player chose to attack, heres how that goes...
 let playerAttackResults = () => {
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
@@ -1289,7 +1303,7 @@ let playerAttackResults = () => {
   //Update the Hover choice count.
   currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
 }
-
+//If the player chose to defend, heres how that goes...
 let playerDefendResults = () => {
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
@@ -1303,14 +1317,14 @@ let playerDefendResults = () => {
   //Update the Hover choice count.
   currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
 }
-
+//Decide what the enemy 'AI' will do.
 let decideEnemyAction = () => {
   //Generate a random number from 1 to 2.
   let enemyDecision = Math.floor((Math.random() * 2) + 1);
 
-  return enemyDecision;
+  return 1;
 }
-
+//What happens to the player as a result of enemy attacking.
 let enemyAttackResults = () => {
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
@@ -1324,7 +1338,7 @@ let enemyAttackResults = () => {
   //Update the Hover choice count.
   currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
 }
-
+//Communicate to the player that the enemy is defending.
 let enemyDefendResults = () => {
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
@@ -1337,6 +1351,62 @@ let enemyDefendResults = () => {
 
   //Update the Hover choice count.
   currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+}
+//We may need an 'interval' function that calculates INDIRECT damage to player or enemy (like poison, etc.)
+
+let updatePreCombatValues = () => {
+  //For terrain advantages, debuffs, buffs, etc.
+}
+
+let calculatePhysicalDamage = (whatEntity, entityIndex) => {
+  //This is the damage algorithm.
+  let character = whatEntity;
+  let enemiesIndex = entityIndex;
+  let damage = 0;
+
+  if(character == player.playerName){
+    damage = (1 + (player.playerDexterity / 100)) * (player.playerStrength + (player.playerBalance / 2));
+  } else if(character !== player.playerName){
+    damage = (1 + (enemies[enemiesIndex].enemyDexterity / 100)) * (enemies[enemiesIndex].enemyStrength + (enemies[enemiesIndex].enemyBalance / 2));
+  } else {
+    console.log("[X] FATAL ERROR IN PHYSICAL DAMAGE CALCULATION")
+  }
+
+  //Round to nearest whole number. Negative rounds to 0. X.49 rounds down, X.5 rounds up!
+  damage = Math.round(damage);
+  return damage;
+}
+
+let updateCombatValues = (whatEntity, entityIndex, whatStats, valueChanges) => {
+  //expecting (string, Int, ARRAY, ARRAY)
+  //...(enemies[0].name, 0, ["enemyHealth", ... , "whatever"], [-3, ... , 2])
+  let character = whatEntity;
+  let enemiesIndex = entityIndex;
+  let statsMap = whatStats;
+  let howValuesChange = valueChanges;
+
+  console.log(character, " , ",enemiesIndex, " , ",statsMap, " , ",howValuesChange)
+  
+  if(character == player.playerName){
+    for (i=0; i<statsMap.length; i++){
+      let property = statsMap[i];
+      player[property] += howValuesChange[i];
+    }
+  } else if(character !== player.playerName){
+    for (i=0; i<statsMap.length; i++){
+      //set 'enemyHealth' etc. in variable.
+      let property = statsMap[i];
+      //use bracket notation to dynamically access property.
+      enemies[enemiesIndex][property] += howValuesChange[i];
+      
+      console.log("Changing stats: ", enemies[enemiesIndex][property]);
+      console.log("How values change: ", howValuesChange[i])
+    }
+  } else {
+    console.log("[X] FATAL ERROR IN UPDATING COMBAT VALUES.")
+  }
+
+  console.log(character, " , ",enemies[0].enemyHealth);
 }
 //===================
 
@@ -1438,7 +1508,7 @@ let mistressOfTurns = (playerInput) => {
 
   console.log("========================");
   console.log(" TURN: " + gameClock);
-  console.log("[validInputs[]: ",validInputs);
+  //console.log("[validInputs[]: ",validInputs);
 
   if(validInputs.includes(playerInput) && (gameClock > previousClockState)){
 
@@ -1587,6 +1657,9 @@ let mistressOfTurns = (playerInput) => {
 
             switch(playerInput){
               case "attackControl":
+                let damage = calculatePhysicalDamage(player.playerName, 0);
+                console.log("PLAYER DAMAGE: ", damage);
+                updateCombatValues(enemies[0].name, 0, ["enemyHealth"],[-damage]);
                 playerAttackResults();
                 break;
               case "defendControl":
@@ -1597,17 +1670,22 @@ let mistressOfTurns = (playerInput) => {
                 console.log("[X] Fatal Error in Player Combat RESULTS");
             }
 
-            //Player Death Check.
-            switch(player.playerHealth){
-              case player.playerHealth <= 0:
-                combatPhase = 0;
-                alert("YOU HAVE DIED!")
+            //Enemy Death Check.
+            if(enemies[0].enemyHealth <= 0){
+              combatPhase = 0;
+                alert("The enemy has been slain!")
                 gameModeCheck = "overworld";
-              case player.playerHealth > 0:
-                combatPhase = 3;
-                console.log("You survived, combat continues!")
+            } else if(enemies[0].enemyHealth > 0) {
+              combatPhase = 1;
+                console.log("Enemy survived, combat continues!")
                 gameModeCheck = "combat";
+            } else {
+              console.log("error in enemy death check MoT");
             }
+
+            console.log("ENEMY ENDING HEALTH: ", enemies[0].enemyHealth);
+
+            
 
             updateGameClock();
             combatPhase = 3;
@@ -1626,32 +1704,33 @@ let mistressOfTurns = (playerInput) => {
             
             switch (enemyTurnControl){
               case 1:
+                let damage = calculatePhysicalDamage(enemies[0].name, 0);
+                console.log("ENEMY DAMAGE: ", damage);
+                updateCombatValues(player.playerName, 0, ["playerHealth"],[-damage]);
                 enemyAttackResults();
-                gameModeCheck = "overworld";
-                return;
+                updateStatMenu();
                 break;
               case 2:
                 enemyDefendResults();
-                gameModeCheck = "overworld";
-                return;
                 break;
+            }
+
+            //Player Death Check.
+            if(player.playerHealth <= 0){
+              combatPhase = 0;
+                alert("YOU HAVE DIED!")
+                gameModeCheck = "overworld";
+            } else if(player.playerHealth > 0) {
+              combatPhase = 3;
+                console.log("You survived, combat continues!")
+                gameModeCheck = "combat";
+            } else {
+              console.log("error in player death check MoT");
             }
 
             combatPhase = 1;
 
-            //Enemy Death Check.
-            switch(enemies[0].enemyHealth){
-              case enemies[0].enemyHealth <= 0:
-                combatPhase = 0;
-                alert("The enemy has been slain!")
-                gameModeCheck = "overworld";
-              case enemies[0].enemyHealth > 0:
-                combatPhase = 1;
-                console.log("Enemy survived, combat continues!")
-                gameModeCheck = "combat";
-            }
-
-            console.log("ENEMY ENDING HEALTH: ", enemies[0].enemyHealth);
+            
             updateGameClock();
             return;
             break;

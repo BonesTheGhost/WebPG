@@ -207,5 +207,17 @@
   color: blue;
   font-size: 1.8rem;
 }
+#statPlayerStrength{
+  color: red;
+  font-size: 1.8rem;
+}
+#statPlayerBalance{
+  color: blue;
+  font-size: 1.8rem;
+}
+#statPlayerDexterity{
+  color: blue;
+  font-size: 1.8rem;
+}
 
 
