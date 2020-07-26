@@ -83,6 +83,7 @@ let currentNumberOfChoices = 0;
 let combatPhase = 1;
 let canAttack = false;
 let canDefend = false;
+let enemyTurnControl = 1;
 
 //========================= *** GAME DATA *** => Will probably need to add things from the Map Tool!!! ======================================================================================
 
@@ -106,7 +107,8 @@ let enemies = [
     enemyAgility: 6,
     enemyATK: 2,
     enemyDEF: 4,
-    enemyAttack1EXP: ["The skeleton lurches forward with a rusty knife!"]
+    enemyAttack1EXP: ["The skeleton lurches forward with a rusty knife!"],
+    enemyDefend1EXP: ["The skeleton weakly blocks with its rusty knife!"]
   }
 ];
 
@@ -226,6 +228,10 @@ let combatExposition = [
   },
   {
     name: " Attacks!",
+    subName: "- In Combat -"
+  },
+  {
+    name: " Defends!",
     subName: "- In Combat -"
   }
 ];
@@ -1298,6 +1304,13 @@ let playerDefendResults = () => {
   currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
 }
 
+let decideEnemyAction = () => {
+  //Generate a random number from 1 to 2.
+  let enemyDecision = Math.floor((Math.random() * 2) + 1);
+
+  return enemyDecision;
+}
+
 let enemyAttackResults = () => {
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
@@ -1305,6 +1318,20 @@ let enemyAttackResults = () => {
   outputToOverworld(enemies[0].name+combatExposition[5].name, combatExposition[5].subName);
   //Grab the exposition from that same area and pass it to the output.
   outputToExpose(enemies[0].enemyAttack1EXP);
+  //Pass the name of the array that we want and the specific INDEX We want
+  provideChoices("playerGlobalChoices", 4);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+}
+
+let enemyDefendResults = () => {
+  //Include this to ensure anims play correctly.
+  toggleTypeAnim();
+  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+  outputToOverworld(enemies[0].name+combatExposition[6].name, combatExposition[6].subName);
+  //Grab the exposition from that same area and pass it to the output.
+  outputToExpose(enemies[0].enemyDefend1EXP);
   //Pass the name of the array that we want and the specific INDEX We want
   provideChoices("playerGlobalChoices", 4);
 
@@ -1538,7 +1565,9 @@ let mistressOfTurns = (playerInput) => {
         break;
       case "calculateFirstMove":
         console.log("MoT: Combat entered...")
+        //Update the combat phase to the correct 'Turn 1'.
         combatPhase = calculateFirstMove();
+        //Set the combat condition so the game goes there next.
         gameModeCheck = "combat";
         updateGameClock();
         return;
@@ -1561,10 +1590,23 @@ let mistressOfTurns = (playerInput) => {
                 playerAttackResults();
                 break;
               case "defendControl":
-                //player defend results.
+                //player defend SETUP! WILL HAVE TO APPLY THIS ON NEXT ENEMY ATTACK!
+                playerDefendResults();
                 break;
               default:
                 console.log("[X] Fatal Error in Player Combat RESULTS");
+            }
+
+            //Player Death Check.
+            switch(player.playerHealth){
+              case player.playerHealth <= 0:
+                combatPhase = 0;
+                alert("YOU HAVE DIED!")
+                gameModeCheck = "overworld";
+              case player.playerHealth > 0:
+                combatPhase = 3;
+                console.log("You survived, combat continues!")
+                gameModeCheck = "combat";
             }
 
             updateGameClock();
@@ -1575,17 +1617,42 @@ let mistressOfTurns = (playerInput) => {
             console.log("Its the enemies DECISION turn");
             //Calculate some stuff here for the enemy to do.
             combatPhase = 4;
-
+            enemyTurnControl = decideEnemyAction();
             updateGameClock();
             return;
             break;
           case 4:
             console.log("Its the enemies RESULTS turn")
-            enemyAttackResults();
+            
+            switch (enemyTurnControl){
+              case 1:
+                enemyAttackResults();
+                gameModeCheck = "overworld";
+                return;
+                break;
+              case 2:
+                enemyDefendResults();
+                gameModeCheck = "overworld";
+                return;
+                break;
+            }
+
             combatPhase = 1;
 
+            //Enemy Death Check.
+            switch(enemies[0].enemyHealth){
+              case enemies[0].enemyHealth <= 0:
+                combatPhase = 0;
+                alert("The enemy has been slain!")
+                gameModeCheck = "overworld";
+              case enemies[0].enemyHealth > 0:
+                combatPhase = 1;
+                console.log("Enemy survived, combat continues!")
+                gameModeCheck = "combat";
+            }
+
+            console.log("ENEMY ENDING HEALTH: ", enemies[0].enemyHealth);
             updateGameClock();
-            gameModeCheck = "overworld";
             return;
             break;
           default:
