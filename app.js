@@ -43,12 +43,12 @@ let inDungeon = false;
 player = {
   playerName: "Zorus",
   playerATK: 0,
-  playerDEF: 50,
+  playerDEF: 5,
   playerHealth: 5,
   playerAgility: 5,
-  playerDexterity: 1,
-  playerBalance: 1,
-  playerStrength: 1,
+  playerDexterity: 2,
+  playerBalance: 2,
+  playerStrength: 2,
   playerAttack1EXP: ["You strike quickly with your blade!"],
   playerPerfectDefendEXP: ["Your defense was impeccable!","All damage has been avoided!"],
   playerLevel: 1,
@@ -112,17 +112,17 @@ let playerPositionOffsetY = Math.floor(mapHeight/2);
 //ENEMIES
 let enemies = [
   {
-    name: "Hard Bones",
+    name: " Skeleton ",
     type: "Undead",
     enemyHealth: 5,
     enemyAgility: 6,
     enemyATK: 0,
-    enemyDEF: 50,
+    enemyDEF: 10,
     enemyDexterity: 1,
     enemyBalance: 1,
     enemyStrength: 1,
-    enemyAttack1EXP: ["The skeleton lurches forward with a rusty knife!"],
-    enemyDefend1EXP: ["The skeleton weakly blocks with its rusty knife!"],
+    enemyAttack1EXP: ["The Skeleton lurches forward with a rusty knife!", "It does: "],
+    enemyDefend1EXP: ["The Skeleton weakly blocks with its rusty knife!"],
     enemyPerfectDefendEXP: ["Your attack glances off of the hard bones!", "Hard Bones laughs at you with a hollow clattering..."],
     enemyExperiencePoints: 15,
     enemyDefaultValues: [5,6,0,10,5,5,5]
@@ -334,6 +334,13 @@ let playerGlobalChoices = [
     legalChoices: ["nextControl"],
     choiceIcons: ["fa-angle-double-right"],
     flavorIcons: ["fa-skull-crossbones"],
+    choice1: "BonesTheGhost"
+  },
+  {
+    name: "next with no flavor icon",
+    legalChoices: ["nextControl"],
+    choiceIcons: ["fa-angle-double-right"],
+    flavorIcons: [""],
     choice1: "BonesTheGhost"
   },
 ];
@@ -1267,7 +1274,7 @@ let enterCombat = () => {
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
   //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-  outputToOverworld(expositionArray[2].name, expositionArray[playerCurrentTileIndex].subName);
+  outputToOverworld(expositionArray[2].name, "- Entering Combat -");
   //Grab the exposition from that same area and pass it to the output.
   outputToExpose([expositionArray[2].EXP + enemies[enemyIdentifierIndex].name + "!"]);
   //Pass the name of the array that we want and the specific INDEX We want
@@ -1314,7 +1321,7 @@ let playerCombatDecision = () => {
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
   //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-  outputToOverworld(combatExposition[0].name, combatExposition[0].subName);
+  outputToOverworld(combatExposition[0].name, "- In Combat vs. " + enemies[enemyIdentifierIndex].name + " -");
   //Grab the exposition from that same area and pass it to the output.
   outputToExpose(combatExposition[0].EXP);
   //Pass the name of the array that we want and the specific INDEX We want
@@ -1345,9 +1352,10 @@ let playerAttackResults = (damage) => {
     //Include this to ensure anims play correctly.
     toggleTypeAnim();
     //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-    outputToOverworld(combatExposition[7].name, combatExposition[7].subName );
+    //Just added this in.
+    outputToOverworld(enemies[enemyIdentifierIndex].name + combatExposition[7].name, combatExposition[7].subName );
     //Grab the exposition from that same area and pass it to the output.
-    outputToExpose([combatExposition[7].EXP[0], combatExposition[7].EXP[1] + damage + " dmg!"]);
+    outputToExpose([enemies[enemyIdentifierIndex].name + combatExposition[7].EXP[0], combatExposition[7].EXP[1] + damage + " dmg!"]);
     //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
     //Pass the name of the array that we want and the specific INDEX We want
     provideChoices("playerGlobalChoices", 4);
@@ -1359,9 +1367,9 @@ let playerAttackResults = (damage) => {
     //Include this to ensure anims play correctly.
     toggleTypeAnim();
     //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-    outputToOverworld(enemies[enemyIdentifierIndex].name + combatExposition[3].name, combatExposition[3].subName);
+    outputToOverworld(combatExposition[3].name, combatExposition[3].subName);
     //Grab the exposition from that same area and pass it to the output.
-    outputToExpose([ enemies[enemyIdentifierIndex].name + combatExposition[3].EXP[0], combatExposition[3].EXP[1] + damage + " dmg."]);
+    outputToExpose([combatExposition[3].EXP[0], combatExposition[3].EXP[1] + damage + " dmg."]);
     //Pass the name of the array that we want and the specific INDEX We want
     provideChoices("playerGlobalChoices", 4);
 
@@ -1439,7 +1447,7 @@ let enemyAttackResults = (damage) => {
     //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
     outputToOverworld(enemies[0].name + combatExposition[5].name, combatExposition[5].subName);
     //Grab the exposition from that same area and pass it to the output.
-    outputToExpose([enemies[enemyIdentifierIndex][enemyAttack1EXP[0]], enemies[enemyIdentifierIndex][enemyAttack1EXP[1]] + damage + " dmg."]);
+    outputToExpose([enemies[enemyIdentifierIndex].enemyAttack1EXP[0], enemies[enemyIdentifierIndex].enemyAttack1EXP[1] + damage + " dmg!"]);
     //Pass the name of the array that we want and the specific INDEX We want
     provideChoices("playerGlobalChoices", 4);
 
@@ -1832,6 +1840,10 @@ let mistressOfTurns = (playerInput) => {
                 if(enemyDefending == true){
                   enemyDamageReduction = rollForDefense(enemies[enemyIdentifierIndex].name, enemyIdentifierIndex);
                   damage = damage * enemyDamageReduction;
+                  damage = Math.round(damage);
+                  if(damage == 0){
+                    damage +=1;
+                  }
                 }
 
                 updateCombatValues(enemies[enemyIdentifierIndex].name, enemyIdentifierIndex, ["enemyHealth"],[-damage]);
@@ -1888,7 +1900,10 @@ let mistressOfTurns = (playerInput) => {
                 if(playerDefending == true){
                   playerDamageReduction = rollForDefense(enemies[enemyIdentifierIndex].name, enemyIdentifierIndex);
                   damage = damage * playerDamageReduction;
-                  
+                  damage = Math.round(damage);
+                  if(damage == 0){
+                    damage +=1;
+                  }
                 }
 
                 updateCombatValues(player.playerName, 0, ["playerHealth"],[-damage]);

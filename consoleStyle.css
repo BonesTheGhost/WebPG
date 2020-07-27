@@ -6,6 +6,8 @@
   text-decoration:none;
   font-size: 1.8rem;
 
+  box-shadow: inset 0px 0px 30px 5px rgba(255, 255, 255, 0.25);
+
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: .25fr 1fr 1fr;
@@ -16,6 +18,7 @@
 }
 
 .overworld p{
+  color: rgb(21, 180, 21);
   grid-area: overworld;
   font-size: 3rem;
   margin: 0;
@@ -26,7 +29,6 @@
   padding-right: 0rem;
   padding-bottom: .5rem;
   padding-left: 3rem;
-  text-transform: uppercase;
   font-weight: bold;
 
   white-space: nowrap;
@@ -37,7 +39,7 @@
   animation: typing 1s steps(30, end);
 }
 #ow2{
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
 
   padding-top: 0rem;
@@ -55,6 +57,8 @@
 
 .expose{
   grid-area: expose;
+
+  color: rgb(10, 134, 10);
   
   margin: 0;
 
@@ -73,6 +77,8 @@
   "exp4";
 }
 .expose p{
+  
+  
   margin: 0;
   margin-top: 1rem;
 
@@ -153,6 +159,8 @@
   color:rgb(230, 230, 230);
 }
 #com0{
+  color: rgb(21, 180, 21);
+  
   grid-area: com0;
   padding-top: 2rem;
   font-weight: bold;
@@ -165,10 +173,11 @@
   overflow:hidden;
   /*keeps text on its own line as the container grows:*/
   white-space: nowrap;
-  animation: typing 1s steps(60, end) .5s;
+  animation: typing 1s steps(60, end) 0s;
   animation-fill-mode: forwards;
 }
 #com1Div{
+  color: rgb(10, 134, 10);
   grid-area: com1Div;
   padding-left: 1rem;
 
@@ -182,6 +191,7 @@
   animation-fill-mode: forwards;
 }
 #com2Div{
+  color: rgb(10, 134, 10);
   grid-area: com2Div;
   padding-left: 1rem;
 
@@ -195,6 +205,7 @@
   animation-fill-mode: forwards;
 }
 #com3Div{
+  color: rgb(10, 134, 10);
   grid-area: com3Div;
   padding-left: 1rem;
 
@@ -208,6 +219,7 @@
   animation-fill-mode: forwards;
 }
 #com4Div{
+  color: rgb(10, 134, 10);
   grid-area: com4Div;
   padding-left: 1rem;
 
@@ -298,18 +310,22 @@ anim is overwritten or the element is removed. Its bloaty, but unfortunately thi
   width: 100%;
   animation: blink .5s infinite;
   animation-fill-mode: both;
+  color: rgb(109, 236, 109);
 }
 #com2Div.blink{
   width: 100%;
   animation: blink .5s infinite;
+  color: rgb(109, 236, 109);
 }
 #com3Div.blink{
   width: 100%;
   animation: blink .5s infinite;
+  color: rgb(109, 236, 109);
 }
 #com4Div.blink{
   width: 100%;
   animation: blink .5s infinite;
+  color: rgb(109, 236, 109);
 }
 
 @keyframes blink{
