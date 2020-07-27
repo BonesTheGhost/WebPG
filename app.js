@@ -112,7 +112,7 @@ let playerPositionOffsetY = Math.floor(mapHeight/2);
 //ENEMIES
 let enemies = [
   {
-    name: " Skeleton ",
+    name: " SKELETON ",
     type: "Undead",
     enemyHealth: 5,
     enemyAgility: 6,
@@ -121,8 +121,8 @@ let enemies = [
     enemyDexterity: 1,
     enemyBalance: 1,
     enemyStrength: 1,
-    enemyAttack1EXP: ["The Skeleton lurches forward with a rusty knife!", "It does: "],
-    enemyDefend1EXP: ["The Skeleton weakly blocks with its rusty knife!"],
+    enemyAttack1EXP: ["The SKELETON lurches forward with a rusty knife!", "It does: "],
+    enemyDefend1EXP: ["The SKELETON weakly blocks with its rusty knife!"],
     enemyPerfectDefendEXP: ["Your attack glances off of the hard bones!", "Hard Bones laughs at you with a hollow clattering..."],
     enemyExperiencePoints: 15,
     enemyDefaultValues: [5,6,0,10,5,5,5]
@@ -337,11 +337,13 @@ let playerGlobalChoices = [
     choice1: "BonesTheGhost"
   },
   {
-    name: "next with no flavor icon",
+    name: "",
     legalChoices: ["nextControl"],
     choiceIcons: ["fa-angle-double-right"],
-    flavorIcons: [""],
-    choice1: "BonesTheGhost"
+    flavorIcons: ["fa"],
+    choice1: "Click 'NEXT' to continue...",
+    desc: "next with no flavor icon",
+    index: 7,
   },
 ];
 //============================================================================
@@ -1278,10 +1280,10 @@ let enterCombat = () => {
   //Grab the exposition from that same area and pass it to the output.
   outputToExpose([expositionArray[2].EXP + enemies[enemyIdentifierIndex].name + "!"]);
   //Pass the name of the array that we want and the specific INDEX We want
-  provideChoices("playerGlobalChoices", 4);
+  provideChoices("playerGlobalChoices", 7);
 
   //Update the Hover choice count.
-  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+  currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
 };
 //"Communicate to the player who goes first."
 let calculateFirstMove = () => {
@@ -1294,10 +1296,10 @@ let calculateFirstMove = () => {
     //Grab the exposition from that same area and pass it to the output.
     outputToExpose(combatExposition[2].EXP);
     //Pass the name of the array that we want and the specific INDEX We want
-    provideChoices("playerGlobalChoices", 4);
+    provideChoices("playerGlobalChoices", 7);
 
     //Update the Hover choice count.
-    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+    currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
 
     return 1;
   }
@@ -1309,10 +1311,10 @@ let calculateFirstMove = () => {
   //Grab the exposition from that same area and pass it to the output.
   outputToExpose(combatExposition[1].EXP);
   //Pass the name of the array that we want and the specific INDEX We want
-  provideChoices("playerGlobalChoices", 4);
+  provideChoices("playerGlobalChoices", 7);
 
   //Update the Hover choice count.
-  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+  currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
 
   return 3;
 };
@@ -1343,10 +1345,10 @@ let playerAttackResults = (damage) => {
     outputToExpose(enemies[enemyIdentifierIndex].enemyPerfectDefendEXP);
     //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
     //Pass the name of the array that we want and the specific INDEX We want
-    provideChoices("playerGlobalChoices", 4);
+    provideChoices("playerGlobalChoices", 7);
 
     //Update the Hover choice count.
-    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+    currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
   } else if(enemyDefending){
     console.log("playerAttack: enemy defend.");
     //Include this to ensure anims play correctly.
@@ -1358,10 +1360,10 @@ let playerAttackResults = (damage) => {
     outputToExpose([enemies[enemyIdentifierIndex].name + combatExposition[7].EXP[0], combatExposition[7].EXP[1] + damage + " dmg!"]);
     //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
     //Pass the name of the array that we want and the specific INDEX We want
-    provideChoices("playerGlobalChoices", 4);
+    provideChoices("playerGlobalChoices", 7);
 
     //Update the Hover choice count.
-    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+    currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
   } else {
     console.log("playerAttack: enemy NO defend.");
     //Include this to ensure anims play correctly.
@@ -1371,10 +1373,10 @@ let playerAttackResults = (damage) => {
     //Grab the exposition from that same area and pass it to the output.
     outputToExpose([combatExposition[3].EXP[0], combatExposition[3].EXP[1] + damage + " dmg."]);
     //Pass the name of the array that we want and the specific INDEX We want
-    provideChoices("playerGlobalChoices", 4);
+    provideChoices("playerGlobalChoices", 7);
 
     //Update the Hover choice count.
-    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+    currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
   }
   
   
@@ -1390,10 +1392,10 @@ let playerDefendResults = () => {
   //Grab the exposition from that same area and pass it to the output.
   outputToExpose(combatExposition[4].EXP);
   //Pass the name of the array that we want and the specific INDEX We want
-  provideChoices("playerGlobalChoices", 4);
+  provideChoices("playerGlobalChoices", 7);
 
   //Update the Hover choice count.
-  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+  currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
 }
 //Decide what the enemy 'AI' will do.
 let decideEnemyAction = () => {
@@ -1422,10 +1424,10 @@ let enemyAttackResults = (damage) => {
     outputToExpose(player.playerPerfectDefendEXP);
     //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
     //Pass the name of the array that we want and the specific INDEX We want
-    provideChoices("playerGlobalChoices", 4);
+    provideChoices("playerGlobalChoices", 7);
 
     //Update the Hover choice count.
-    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+    currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
   } else if(playerDefending){
     console.log("enemyAttack: player defend.");
     //Include this to ensure anims play correctly.
@@ -1436,10 +1438,10 @@ let enemyAttackResults = (damage) => {
     outputToExpose([combatExposition[9].EXP[0], combatExposition[9].EXP[1] + damage + " dmg."]);
     //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
     //Pass the name of the array that we want and the specific INDEX We want
-    provideChoices("playerGlobalChoices", 4);
+    provideChoices("playerGlobalChoices", 7);
 
     //Update the Hover choice count.
-    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+    currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
   } else {
     console.log("enemyAttack: player NO defend.");
     //Include this to ensure anims play correctly.
@@ -1449,24 +1451,11 @@ let enemyAttackResults = (damage) => {
     //Grab the exposition from that same area and pass it to the output.
     outputToExpose([enemies[enemyIdentifierIndex].enemyAttack1EXP[0], enemies[enemyIdentifierIndex].enemyAttack1EXP[1] + damage + " dmg!"]);
     //Pass the name of the array that we want and the specific INDEX We want
-    provideChoices("playerGlobalChoices", 4);
+    provideChoices("playerGlobalChoices", 7);
 
     //Update the Hover choice count.
-    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+    currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
 }
 //Communicate to the player that the enemy is defending.
@@ -1478,10 +1467,10 @@ let enemyDefendSetup = () => {
   //Grab the exposition from that same area and pass it to the output.
   outputToExpose(enemies[0].enemyDefend1EXP);
   //Pass the name of the array that we want and the specific INDEX We want
-  provideChoices("playerGlobalChoices", 4);
+  provideChoices("playerGlobalChoices", 7);
 
   //Update the Hover choice count.
-  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+  currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
 }
 
 
