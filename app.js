@@ -43,13 +43,14 @@ let inDungeon = false;
 player = {
   playerName: "Zorus",
   playerATK: 0,
-  playerDEF: 5,
+  playerDEF: 50,
   playerHealth: 5,
   playerAgility: 5,
-  playerDexterity: 5,
-  playerBalance: 5,
-  playerStrength: 5,
+  playerDexterity: 1,
+  playerBalance: 1,
+  playerStrength: 1,
   playerAttack1EXP: ["You strike quickly with your blade!"],
+  playerPerfectDefendEXP: ["Your defense was impeccable!","All damage has been avoided!"],
   playerLevel: 1,
   playerExperience: 0,
 };
@@ -116,10 +117,10 @@ let enemies = [
     enemyHealth: 5,
     enemyAgility: 6,
     enemyATK: 0,
-    enemyDEF: 100,
-    enemyDexterity: 5,
-    enemyBalance: 5,
-    enemyStrength: 5,
+    enemyDEF: 50,
+    enemyDexterity: 1,
+    enemyBalance: 1,
+    enemyStrength: 1,
     enemyAttack1EXP: ["The skeleton lurches forward with a rusty knife!"],
     enemyDefend1EXP: ["The skeleton weakly blocks with its rusty knife!"],
     enemyPerfectDefendEXP: ["Your attack glances off of the hard bones!", "Hard Bones laughs at you with a hollow clattering..."],
@@ -226,9 +227,9 @@ let combatExposition = [
     EXP2: ["Feral snarling assaults you ears!"]
   },
   {
-    name: "First Strike: Enemy",
+    name: "First Strike: ",
     subName: "- In Combat -",
-    EXP: ["The enemy is faster than you are!","It lurches forward to attack!"],
+    EXP: ["The enemy is faster than you are!","It lurches forward!"],
     EXP1: ["The enemy is faster than you are!","It lunges at you furiously!"],
     EXP2: ["The enemy is faster than you are!","Un-human speed grants it an opening!"],
   },
@@ -245,7 +246,7 @@ let combatExposition = [
   {
     name: "Player Defend",
     subName: "- In Combat -",
-    EXP: ["You have little to defend yourself with...","A parry is attempted!!"]
+    EXP: ["You have little to defend yourself with...","You raise your blade."]
   },
   {
     name: " Attacks!",
@@ -263,6 +264,15 @@ let combatExposition = [
   {
     name: " Negates your Attack!!!",
     subName: "- In Unlucky Combat -"
+  },
+  {
+    name: "You Deflect Some Damage",
+    subName: "- In Combat -",
+    EXP: ["The enemies attack was significantly less effective!", "The damage was cut in half: "]
+  },
+  {
+    name: "You Completely Dodge The Strike!!!",
+    subName: "- In Lucky Combat -"
   }
 ];
 
@@ -1259,7 +1269,7 @@ let enterCombat = () => {
   //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
   outputToOverworld(expositionArray[2].name, expositionArray[playerCurrentTileIndex].subName);
   //Grab the exposition from that same area and pass it to the output.
-  outputToExpose([expositionArray[2].EXP + enemies[enemyIdentifierIndex].name] + "!");
+  outputToExpose([expositionArray[2].EXP + enemies[enemyIdentifierIndex].name + "!"]);
   //Pass the name of the array that we want and the specific INDEX We want
   provideChoices("playerGlobalChoices", 4);
 
@@ -1288,7 +1298,7 @@ let calculateFirstMove = () => {
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
   //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-  outputToOverworld(combatExposition[1].name, combatExposition[1].subName);
+  outputToOverworld(combatExposition[1].name + enemies[enemyIdentifierIndex].name, combatExposition[1].subName);
   //Grab the exposition from that same area and pass it to the output.
   outputToExpose(combatExposition[1].EXP);
   //Pass the name of the array that we want and the specific INDEX We want
@@ -1317,10 +1327,11 @@ let playerCombatDecision = () => {
 let playerAttackResults = (damage) => {
   
   if(enemyDefending && damage == 0){
+    console.log("playerAttack: enemy perfect defend.");
     //Include this to ensure anims play correctly.
     toggleTypeAnim();
     //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-    outputToOverworld(combatExposition[8].name, combatExposition[8].subName);
+    outputToOverworld(enemies[enemyIdentifierIndex].name + combatExposition[8].name, combatExposition[8].subName);
     //Grab the exposition from that same area and pass it to the output.
     outputToExpose(enemies[enemyIdentifierIndex].enemyPerfectDefendEXP);
     //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
@@ -1330,12 +1341,13 @@ let playerAttackResults = (damage) => {
     //Update the Hover choice count.
     currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
   } else if(enemyDefending){
+    console.log("playerAttack: enemy defend.");
     //Include this to ensure anims play correctly.
     toggleTypeAnim();
     //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-    outputToOverworld(combatExposition[7].name, combatExposition[7].subName);
+    outputToOverworld(combatExposition[7].name, combatExposition[7].subName );
     //Grab the exposition from that same area and pass it to the output.
-    outputToExpose(combatExposition[7].EXP);
+    outputToExpose([combatExposition[7].EXP[0], combatExposition[7].EXP[1] + damage + " dmg!"]);
     //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
     //Pass the name of the array that we want and the specific INDEX We want
     provideChoices("playerGlobalChoices", 4);
@@ -1343,13 +1355,13 @@ let playerAttackResults = (damage) => {
     //Update the Hover choice count.
     currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
   } else {
-    console.log("Standard combat output choices.");
+    console.log("playerAttack: enemy NO defend.");
     //Include this to ensure anims play correctly.
     toggleTypeAnim();
     //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-    outputToOverworld(combatExposition[3].name, combatExposition[3].subName);
+    outputToOverworld(enemies[enemyIdentifierIndex].name + combatExposition[3].name, combatExposition[3].subName);
     //Grab the exposition from that same area and pass it to the output.
-    outputToExpose(combatExposition[3].EXP);
+    outputToExpose([ enemies[enemyIdentifierIndex].name + combatExposition[3].EXP[0], combatExposition[3].EXP[1] + damage + " dmg."]);
     //Pass the name of the array that we want and the specific INDEX We want
     provideChoices("playerGlobalChoices", 4);
 
@@ -1378,23 +1390,76 @@ let playerDefendResults = () => {
 //Decide what the enemy 'AI' will do.
 let decideEnemyAction = () => {
   //Generate a random number from 1 to 2.
-  let enemyDecision = Math.floor((Math.random() * 2) + 1);
+  let enemyDecision = "";
+  let decisionValue = Math.floor((Math.random() * 10) + 1);
+
+  if(decisionValue > 3){
+    enemyDecision = "attack";
+  } else {
+    enemyDecision = "defend";
+  }
 
   return enemyDecision;
 }
 //What happens to the player as a result of enemy attacking.
-let enemyAttackResults = () => {
-  //Include this to ensure anims play correctly.
-  toggleTypeAnim();
-  //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
-  outputToOverworld(enemies[0].name+combatExposition[5].name, combatExposition[5].subName);
-  //Grab the exposition from that same area and pass it to the output.
-  outputToExpose(enemies[0].enemyAttack1EXP);
-  //Pass the name of the array that we want and the specific INDEX We want
-  provideChoices("playerGlobalChoices", 4);
+let enemyAttackResults = (damage) => {
+  
+  if(enemyDefending && damage == 0){
+    console.log("enemyAttack: player perfect defend.");
+    //Include this to ensure anims play correctly.
+    toggleTypeAnim();
+    //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+    outputToOverworld(combatExposition[10].name, combatExposition[10].subName);
+    //Grab the exposition from that same area and pass it to the output.
+    outputToExpose(player.playerPerfectDefendEXP);
+    //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
+    //Pass the name of the array that we want and the specific INDEX We want
+    provideChoices("playerGlobalChoices", 4);
 
-  //Update the Hover choice count.
-  currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+    //Update the Hover choice count.
+    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+  } else if(playerDefending){
+    console.log("enemyAttack: player defend.");
+    //Include this to ensure anims play correctly.
+    toggleTypeAnim();
+    //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+    outputToOverworld(combatExposition[9].name, combatExposition[9].subName);
+    //Grab the exposition from that same area and pass it to the output.
+    outputToExpose([combatExposition[9].EXP[0], combatExposition[9].EXP[1] + damage + " dmg."]);
+    //MAYBE HAVE A SPECIFIC OUTPUT HEALTHBAR HERE THAT TARGETS 3 AND 4??
+    //Pass the name of the array that we want and the specific INDEX We want
+    provideChoices("playerGlobalChoices", 4);
+
+    //Update the Hover choice count.
+    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+  } else {
+    console.log("enemyAttack: player NO defend.");
+    //Include this to ensure anims play correctly.
+    toggleTypeAnim();
+    //Grab the name of the Area -- And grab the subTitle of the area and pass it to the output.
+    outputToOverworld(enemies[0].name + combatExposition[5].name, combatExposition[5].subName);
+    //Grab the exposition from that same area and pass it to the output.
+    outputToExpose([enemies[enemyIdentifierIndex][enemyAttack1EXP[0]], enemies[enemyIdentifierIndex][enemyAttack1EXP[1]] + damage + " dmg."]);
+    //Pass the name of the array that we want and the specific INDEX We want
+    provideChoices("playerGlobalChoices", 4);
+
+    //Update the Hover choice count.
+    currentNumberOfChoices = playerGlobalChoices[4].legalChoices.length;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
 //Communicate to the player that the enemy is defending.
 let enemyDefendSetup = () => {
@@ -1816,21 +1881,23 @@ let mistressOfTurns = (playerInput) => {
             console.log("Its the enemies RESULTS phase")
             
             switch (enemyTurnControl){
-              case 1:
+              case "attack":
                 let damage = calculatePhysicalDamage(enemies[enemyIdentifierIndex].name, enemyIdentifierIndex);
                 
                 let playerDamageReduction = .5;
                 if(playerDefending == true){
                   playerDamageReduction = rollForDefense(enemies[enemyIdentifierIndex].name, enemyIdentifierIndex);
                   damage = damage * playerDamageReduction;
-                  playerDefending = false;
+                  
                 }
 
                 updateCombatValues(player.playerName, 0, ["playerHealth"],[-damage]);
-                enemyAttackResults();
+                enemyAttackResults(damage);
+                //Update the playerDefending variable AFTER the exposition is output.
+                playerDefending = false;
                 updateStatMenu();
                 break;
-              case 2:
+              case "defend":
                 enemyDefendSetup();
                 enemyDefending = true;
                 break;
@@ -1840,8 +1907,7 @@ let mistressOfTurns = (playerInput) => {
             if(player.playerHealth <= 0){
               combatPhase = 0;
                 console.log("YOU HAVE DIED!");
-                gameModeCheck = "new game";
-                gameOver();
+                gameModeCheck = "game over";
             } else if(player.playerHealth > 0) {
               combatPhase = 3;
                 console.log("You survived, combat continues!")
@@ -1857,6 +1923,12 @@ let mistressOfTurns = (playerInput) => {
           default:
             console.log("[X] FATAL ERROR IN COMBAT TURN LOGIC!")
         }
+      
+
+      
+      case "game over":
+        gameOver();
+        return;
 
 
       //MASTER SWITCH CLOSE  
