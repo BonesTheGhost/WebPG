@@ -115,7 +115,7 @@ let enemies = [
   {
     name: " SKELETON ",
     type: "Undead",
-    enemyHealth: 5,
+    enemyHealth: 50,
     enemyAgility: 6,
     enemyATK: 0,
     enemyDEF: 10,
@@ -126,7 +126,7 @@ let enemies = [
     enemyDefend1EXP: ["The SKELETON weakly blocks with its rusty knife!"],
     enemyPerfectDefendEXP: ["Your attack glances off of the hard bones!", "Hard Bones laughs at you with a hollow clattering..."],
     enemyExperiencePoints: 15,
-    enemyDefaultValues: [5,6,0,10,2,2,2]
+    enemyDefaultValues: [50,6,0,10,2,2,2]
   }
 ];
 
@@ -1634,6 +1634,9 @@ let calculateHealthBars = (currentHealthValue, maxHealth) => {
 
   //Output the number of blank spaces.
   let numberOfBlanks = (maxHealth - currentHealthValue) / initialUnitValue;
+  numberOfBlanks = Math.floor(numberOfBlanks);
+  console.log("initialUnitValue", initialUnitValue);
+  console.log("numberOfBlanks: ", numberOfBlanks);
   for(z=0; z < numberOfBlanks; z++){
     initialString += "_";
     console.log("blanks loop: ", numberOfBlanks);
