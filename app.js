@@ -1894,7 +1894,7 @@ let mistressOfTurns = (playerInput) => {
         return;
         break;
       case "campingToCombat":
-        gameModeCheck = "enterCombat";
+        gameModeCheck = "calculateFirstMove";
         campingToCombat();
         updateGameClock();
         return;
