@@ -1611,14 +1611,19 @@ let calculateHealthBars = (currentHealthValue, maxHealth) => {
   let initialUnitValue = 1;
 
   //For reducing the length of the health bars.
-  if(currentHealthValue <= 100){
-    if(currentHealthValue <= 10){
+  if(maxHealth <= 10){
+    initialUnitValue = 1;
+  } else if (10 < maxHealth <= 100){
       console.log("health <= 10:: unit value = 1");
-      initialUnitValue = 1;
-    } else {
-      console.log("health <= 10:: unit value = 1");
-      initialUnitValue = currentHealthValue / 10;
-    }
+      initialUnitValue = maxHealth / 10;
+  }
+
+  //We want ints to work with.
+  Math.round(initialUnitValue);
+
+  //compensate for round down to 0
+  if(initialUnitValue == 0){
+    initialUnitValue += 1;
   }
 
   //Output current health bars.
