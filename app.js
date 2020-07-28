@@ -166,6 +166,7 @@ areaLibrary = [
     campEXP: ["You discover the exposed roots of a giant tree.", 
     "Camp is prepared tucked against the roots. A humble campfire is lit.", 
     "The forest becomes very dark, yet you feel secure.", "You rest easily, but keep a weapon near just in case."],
+    campingToCombatEXP: ["The cracking of sticks and crackle of leaves freezes you!", "You draw your blade quietly and scan the trees quickly!", "Alas! Its a "],
     campValues: ["Health", 3],
     campTempValues: ["Defense", 3]
   },
@@ -214,6 +215,11 @@ let expositionArray = [
     name: "You Died!!!",
     subName: "* Thanks For Playing *",
     EXP: ["This game is currently a proof of concept.", "No permanent plans have been made for the game.", "If you have feedback, you can email me at bonestheghost@gmail.com!", "If there is enough interest I may continue building this :)"]
+  },
+  {
+    name: "You Hear a Noise...",
+    subName: "- ??? -",
+    EXP: ["The activity of your camp has drawn attention!", "Your camp has been besieged by a "]
   }
 ];
 
@@ -1094,6 +1100,7 @@ let movePlayer = (input) => {
 //========================== GAME 'MODE' FUNCTIONS ==============================
 
 //Great example of a single turn function. Anim update,
+
 let inspectThis = () => {
   console.log("INSPECTING...");
 
@@ -1241,6 +1248,19 @@ let makeCamp = () => {
   currentNumberOfChoices = playerGlobalChoices[3].legalChoices.length;
 }
 
+let campingToCombat = () => {
+  console.log("TRANSITION: camp to combat.");
+
+  toggleTypeAnim();
+  outputToOverworld(expositionArray[4].name, expositionArray[4].subName);
+  outputToExpose(expositionArray[4].EXP + enemies[enemyIdentifierIndex].name);
+  provideChoices("playerGlobalChoices", 7);
+
+  //Update the Hover choice count.
+  currentNumberOfChoices = playerGlobalChoices[7].legalChoices.length;
+
+}
+
 /*
 player = {
   playerName: "Zorus",
@@ -1265,6 +1285,28 @@ let enemies = [
 */
 
 //COMBAT ============
+//Simply have a random encounter value calculated to add some variability to exploration.
+//This function goes INSIDE of other actions, and will apply on the next action!
+let rollForEncounter = () => {
+  //Calculate a small pseudo-random value for the encounter chance.
+  let encounterValue = Math.floor((Math.random() * 100) + 1);
+
+  if(encounterValue <= 50){
+    if(gameModeCheck == "camping"){
+      //Look for special case: player camping.
+      console.log("player is camping so campingToCombat");
+      gameModeCheck = "campingToCombat";
+    } else if (gameModeCheck == "overworld"){
+      //else treat like normal encounter.
+      console.log("player is exploring, so regular roll");
+      gameModeCheck = "enterCombat";
+  } else {
+    //else set to normal value if roll 'fails'.
+    console.log("Combat roll failed");
+  }
+    
+  }
+}
 //Pick the enemy
 let decideEnemy = () => {
   //Make a function that provides a number based on the terrain, dungeon, weather, etc.
@@ -1658,6 +1700,7 @@ let mistressOfTurns = (playerInput) => {
   console.log(" TURN: " + gameClock);
   //console.log("[validInputs[]: ",validInputs);
 
+  
   if(validInputs.includes(playerInput) && (gameClock > previousClockState)){
 
     setTimeout(function(){
@@ -1699,6 +1742,13 @@ let mistressOfTurns = (playerInput) => {
             console.log("You set up camp here.");
             makeCamp();
             gameModeCheck = "camping";
+
+            //Roll for combat here because update will happen after 'next' is clicked.
+            console.log("Roll for combat encounter");
+            //Will have to decideEnemy here later.
+            rollForEncounter();
+
+
             updateGameClock();
             return;
             break;
@@ -1724,7 +1774,7 @@ let mistressOfTurns = (playerInput) => {
           switch(playerInput){
             case "forwardControl":
               console.log("You travel to the north.");
-              gameModeCheck = "enterCombat";
+              gameModeCheck = "overworld";
               movePlayer(playerInput);
               getPlayerLocation();
               updateGameClock();
@@ -1770,7 +1820,13 @@ let mistressOfTurns = (playerInput) => {
         break;
       case "camping":
         getPlayerLocation();
+        updateGameClock();
         gameModeCheck = "overworld";
+        return;
+        break;
+      case "campingToCombat":
+        gameModeCheck = "enterCombat";
+        campingToCombat();
         updateGameClock();
         return;
         break;
