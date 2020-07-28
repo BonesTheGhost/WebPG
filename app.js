@@ -42,9 +42,9 @@ let inDungeon = false;
 //Player Stats
 player = {
   playerName: "Zorus",
+  playerHealth: 15,
   playerATK: 0,
   playerDEF: 5,
-  playerHealth: 5,
   playerAgility: 5,
   playerDexterity: 2,
   playerBalance: 2,
@@ -53,6 +53,7 @@ player = {
   playerPerfectDefendEXP: ["Your defense was impeccable!","All damage has been avoided!"],
   playerLevel: 1,
   playerExperience: 0,
+  playerDefaultValues: [15,0,5,5,2,2,2,1,0]
 };
 
 //WEATHER & ENVIRONMENT - Survey The land?
@@ -118,14 +119,14 @@ let enemies = [
     enemyAgility: 6,
     enemyATK: 0,
     enemyDEF: 10,
-    enemyDexterity: 1,
-    enemyBalance: 1,
-    enemyStrength: 1,
+    enemyDexterity: 2,
+    enemyBalance: 2,
+    enemyStrength: 2,
     enemyAttack1EXP: ["The SKELETON lurches forward with a rusty knife!", "It does: "],
     enemyDefend1EXP: ["The SKELETON weakly blocks with its rusty knife!"],
     enemyPerfectDefendEXP: ["Your attack glances off of the hard bones!", "Hard Bones laughs at you with a hollow clattering..."],
     enemyExperiencePoints: 15,
-    enemyDefaultValues: [5,6,0,10,5,5,5]
+    enemyDefaultValues: [5,6,0,10,2,2,2]
   }
 ];
 
@@ -1232,8 +1233,8 @@ let makeCamp = () => {
   console.log(playerCurrentTileIndex);
 
   //Update the players health
-  player.playerHealth = player.playerHealth + (areaLibrary[playerCurrentTileIndex].campValues[1]);
-  updateStatMenu();
+  //player.playerHealth = player.playerHealth + (areaLibrary[playerCurrentTileIndex].campValues[1]);
+  //updateStatMenu();
 
   //Include this to ensure anims play correctly.
   toggleTypeAnim();
@@ -1253,7 +1254,7 @@ let campingToCombat = () => {
 
   toggleTypeAnim();
   outputToOverworld(expositionArray[4].name, expositionArray[4].subName);
-  outputToExpose(expositionArray[4].EXP + enemies[enemyIdentifierIndex].name);
+  outputToExpose([expositionArray[4].EXP[0], expositionArray[4].EXP[1] + enemies[enemyIdentifierIndex].name]);
   provideChoices("playerGlobalChoices", 7);
 
   //Update the Hover choice count.
@@ -1450,7 +1451,7 @@ let decideEnemyAction = () => {
   let enemyDecision = "";
   let decisionValue = Math.floor((Math.random() * 10) + 1);
 
-  if(decisionValue > 3){
+  if(decisionValue >= 1){
     enemyDecision = "attack";
   } else {
     enemyDecision = "defend";
@@ -1603,6 +1604,40 @@ let updateCombatValues = (whatEntity, entityIndex, whatStats, valueChanges) => {
 
   console.log(character, " , ",enemies[0].enemyHealth);
 }
+let calculateHealthBars = (currentHealthValue, maxHealth) => {
+  console.log("\n \n");
+  console.log("========= Healthbars =========");
+  let initialString = "[";
+  let initialUnitValue = 1;
+
+  //For reducing the length of the health bars.
+  if(currentHealthValue <= 100){
+    if(currentHealthValue <= 10){
+      console.log("health <= 10:: unit value = 1");
+      initialUnitValue = 1;
+    } else {
+      console.log("health <= 10:: unit value = 1");
+      initialUnitValue = currentHealthValue / 10;
+    }
+  }
+
+  //Output current health bars.
+  for(i=0; i < currentHealthValue; i+=initialUnitValue){
+    initialString += "=";
+    console.log("units loop: ", initialString);
+  }
+
+  //Output the number of blank spaces.
+  let numberOfBlanks = (maxHealth - currentHealthValue) / initialUnitValue;
+  for(z=0; z < numberOfBlanks; z++){
+    initialString += "_";
+    console.log("blanks loop: ", numberOfBlanks);
+  }
+
+  let finalString = initialString += "]";
+
+  return finalString;
+}
 let resetEnemyValues = () => {
   enemies[enemyIdentifierIndex].enemyHealth = enemies[enemyIdentifierIndex].enemyDefaultValues[0];
   enemies[enemyIdentifierIndex].enemyAgility = enemies[enemyIdentifierIndex].enemyDefaultValues[1];
@@ -1613,6 +1648,16 @@ let resetEnemyValues = () => {
   enemies[enemyIdentifierIndex].enemyStrength = enemies[enemyIdentifierIndex].enemyDefaultValues[6];
 
   console.log(enemies[enemyIdentifierIndex].name + "had its stat-values reset.");
+}
+let outputHealthBar = (characterName, healthBar, characterHealth, characterDefaultHealth) => {
+  
+  //For the enemy bar
+  if(characterName != player.playerName){
+    document.getElementById("exp3").textContent = characterName + ": " + healthBar + " (" + characterHealth + "/" + characterDefaultHealth + ")";
+  } else {
+    document.getElementById("exp4").textContent = characterName + ": " + healthBar + " (" + characterHealth + "/" + characterDefaultHealth + ")";
+  }
+
 }
 //===================
 
@@ -1883,6 +1928,10 @@ let mistressOfTurns = (playerInput) => {
           case 1:
             console.log("Its the players DECISION turn");
             playerCombatDecision();
+            let enemyBar = calculateHealthBars(enemies[enemyIdentifierIndex].enemyHealth, enemies[enemyIdentifierIndex].enemyDefaultValues[0]);
+            let playerBar = calculateHealthBars(player.playerHealth, player.playerDefaultValues[0]);
+            outputHealthBar(player.playerName, playerBar, player.playerHealth, player.playerDefaultValues[0]);
+            outputHealthBar(enemies[enemyIdentifierIndex].name, enemyBar, enemies[enemyIdentifierIndex].enemyHealth, enemies[enemyIdentifierIndex].enemyDefaultValues[0]);
             //Set the combat phase for the next turn.
             combatPhase = 2;
             updateGameClock();
