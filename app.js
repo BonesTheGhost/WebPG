@@ -1291,7 +1291,7 @@ let rollForEncounter = () => {
   //Calculate a small pseudo-random value for the encounter chance.
   let encounterValue = Math.floor((Math.random() * 100) + 1);
 
-  if(encounterValue <= 50){
+  if(encounterValue <= 100){
     if(gameModeCheck == "camping"){
       //Look for special case: player camping.
       console.log("player is camping so campingToCombat");
@@ -1308,8 +1308,13 @@ let rollForEncounter = () => {
   }
 }
 //Pick the enemy
-let decideEnemy = () => {
+let decideEnemy = (condition) => {
   //Make a function that provides a number based on the terrain, dungeon, weather, etc.
+
+  switch(condition){
+    case "terrain":
+      //Roll for enemy based on terrain. terrain[{enemy:index}] <- [#,%,$] in order to getIndex
+  }
 };
 //"Pokemon grass music!!""
 let enterCombat = () => {
@@ -1597,6 +1602,17 @@ let updateCombatValues = (whatEntity, entityIndex, whatStats, valueChanges) => {
   }
 
   console.log(character, " , ",enemies[0].enemyHealth);
+}
+let resetEnemyValues = () => {
+  enemies[enemyIdentifierIndex].enemyHealth = enemies[enemyIdentifierIndex].enemyDefaultValues[0];
+  enemies[enemyIdentifierIndex].enemyAgility = enemies[enemyIdentifierIndex].enemyDefaultValues[1];
+  enemies[enemyIdentifierIndex].enemyATK = enemies[enemyIdentifierIndex].enemyDefaultValues[2];
+  enemies[enemyIdentifierIndex].enemyDEF = enemies[enemyIdentifierIndex].enemyDefaultValues[3];
+  enemies[enemyIdentifierIndex].enemyDexterity = enemies[enemyIdentifierIndex].enemyDefaultValues[4];
+  enemies[enemyIdentifierIndex].enemyBalance = enemies[enemyIdentifierIndex].enemyDefaultValues[5];
+  enemies[enemyIdentifierIndex].enemyStrength = enemies[enemyIdentifierIndex].enemyDefaultValues[6];
+
+  console.log(enemies[enemyIdentifierIndex].name + "had its stat-values reset.");
 }
 //===================
 
@@ -1896,6 +1912,7 @@ let mistressOfTurns = (playerInput) => {
 
                 //Reset defending scenario AFTER it determines what to output.
                 enemyDefending = false;
+                playerDefending = false;
                 break;
               case "defendControl":
                 //player defend SETUP! WILL HAVE TO APPLY THIS ON NEXT ENEMY ATTACK!
@@ -1910,6 +1927,7 @@ let mistressOfTurns = (playerInput) => {
             if(enemies[enemyIdentifierIndex].enemyHealth <= 0){
                 combatPhase = 0;
                 console.log("The enemy has been slain!");
+                resetEnemyValues();
                 gameModeCheck = "overworld";
                 updateGameClock();
                 return;
@@ -1955,6 +1973,7 @@ let mistressOfTurns = (playerInput) => {
                 enemyAttackResults(damage);
                 //Update the playerDefending variable AFTER the exposition is output.
                 playerDefending = false;
+                enemyDefending = false;
                 updateStatMenu();
                 break;
               case "defend":
