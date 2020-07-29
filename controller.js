@@ -1,0 +1,1 @@
+console.log("[controller.js]: Attached and working correctly!");
