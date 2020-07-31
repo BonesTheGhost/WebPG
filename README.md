@@ -23,9 +23,12 @@ July 31st, 2020:
 - Removed much of the previous styling code to work with the most foundational components first. Will now add in the necessary subdivisions and make sure that the media queries are working properly once the overall look has been achieved on desktop.
 - Re-added the sidebar functionality and script.
 - Made progress with confining the 'global-grid' to the screen width in mobile view 'ipad'.
+- Modified the control buttons properties, control button grid, and overall size of controls area to fit mobiel view of 'ipad' better in landscape.
+- Made the exposition section of the console window scrollable in the Y direction when the text goes outside of the console.
 ======================================================================
 ========================== ISSUES To FIX =============================
-[ ]: Modify the navbar in mobile view so that it is confined to current screen width.
-[ ]: Modify the footer in mobile view so it is confined to screen width.
-[ ]: Change the button properties and control-grid so that the buttons arrange and size correctly for mobile devices.
+[X]: Modify the navbar in mobile view so that it is confined to current screen width.
+[X]: Modify the footer in mobile view so it is confined to screen width.
+[X]: Change the button properties and control-grid so that the buttons arrange and size correctly for mobile devices (ipad).
+[X]: Changed exposition area to overflow-y auto, so that the text can be scrolled on smaller displays (ipad).
 ======================================================================
