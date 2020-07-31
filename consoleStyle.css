@@ -63,6 +63,7 @@
   grid-area: expose;
   color: rgb(10, 134, 10);
   background-color: yellow;
+  overflow-y: auto;
 }
 
 .playerComms{
