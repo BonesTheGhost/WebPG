@@ -28,6 +28,7 @@ July 31st, 2020:
 - Removed the @media query madness that I implemented while trying to get a handle on how they work.
 - Added stepping @media queries based on width and height, where width adjusts margins of grid components and the height adjusts font size and element sizing.
 - Added a rework of the touch control area for iPads in landscape mode that aren't high resolution.
+- Managed to allow for window resizing to more ideally scale buttons and UI.
 ======================================================================
 ========================== ISSUES To FIX =============================
 [X]: Modify the navbar in mobile view so that it is confined to current screen width.
@@ -36,5 +37,7 @@ July 31st, 2020:
 [X]: Changed exposition area to overflow-y auto, so that the text can be scrolled on smaller displays (ipad).
 [X]: Remove bad @media queries.
 [ ]: Implement functional media queries for smaller display sizes and mobile that don't warp the games look too much.
+[ ]: Fix the dang mobile view to be functional AT ALL.
 [ ]: Implement a settings button that can change the font-size, spacing, etc. for accessibility on mobile and smaller screen sizes.
+
 ======================================================================
