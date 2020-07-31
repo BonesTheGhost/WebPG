@@ -27,6 +27,7 @@ July 31st, 2020:
 - Made the exposition section of the console window scrollable in the Y direction when the text goes outside of the console.
 - Removed the @media query madness that I implemented while trying to get a handle on how they work.
 - Added stepping @media queries based on width and height, where width adjusts margins of grid components and the height adjusts font size and element sizing.
+- Added a rework of the touch control area for iPads in landscape mode that aren't high resolution.
 ======================================================================
 ========================== ISSUES To FIX =============================
 [X]: Modify the navbar in mobile view so that it is confined to current screen width.
