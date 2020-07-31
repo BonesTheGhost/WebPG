@@ -15,4 +15,7 @@ In all seriousness, thanks for viewing my stuff, I hope you find something redee
 
 July 29th, 2020:
 - Created the engineRebase branch, commited clean slate, pushed the branch to remote, and updated the README.
+
+July 30th, 2020:
+- Re-added the base CSS files and the Index.html code. Will work on modifying the layout next, and will attempt to make @media queries respond more precisely from the get-go (since styling will be overhauled anyway).
 ======================================================================
