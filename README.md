@@ -18,4 +18,7 @@ July 29th, 2020:
 
 July 30th, 2020:
 - Re-added the base CSS files and the Index.html code. Will work on modifying the layout next, and will attempt to make @media queries respond more precisely from the get-go (since styling will be overhauled anyway).
+
+July 31st, 2020:
+- Removed much of the previous styling code to work with the most foundational components first. Will now add in the necessary subdivisions and make sure that the media queries are working properly once the overall look has been achieved on desktop.
 ======================================================================
