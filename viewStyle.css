@@ -342,11 +342,57 @@ h1{
 }
 
 /* HEIGHT */
-@media screen and (min-height: 700px) and (max-height: 825px) {
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .control-grid{
+      text-transform: uppercase;
+      color: #cfdee7;
+      background: blue;
+      border-radius: 1rem;
+    
+      box-shadow: inset 0px 0px 5px #252525;
+    
+      display: grid;
+    
+      margin-left: 10%;
+      margin-right: 10%;
+      margin-top: .5rem;
+      margin-bottom: .5rem;
+    
+      padding-left: .5rem;
+      padding-right: .5rem;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
+      width: auto;
+      height: 25vh;
+      grid-gap: .6rem;
+    
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: 
+      ". moveForward . . attack . inspect help"
+      "moveLeft moveBackward moveRight . defend item . next";
+    }
+    .console{
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+    .controls{
+      margin-left: 2rem;
+      margin-right: 2rem;
+      padding-left: 5rem;
+      padding-right: 5rem;
+    }
+}
+
+@media screen and (min-height: 700px) and (max-height: 825px){
   .control-grid{
     text-transform: uppercase;
     color: #cfdee7;
-    background: gray;
+    background: blue;
     border-radius: 1rem;
   
     box-shadow: inset 0px 0px 5px #252525;
