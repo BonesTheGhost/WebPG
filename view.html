@@ -134,8 +134,27 @@
 
           <!--OVERWORLD-->
           <section class="overworld">
-            <p id="ow1"></p>
-            <p id="ow2"></p>
+
+            <!--Gamemode Info, Current Activity, etc.-->
+            <section class="title">
+              <p id="ow1">Title</p>
+              <p id="ow2">SubTitle</p>
+            </section>
+
+            <!--Visual Info for Map Info-->
+            <section class="flavorWindow">
+              <p>Images go here!</p>
+            </section>
+
+            <!--For coordinates, map info, weather, poison, radiation, etc.-->
+            <section class="locationInfo">
+              <p>Player location data goes here.</p>
+            </section>
+
+            <section class="visualMap">
+              <p>Eventually a minimap will go here.</p>
+            </section>
+            
           </section>
 
           <!--EXPOSE-->
@@ -155,11 +174,11 @@
           </section>
 
           <section class="playerComms">
-            <p id="com0"><i class=""></i></p>
-            <div id="com1Div"><i id="input1" class="fas"></i><i id="choice1" class="fas"></i><p id="com1"></p></div>
-            <div id="com2Div"><i id="input2" class="fas"></i><i id="choice2" class="fas"></i><p id="com2"></p></div>
-            <div id="com3Div"><i id="input3" class="fas"></i><i id="choice3" class="fas"></i><p id="com3"></p></div>
-            <div id="com4Div"><i id="input4" class="fas"></i><i id="choice4" class="fas"></i><p id="com4"></p></div>
+            <p id="com0"><i class=""></i>What will you do?</p>
+            <div id="com1Div"><i id="input1" class="fas"></i><i id="choice1" class="fas"></i><p id="com1">Travel</p></div>
+            <div id="com2Div"><i id="input2" class="fas"></i><i id="choice2" class="fas"></i><p id="com2">Survey</p></div>
+            <div id="com3Div"><i id="input3" class="fas"></i><i id="choice3" class="fas"></i><p id="com3">Make Camp</p></div>
+            <div id="com4Div"><i id="input4" class="fas"></i><i id="choice4" class="fas"></i><p id="com4">Use something</p></div>
           </section>
           
         </section>
@@ -286,7 +305,7 @@
   crossorigin="anonymous"></script>
 
   <!--My Javascript File-->
-  <script src="app.js"></script>
+  <script src="controller.js"></script>
 </body>
 
 

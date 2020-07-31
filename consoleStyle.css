@@ -30,6 +30,33 @@
   background-color: white;
   margin: 0;
   padding: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+  "title flavorWindow"
+  "locationInfo visualMap";
+}
+
+.title{
+  grid-area: title;
+  background-color: deeppink;
+}
+
+.flavorWindow{
+  grid-area: flavorWindow;
+  background-color: deepskyblue;
+}
+
+.locationInfo{
+  grid-area: locationInfo;
+  background-color: dimgray;
+}
+
+.visualMap{
+  grid-area: visualMap;
+  background-color: firebrick;
 }
 
 .expose{
