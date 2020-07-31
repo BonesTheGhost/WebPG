@@ -144,7 +144,8 @@ h1{
   display: grid;
   height: 100vh;
   grid-gap: .5rem;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  /*grid-template-columns: 1fr;*/
   grid-template-rows: 1fr .25fr .1fr;
   grid-template-areas:
   "console"
@@ -254,78 +255,11 @@ h1{
 
 
 /* ===== Media Queries ===== */
-
-
-@media screen and (min-width: 7680px) and (max-width: 10240px) {
-
-  nav{
-    display: flex;
-    position: fixed;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 100%;
-    min-height: 5vh;
-    font-family: 'Rubik', sans-serif;
-    background-color: #067bc2;
-    z-index: 3000;
-  }
-
-  .global-grid{
-    background-color: darkslategrey;
-  
-    display: grid;
-    height: 100vh;
-    grid-gap: .5rem;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 1fr .25fr .1fr;
-    grid-template-areas:
-    "console"
-    "controls"
-    "footer";
-  }
-  /* Console WINDOW styling */
-  .console{
-
-    grid-area: console;
-    display: fixed;
-    margin-left: 15rem;
-    margin-right: 15rem;
-    margin-top: 6vh;
-    width: auto;
-
-    justify-content: center;
-    background-color: #021313;
-    overflow: hidden;
-    border-radius: 1.5rem;
-  }
-
-  .console p{
-    font-size: 1.5rem;
-  }
-  .controls{
-    grid-area: controls;
-    display: fixed;
-    margin-left: 15rem;
-    margin-right: 15rem;
-    padding-left: 15rem;
-    padding-right: 16rem;
-    justify-content: center;
-    width: auto;
-    border-radius: 1.5rem;
-    background: #103824;
-  }
+/* WIDTH */
+@media screen and (min-width: 1024px) and (max-width: 1200px){
   .control-grid{
-    text-transform: uppercase;
-    color: #cfdee7;
-    background: gray;
-    border-radius: 1rem;
-  
-    box-shadow: inset 0px 0px 5px #252525;
-  
-    display: grid;
-  
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 15%;
+    margin-right: 15%;
     margin-top: .5rem;
     margin-bottom: .5rem;
   
@@ -333,88 +267,29 @@ h1{
     padding-right: .5rem;
     padding-top: .5rem;
     padding-bottom: .5rem;
-    width: 100%;
+    width: auto;
     height: 25vh;
     grid-gap: .6rem;
-  
-    grid-template-columns: 1fr 1fr 1fr .25fr 1fr .25fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: 
-    ". moveForward . . attack . inspect"
-    "moveLeft . moveRight . defend . help"
-    ". moveBackward . . item . next";
   }
-}
-
-@media screen and (min-width: 7680px) {
-  nav{
-    display: flex;
-    position: fixed;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 100%;
-    min-height: 5vh;
-    font-family: 'Rubik', sans-serif;
-    background-color: #067bc2;
-    z-index: 3000;
-  }
-
-  .global-grid{
-    background-color: darkslategrey;
-  
-    display: grid;
-    height: 100vh;
-    grid-gap: .5rem;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 1fr .25fr .1fr;
-    grid-template-areas:
-    "console"
-    "controls"
-    "footer";
-  }
-  /* Console WINDOW styling */
   .console{
-
     grid-area: console;
     display: fixed;
     margin-left: 5rem;
     margin-right: 5rem;
-    margin-top: 6vh;
-    width: auto;
-
-    justify-content: center;
-    background-color: #021313;
-    overflow: hidden;
-    border-radius: 1.5rem;
-  }
-
-  .console p{
-    font-size: 1.5rem;
   }
   .controls{
-    grid-area: controls;
-    display: fixed;
     margin-left: 15rem;
     margin-right: 15rem;
-    padding-left: 15rem;
-    padding-right: 16rem;
-    justify-content: center;
-    width: auto;
-    border-radius: 1.5rem;
-    background: #103824;
+    padding-left: 10rem;
+    padding-right: 10rem;
   }
+}
+
+@media screen and (min-width: 1201px) and (max-width: 1440px) {
+  /* Console WINDOW styling */
   .control-grid{
-    text-transform: uppercase;
-    color: #cfdee7;
-    background: gray;
-    border-radius: 1rem;
-  
-    box-shadow: inset 0px 0px 5px #252525;
-  
-    display: grid;
-  
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 20%;
+    margin-right: 20%;
     margin-top: .5rem;
     margin-bottom: .5rem;
   
@@ -422,18 +297,55 @@ h1{
     padding-right: .5rem;
     padding-top: .5rem;
     padding-bottom: .5rem;
-    width: 100%;
+    width: auto;
     height: 25vh;
     grid-gap: .6rem;
-  
-    grid-template-columns: 1fr 1fr 1fr .25fr 1fr .25fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: 
-    ". moveForward . . attack . inspect"
-    "moveLeft . moveRight . defend . help"
-    ". moveBackward . . item . next";
+  }
+  .console{
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+  .controls{
+    margin-left: 20rem;
+    margin-right: 20rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 }
+
+@media screen and (min-width: 1441px) and (max-width: 1680px) {
+  /* Console WINDOW styling */
+  .control-grid{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    width: auto;
+    height: 25vh;
+    grid-gap: .6rem;
+  }
+  .console{
+    margin-left: 30rem;
+    margin-right: 30rem;
+  }
+  .controls{
+    margin-left: 30rem;
+    margin-right: 30rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+/* HEIGHT */
+@media screen and (min-height: 900px) {
+  
+}
+
 /* ========================= */
 
 
