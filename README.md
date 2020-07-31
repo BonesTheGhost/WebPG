@@ -25,10 +25,15 @@ July 31st, 2020:
 - Made progress with confining the 'global-grid' to the screen width in mobile view 'ipad'.
 - Modified the control buttons properties, control button grid, and overall size of controls area to fit mobiel view of 'ipad' better in landscape.
 - Made the exposition section of the console window scrollable in the Y direction when the text goes outside of the console.
+- Removed the @media query madness that I implemented while trying to get a handle on how they work.
+- Added stepping @media queries based on width and height, where width adjusts margins of grid components and the height adjusts font size and element sizing.
 ======================================================================
 ========================== ISSUES To FIX =============================
 [X]: Modify the navbar in mobile view so that it is confined to current screen width.
 [X]: Modify the footer in mobile view so it is confined to screen width.
 [X]: Change the button properties and control-grid so that the buttons arrange and size correctly for mobile devices (ipad).
 [X]: Changed exposition area to overflow-y auto, so that the text can be scrolled on smaller displays (ipad).
+[X]: Remove bad @media queries.
+[ ]: Implement functional media queries for smaller display sizes and mobile that don't warp the games look too much.
+[ ]: Implement a settings button that can change the font-size, spacing, etc. for accessibility on mobile and smaller screen sizes.
 ======================================================================
