@@ -12,6 +12,8 @@
 html{
   font-family: sans-serif;
   font-size: 10px;
+
+  overflow: hidden;
 }
 
 body{
@@ -256,6 +258,9 @@ h1{
 
 /* ===== Media Queries ===== */
 /* WIDTH */
+
+
+
 @media screen and (min-width: 1024px) and (max-width: 1200px){
   .control-grid{
     margin-left: 15%;
@@ -342,9 +347,53 @@ h1{
 }
 
 /* HEIGHT */
+
+@media only screen and (min-device-height: 450px) and (max-device-height: 600px) {
+  .control-grid{
+    text-transform: uppercase;
+    color: #cfdee7;
+    background: blue;
+    border-radius: 1rem;
+  
+    box-shadow: inset 0px 0px 5px #252525;
+  
+    display: grid;
+  
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    width: auto;
+    height: 25vh;
+    grid-gap: .6rem;
+  
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    ". moveForward . . attack . inspect help"
+    "moveLeft moveBackward moveRight . defend item . next";
+  }
+  .console{
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  .controls{
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+/* iPad Mini 5 and 2x iPads && Chrome */
 @media only screen 
-  and (min-device-width: 768px) 
-  and (max-device-width: 1024px) 
+  and (min-device-height: 600px) 
+  and (max-device-height: 768px) 
   and (orientation: landscape) 
   and (-webkit-min-device-pixel-ratio: 2) {
     .control-grid{
@@ -392,7 +441,7 @@ h1{
   .control-grid{
     text-transform: uppercase;
     color: #cfdee7;
-    background: blue;
+    background: grey;
     border-radius: 1rem;
   
     box-shadow: inset 0px 0px 5px #252525;
@@ -430,6 +479,91 @@ h1{
   }
 }
 
+
+
+/* Has to go at the end so it overwrites the previous width cases */
+@media screen and (min-width: 350px) and (max-width: 750px){
+  nav{
+    width: 50%;
+    display: fixed;
+    left: 0;
+  }
+  .footer{
+    width: 50%;
+  }
+
+  main{
+    height: 100%;
+    width: auto;
+    background-color: yellowgreen;
+    margin: 0;
+    padding: 0;
+  }
+
+  .global-grid{
+    background-color: darkslategrey;
+  
+    min-width: 0;
+    min-height: 0;
+    height: 100vh;
+    width: 80%;
+
+    display: grid;
+    
+    grid-gap: .5rem;
+    grid-template-columns: minmax(0, 1fr);
+    /*grid-template-columns: 1fr;*/
+    grid-template-rows: 1fr .25fr .1fr;
+    grid-template-areas:
+    "console"
+    "controls"
+    "footer";
+  }
+  .control-grid{
+    text-transform: uppercase;
+    color: #cfdee7;
+    background: blue;
+    border-radius: 1rem;
+  
+    box-shadow: inset 0px 0px 5px #252525;
+  
+    display: grid;
+  
+    margin-left: .2rem;
+    margin-right: .2rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  
+    padding-left: .1rem;
+    padding-right: .1rem;
+    padding-top: .1rem;
+    padding-bottom: .1rem;
+    width: 75%;
+    height: 5vh;
+    grid-gap: .6rem;
+  
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: 
+    ". moveForward inspect attack"
+    "moveLeft . moveRight defend"
+    "help moveBackward item next";
+  }
+  .console{
+    grid-area: console;
+    display: fixed;
+    margin-left: 0;
+    margin-right: 0;
+    width: 80%;
+  }
+  .controls{
+    margin-left: 0rem;
+    margin-right: 0rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
+    width: 75%;
+  }
+}
 /* ========================= */
 
 
