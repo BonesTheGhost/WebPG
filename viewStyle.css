@@ -482,14 +482,15 @@ h1{
 
 
 /* Has to go at the end so it overwrites the previous width cases */
-@media screen and (min-width: 350px) and (max-width: 750px){
+@media screen and (min-width: 200px) and (max-width: 750px){
   nav{
-    width: 50%;
+    width: 100%;
     display: fixed;
     left: 0;
   }
   .footer{
     width: 50%;
+    height: 2vh;
   }
 
   main{
@@ -502,27 +503,29 @@ h1{
 
   .global-grid{
     background-color: darkslategrey;
+
+    padding: 0;
+    margin: 0;
   
     min-width: 0;
     min-height: 0;
     height: 100vh;
-    width: 80%;
+    width: 100%;
 
     display: grid;
     
-    grid-gap: .5rem;
+    grid-gap: 0rem;
     grid-template-columns: minmax(0, 1fr);
     /*grid-template-columns: 1fr;*/
-    grid-template-rows: 1fr .25fr .1fr;
+    grid-template-rows: 1fr .25fr;
     grid-template-areas:
     "console"
-    "controls"
-    "footer";
+    "controls";
   }
   .control-grid{
     text-transform: uppercase;
     color: #cfdee7;
-    background: blue;
+    background: gray;
     border-radius: 1rem;
   
     box-shadow: inset 0px 0px 5px #252525;
@@ -532,14 +535,14 @@ h1{
     margin-left: .2rem;
     margin-right: .2rem;
     margin-top: .5rem;
-    margin-bottom: .5rem;
+    margin-bottom: 0rem;
   
-    padding-left: .1rem;
-    padding-right: .1rem;
+    padding-left: .4rem;
+    padding-right: .4rem;
     padding-top: .1rem;
     padding-bottom: .1rem;
-    width: 75%;
-    height: 5vh;
+    width: auto;
+    height: 18vh;
     grid-gap: .6rem;
   
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -552,16 +555,18 @@ h1{
   .console{
     grid-area: console;
     display: fixed;
-    margin-left: 0;
-    margin-right: 0;
-    width: 80%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: auto;
   }
   .controls{
-    margin-left: 0rem;
-    margin-right: 0rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     padding-left: 0rem;
     padding-right: 0rem;
-    width: 75%;
+    width: auto;
+    height: 100%;
   }
 }
 /* ========================= */

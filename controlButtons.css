@@ -236,9 +236,9 @@ i{
 
 
 /*Needs to be at the bottom because it overwrites height specific changes*/
-@media screen and (min-width: 350px) and (max-width: 750px){
+@media screen and (min-width: 200px) and (max-width: 750px){
   .controlButton i{
-    font-size: .75rem;
+    font-size: .8rem;
     padding-top: .3rem;
   }
   .controlButton{
