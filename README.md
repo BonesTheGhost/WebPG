@@ -30,6 +30,9 @@ July 31st, 2020:
 - Added a rework of the touch control area for iPads in landscape mode that aren't high resolution.
 - Managed to allow for window resizing to more ideally scale buttons and UI.
 - MOBILE VIEW!! Woot!
+
+August 1st, 2020:
+- Added the in-between view to the site. It seems to work normally, but the transition from the in-between view to the mobile view is simply not transitioning properly.
 ======================================================================
 ========================== ISSUES To FIX =============================
 [X]: Modify the navbar in mobile view so that it is confined to current screen width.
@@ -40,5 +43,6 @@ July 31st, 2020:
 [X]: Implement functional media queries for smaller display sizes and mobile that don't warp the games look too much.
 [X]: Fix the dang mobile view to be functional AT ALL.
 [ ]: Implement a settings button that can change the font-size, spacing, etc. for accessibility on mobile and smaller screen sizes.
-[ ]: Need to fix the 'in-between' weirdness of the @media queries.
+[X]: Need to fix the 'in-between' weirdness of the @media queries.
+[ ]: Need to fix the in-between TO mobile weirdness of the @media queries.
 ======================================================================
