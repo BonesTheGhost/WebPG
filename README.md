@@ -3,15 +3,15 @@ An attempt to make a web-based, text-styled, adventure rpg. The goal is to pract
 
 The Master branch of this project was used simply to see if the project was viable, and thus no effort was made to manage feature branches or versions. Documentation essentially was only relegated to the commit messages, instead of into a centralized document like this README.
 
-Going forward, I have now created a new branch to handle the re-basing of the 'engine' code. This will neccesitate a rebuild of the layout, since in an application like this, the layout is heavily responsible for transforming simple JS logic into something resembling a game. The longevity of this branch is yet undetermined, as my experience with GIT version control is somewhat unrefined at present. However, I will do my best to create seperate branches for features and milestones that I would like to add.
+Going forward, I have now created a new branch to handle the re-basing of the 'engine' code. This will neccesitate a rebuild of the layout, since in an application like this, the layout is heavily responsible for transforming simple JS logic into something resembling a game. The longevity of this branch is yet undetermined, as my experience with GIT version control is somewhat unrefined at present. However, I will do my best to create seperate branches for features and milestones that I would like to add. If the progress of the engineRebase branch is not going as smoothly as planned, I may attempt to rebuild the layout from the mobile version first, and then scale it up to the desktop version after, to make sure that the more tedious layouts scale correctly before building the layout that should be most familiar.
 
-Finally, at some point I hope to get the engineRebase branch to the same 'point' of refinement as the current build of the master branch (0.4.5). When that day comes, I will merge the engineRebase branch into the master branch, effectively deprecating the other 'current' build of the game. 
+Finally, at some point I hope to get the engineRebase branch (or mobileFocus branch if it comes to fruition) to the same 'point' of refinement as the current build of the master branch (0.4.5). When that day comes, I will merge the engineRebase/mobileFocus branch into the master branch, effectively deprecating the other 'current' build of the game. 
 
-Changes and updates to the project will be kept here as well in the 'changelog' section. There will also be a 'buglist' section where I will store current issues with the game. If you would like to play with my build or any of the code contained in this repository, feel free to fork the repository! By doing so you simply agree to credit me with any inspirations you might have as a result of my project, and agree not to pass of the project as your own. Any spaghetti code nightmares you gain as a result of viewing my code are souvenirs of your tour, and I'm not responsible for any anxiety or other negative feelings you may experience, now or in the future! You have been warned!
+Changes and updates to the project will be kept here as well in the 'changelog' section. There will also be an 'issues' section where I will store current issues with the game. If you would like to play with my build or any of the code contained in this repository, feel free to fork the repository! By doing so you simply agree to credit me with any inspirations you might have as a result of my project, and agree not to pass of the project as your own. Any spaghetti code nightmares you gain as a result of viewing my code are souvenirs of your tour, and I'm not responsible for any anxiety or other negative feelings you may experience, now or in the future! You have been warned! The master branch is the current working build.
 
 In all seriousness, thanks for viewing my stuff, I hope you find something redeemable in it, and any feedback you have for this project or other works of mine, feel free to send to bonestheghost@gmail.com! Thanks for reading! Cheers!
 
-============================ CHANGELOG ===============================
+============================ GLOBAL CHANGELOG ===============================
 
 July 29th, 2020:
 - Created the engineRebase branch, commited clean slate, pushed the branch to remote, and updated the README.
@@ -34,7 +34,10 @@ July 31st, 2020:
 August 1st, 2020:
 - Added the in-between view to the site. It seems to work normally, but the transition from the in-between view to the mobile view is simply not transitioning properly.
 ======================================================================
-========================== ISSUES To FIX =============================
+
+
+
+========================== ISSUES To FIX - engineRebase =========================
 [X]: Modify the navbar in mobile view so that it is confined to current screen width.
 [X]: Modify the footer in mobile view so it is confined to screen width.
 [X]: Change the button properties and control-grid so that the buttons arrange and size correctly for mobile devices (ipad).
@@ -45,4 +48,10 @@ August 1st, 2020:
 [ ]: Implement a settings button that can change the font-size, spacing, etc. for accessibility on mobile and smaller screen sizes.
 [X]: Need to fix the 'in-between' weirdness of the @media queries.
 [ ]: Need to fix the in-between TO mobile weirdness of the @media queries.
-======================================================================
+==================================================================================
+
+
+
+========================== ISSUES To FIX - mobileFocus =========================
+[ ]: Build basic core of mobile build scaling to tablet and desktop size correctly.
+==================================================================================
