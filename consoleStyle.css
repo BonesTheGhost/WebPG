@@ -148,3 +148,74 @@
   }
 }
 
+@media screen and (min-width: 750px) and (max-width: 1024px){
+  .console{
+    color: rgb(13, 165, 13);
+    text-decoration:none;
+    font-size: .8rem;
+  
+    box-shadow: inset 0px 0px 30px 5px rgba(255, 255, 255, 0.25);
+  
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr .35fr .35fr;
+    grid-template-areas: 
+    "expose"
+    "overworld"
+    "playerComms";
+  }
+  .overworld{
+    grid-area: overworld;
+    color: rgb(21, 180, 21);
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: .35 .15fr;
+    grid-template-areas:
+    "title flavorWindow"
+    "locationInfo locationInfo";
+  }
+  .visualMap{
+    display:none;
+  }
+  .playerComms{
+    grid-area: playerComms;
+    margin: 0;
+    background-color: red;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+    "com0 com0"
+    "com1Div com3Div"
+    "com2Div com4Div";
+  }
+  .playerComms p{
+    padding: 0;
+    margin: 0;
+  }
+  .playerComms div{
+    padding: 0;
+    margin: 0;
+  }
+  #com0{
+    grid-area: com0;
+  }
+  #com1Div{
+    grid-area: com1Div;
+  }
+  #com2Div{
+    grid-area: com2Div;
+  }
+  #com3Div{
+    grid-area: com3Div;
+  }
+  #com4Div{
+    grid-area: com4Div;
+  }
+}
+

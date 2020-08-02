@@ -261,6 +261,34 @@ h1{
 
 
 
+@media screen and (min-width: 750px) and (max-width: 1024px){
+  .control-grid{
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    width: auto;
+    height: 25vh;
+    grid-gap: .6rem;
+  }
+  .console{
+    grid-area: console;
+    display: fixed;
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+  .controls{
+    margin-left: 5rem;
+    margin-right: 5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
 @media screen and (min-width: 1024px) and (max-width: 1200px){
   .control-grid{
     margin-left: 15%;
@@ -343,6 +371,95 @@ h1{
     margin-right: 30rem;
     padding-left: 5rem;
     padding-right: 5rem;
+  }
+}
+
+/* Has to go at the end so it overwrites the previous width cases */
+@media screen and (min-width: 200px) and (max-width: 750px){
+  nav{
+    width: 100%;
+    display: fixed;
+    left: 0;
+  }
+  .footer{
+    width: 50%;
+    height: 2vh;
+  }
+
+  main{
+    height: 100%;
+    width: auto;
+    background-color: yellowgreen;
+    margin: 0;
+    padding: 0;
+  }
+
+  .global-grid{
+    background-color: darkslategrey;
+
+    padding: 0;
+    margin: 0;
+  
+    min-width: 0;
+    min-height: 0;
+    height: 100vh;
+    width: 100%;
+
+    display: grid;
+    
+    grid-gap: 0rem;
+    grid-template-columns: minmax(0, 1fr);
+    /*grid-template-columns: 1fr;*/
+    grid-template-rows: 1fr .25fr;
+    grid-template-areas:
+    "console"
+    "controls";
+  }
+  .control-grid{
+    text-transform: uppercase;
+    color: #cfdee7;
+    background: gray;
+    border-radius: 1rem;
+  
+    box-shadow: inset 0px 0px 5px #252525;
+  
+    display: grid;
+  
+    margin-left: .2rem;
+    margin-right: .2rem;
+    margin-top: .5rem;
+    margin-bottom: 0rem;
+  
+    padding-left: .4rem;
+    padding-right: .4rem;
+    padding-top: .1rem;
+    padding-bottom: .1rem;
+    width: auto;
+    height: 18vh;
+    grid-gap: .6rem;
+  
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: 
+    ". moveForward inspect attack"
+    "moveLeft . moveRight defend"
+    "help moveBackward item next";
+  }
+  .console{
+    grid-area: console;
+    display: fixed;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: auto;
+  }
+  .controls{
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
+    width: auto;
+    height: 100%;
   }
 }
 
@@ -483,94 +600,7 @@ h1{
 
 
 
-/* Has to go at the end so it overwrites the previous width cases */
-@media screen and (min-width: 200px) and (max-width: 750px){
-  nav{
-    width: 100%;
-    display: fixed;
-    left: 0;
-  }
-  .footer{
-    width: 50%;
-    height: 2vh;
-  }
 
-  main{
-    height: 100%;
-    width: auto;
-    background-color: yellowgreen;
-    margin: 0;
-    padding: 0;
-  }
-
-  .global-grid{
-    background-color: darkslategrey;
-
-    padding: 0;
-    margin: 0;
-  
-    min-width: 0;
-    min-height: 0;
-    height: 100vh;
-    width: 100%;
-
-    display: grid;
-    
-    grid-gap: 0rem;
-    grid-template-columns: minmax(0, 1fr);
-    /*grid-template-columns: 1fr;*/
-    grid-template-rows: 1fr .25fr;
-    grid-template-areas:
-    "console"
-    "controls";
-  }
-  .control-grid{
-    text-transform: uppercase;
-    color: #cfdee7;
-    background: gray;
-    border-radius: 1rem;
-  
-    box-shadow: inset 0px 0px 5px #252525;
-  
-    display: grid;
-  
-    margin-left: .2rem;
-    margin-right: .2rem;
-    margin-top: .5rem;
-    margin-bottom: 0rem;
-  
-    padding-left: .4rem;
-    padding-right: .4rem;
-    padding-top: .1rem;
-    padding-bottom: .1rem;
-    width: auto;
-    height: 18vh;
-    grid-gap: .6rem;
-  
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: 
-    ". moveForward inspect attack"
-    "moveLeft . moveRight defend"
-    "help moveBackward item next";
-  }
-  .console{
-    grid-area: console;
-    display: fixed;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    width: auto;
-  }
-  .controls{
-    margin-top: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-left: 0rem;
-    padding-right: 0rem;
-    width: auto;
-    height: 100%;
-  }
-}
 /* ========================= */
 
 
