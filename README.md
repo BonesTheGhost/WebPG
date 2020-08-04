@@ -33,6 +33,12 @@ July 31st, 2020:
 
 August 1st, 2020:
 - Added the in-between view to the site. It seems to work normally, but the transition from the in-between view to the mobile view is simply not transitioning properly.
+
+August 2nd, 2020:
+- Updated the master readme with a more accurate description of my approach for building the mobile layout of the app.
+
+August 3rd, 2020:
+- Created the 'mobileFocus' branch and created mirror in online repo.
 ======================================================================
 
 
