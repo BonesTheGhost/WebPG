@@ -2,303 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebPG</title>
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>mobileFocus</title>
 
-  <!--Font Awesome CDN-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+  <!--Main Container Styling-->
+  <link rel="stylesheet" href="mainStyle.css">
 
-  
-  <!--DEFAULT Styling is for 1920 by 1080.-->
-  <!--My DEFAULT Stylesheet-->
-  <link rel="stylesheet" href="viewStyle.css">
-
-  <!--DEFAULT Button Styling for controls-->
-  <link rel="stylesheet" href="controlButtons.css">
-
-  <!--DEFAULT Console Styling-->
-  <link rel="stylesheet" href="consoleStyle.css">
-
-  <!--DEFAULT Stats Sidebar Styling-->
-  <link rel="stylesheet" href="stats.css">
 
 </head>
+
+
 <body>
   
-  <!--Contains the Left and Right Sidebars & Their respective hamburger menus-->
-  <header>
+  <nav id="navbar" class="navbar">NAVBAR</nav>
+  <section id="global-grid" class="global-grid">
+    
+    
+    <section id="consoleContainer" class="consoleContainer">CONSOLE</section>
 
-    <nav>
-      <!--Inventory Menu Button-->
-      <div class="burger left">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
+    <section id="aboutContainer" class="aboutContainer">INFORMATION</section>
 
-      <h1 class="logo">WebPG</h1>
-
-      <!--Stats Menu Button-->
-      <div class="burger right">
-        <div class="line4"></div>
-        <div class="line5"></div>
-        <div class="line6"></div>
-      </div>
-    </nav>
-
-  </header>
-
-    <!--Inventory Sidebar-->
-    <div id="inventorySidebar" class="sidebar inventory">
-      <p>Inventory</p>
-    </div>
-
-    <!--Stats Sidebar-->
-    <div id="statsSidebar" class="sidebar stats">
-      
-      <section class="statsContainer">
-        <section class="profile">
-          <section class="profilePicture">
-            <p>PROFILE PICTURE</p>
-          </section>
-        </section>
-  
-        <!--STATS GALORE SECTION 1!!-->
-        <section class="statsArea1">
-          
-          <section class="playerName">
-            <p class="statName">Name: </p><p id="statPlayerName" class="statText">N/a</p>
-          </section>
-          <section class="stat1">
-            <p class="statName">Health: </p><p id="statPlayerHealth" class="statText">0</p>
-          </section>
-          <section class="stat2">
-            <p class="statName">Agility: </p><p id="statPlayerAgility" class="statText">0</p>
-          </section>
-          
-          <section class="stat3">
-            <p class="statName">Attack: </p><p id="statPlayerAttack" class="statText">0</p>
-          </section>
-          <section class="stat4">
-            <p class="statName">Defense: </p><p id="statPlayerDefense" class="statText">0</p>
-          </section>
-
-          <section class="stat5">
-            <p class="statName">Strength: </p><p id="statPlayerStrength" class="statText">0</p>
-          </section>
-          <section class="stat6">
-            <p class="statName">Dexterity: </p><p id="statPlayerDexterity" class="statText">0</p>
-          </section>
-
-          <section class="stat7">
-            <p class="statName">Balance: </p><p id="statPlayerBalance" class="statText">0</p>
-          </section>
-          <section class="stat8"></section>
-
-          <section class="stat9"></section>
-          <section class="stat10"></section>
-
-          <section class="stat11"></section>
-          <section class="stat12"></section>
-
-          <section class="stat13"></section>
-          <section class="stat14"></section>
-
-          <section class="stat15"></section>
-          <section class="stat16"></section>
-
-        </section>
-      </section>
-      
-    </div>
-
+    <section id="playerChoices" class="playerChoices">CHOICES</section>
+  </section>
   
 
-  <!--The "Game" section-->
-  <main>
-
-      <!--The global CSS grid for the main game.-->
-      <section class="global-grid">
 
 
 
-        <!--Console Section For Game Text Output-->
-        <section id="console" class="console">
 
-          <!-- The Console can take 176 characters with current stylings! -->
-
-          <!--OVERWORLD-->
-          <section class="overworld">
-
-            <!--Gamemode Info, Current Activity, etc.-->
-            <section class="title">
-              <p id="ow1">Title</p>
-              <p id="ow2">SubTitle</p>
-            </section>
-
-            <!--Visual Info for Map Info-->
-            <section class="flavorWindow">
-              <p>Images go here!</p>
-            </section>
-
-            <!--For coordinates, map info, weather, poison, radiation, etc.-->
-            <section class="locationInfo">
-              <p>Player location data goes here.</p>
-            </section>
-
-            <section class="visualMap">
-              <p>Eventually a minimap will go here.</p>
-            </section>
-            
-          </section>
-
-          <!--EXPOSE-->
-          <section class="expose">
-            <p id="exp1">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp2">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp3">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp4">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp5">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp6">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp7">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp8">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp9">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp10">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp11">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-            <p id="exp12">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
-          </section>
-
-          <section class="playerComms">
-            <p id="com0"><i class=""></i>What will you do?</p>
-            <div id="com1Div"><i id="input1" class="fas"></i><i id="choice1" class="fas"></i><p id="com1">Travel</p></div>
-            <div id="com2Div"><i id="input2" class="fas"></i><i id="choice2" class="fas"></i><p id="com2">Survey</p></div>
-            <div id="com3Div"><i id="input3" class="fas"></i><i id="choice3" class="fas"></i><p id="com3">Make Camp</p></div>
-            <div id="com4Div"><i id="input4" class="fas"></i><i id="choice4" class="fas"></i><p id="com4">Use something</p></div>
-          </section>
-          
-        </section>
-
-
-
-        <!--The overall controls container on the main grid level-->
-        <div id="controlPanel" class="controls">
-
-          <!--The CSS Grid layout of the buttons themselves-->
-          <section class="control-grid">
-
-            <!--Defend Button and Icon-->
-            <section class="defend">
-              <button id="defendControl" class="controlButton defend">
-                <i class="fas fa-shield-alt"></i>
-                <p>defend</p>
-              </button>
-            </section>
-
-            <!--Defend Button and Icon-->
-            <section class="moveForward">
-              <button id="forwardControl" class="controlButton moveForward">
-                <i class="fas fa-caret-up"></i>
-                <p>North</p>
-              </button>
-            </section>
-
-            <!--Defend Button and Icon-->
-            <section class="attack">
-              <button id="attackControl" class="controlButton attack">
-                <i class="fas fa-skull"></i>
-                <p>attack</p>
-              </button>
-            </section>
-
-            <!--Left Button and Icon-->
-            <section class="moveLeft">
-              <button id="leftControl" class="controlButton moveLeft">
-                <i class="fas fa-caret-left"></i>
-                <p>West</p>
-              </button>
-            </section>
-
-            <!--Blank Button and Icon-->
-            <section></button>
-            </section>
-
-            <!--Right Button and Icon-->
-            <section class="moveRight">
-              <button id="rightControl" class="controlButton moveRight">
-                <i class="fas fa-caret-right"></i>
-                <p>East</p>
-              </button>
-            </section>
-
-            <!--Blank Button and Icon-->
-            <section></section>
-
-            <!--Backward Button and Icon-->
-            <section class="moveBackward">
-              <button id="backwardControl" class="controlButton moveBackward">
-                <i class="fas fa-caret-down"></i>
-                <p>South</p>
-              </button>
-            </section>
-
-            <!--Item Button and Icon-->
-            <section class="item">
-              <button id="itemControl" class="controlButton item">
-                <i class="fas fa-flask"></i>
-                <p>item</p>
-              </button>
-            </section>
-
-            <!--Inspect Button and Icon-->
-            <section class="inspect">
-              <button id="inspectControl" class="controlButton inspect">
-                <i class="fas fa-search"></i>
-                <p>inspect</p>
-              </button>
-            </section>
-
-            <!--Help Button and Icon-->
-            <section class="help">
-              <button id="helpControl" class="controlButton help">
-                <i class="fas fa-question"></i>
-                <p>help</p>
-              </button>
-            </section>
-
-            <!--Next Button and Icon-->
-            <section class="next">
-              <button id="nextControl" class="controlButton next">
-                <i class="fas fa-angle-double-right"></i>
-                <p>next</p>
-              </button>
-            </section>
-
-          </section>
-        </div>
-
-        <!--Footer under controls-->
-        <section class="footer">
-          <section class="settings">
-            <button class="big-button">Settings</button>
-          </section>
-        </section>
-
-      </section>
-
-
-  </main>
-
-  <!--Font Awesome-->
-  <script src="https://kit.fontawesome.com/03bfcad967.js" crossorigin="anonymous"></script>
-
-  <script
-  src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-  crossorigin="anonymous"></script>
-
-  <!--My Javascript File-->
-  <script src="controller.js"></script>
+  <script src="app.js"></script>
 </body>
-
-
 </html>
