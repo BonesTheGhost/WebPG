@@ -39,6 +39,7 @@ August 2nd, 2020:
 
 August 3rd, 2020:
 - Created the 'mobileFocus' branch and created mirror in online repo.
+- Got the basic mobile global container styling to mock up. Pushed the changes and set the github pages build to mobileFOcus for testing!
 ======================================================================
 
 
