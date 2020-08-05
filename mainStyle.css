@@ -63,7 +63,7 @@ html{
   padding: auto;
 }
 
-@media screen and (min-width: 1024px) and (min-height: 768px) and (orientation: landscape){
+@media screen and (min-width: 1024  px) and (min-height: 768px){
   .global-grid {
     display: grid;
     background-color: lightblue;
@@ -81,6 +81,30 @@ html{
     "controlPanel controlPanel";
   }
 }
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .global-grid {
+      display: grid;
+      background-color: lightblue;
+      grid-gap: 10px;
+      height: 95vh;
+      margin-top: 0;
+      margin-bottom: 0;
+    
+      grid-template-columns: 1fr .5fr;
+      grid-template-rows: .1fr 1fr 1fr .75fr;
+      grid-template-areas:
+      "navbar navbar"
+      "consoleContainer aboutContainer"
+      "consoleContainer playerChoices"
+      "controlPanel controlPanel";
+    }
+}
+
 
 @media screen and (min-width: 1920px) and (min-height: 1080px){
   .global-grid {
