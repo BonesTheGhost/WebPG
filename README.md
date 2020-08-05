@@ -52,6 +52,7 @@ August 5th, 2020:
 - Also learned that the 100vh bug in iOS Safari browser was fixed with iOS-8, so have since set the vertical height to 100vh.
 - Learned how to display the app in 'fullscreen' on mobile iOS via toggling the 'search' and 'toolbar' sections with the 'Aa'.
 - Added the buttons to the control section.
+- Added the button styling from the engineRebase branch. Working on getting the buttons to display correctly in mobile portrait view first.
 ======================================================================
 
 
