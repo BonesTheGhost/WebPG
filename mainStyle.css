@@ -62,3 +62,22 @@ html{
   background-color: grey;
   padding: auto;
 }
+
+@media screen and (min-width: 400px) and (min-height: 768px) {
+  .global-grid {
+    display: grid;
+    background-color: lightblue;
+    grid-gap: 10px;
+    height: 95vh;
+    margin-top: 0;
+    margin-bottom: 0;
+  
+    grid-template-columns: 1fr .5fr;
+    grid-template-rows: .1fr 1fr 1fr .75fr;
+    grid-template-areas:
+    "navbar navbar"
+    "consoleContainer aboutContainer"
+    "consoleContainer playerChoices"
+    "controlPanel controlPanel";
+  }
+}
