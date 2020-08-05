@@ -1,0 +1,64 @@
+.controlButton {
+    font-size: 1rem;
+}
+
+.controlPanelSection {
+    display: grid;
+    background-color: yellow;
+
+    grid-template-columns: .25fr .25fr .25fr .25fr;
+    grid-template-rows: .33fr .33fr .33fr;
+    grid-template-areas: 
+    "settings north inspect attack"
+    "west flee east defend"
+    "help south next item";
+}
+
+#northButton{
+    grid-area: north;
+}
+
+#eastButton{
+    grid-area: east;
+}
+
+#southButton{
+    grid-area: south;
+}
+
+#westButton{
+    grid-area: west;
+}
+
+#attackButton{
+    grid-area: attack;
+}
+
+#defendButton{
+    grid-area: defend;
+}
+
+#itemButton{
+    grid-area: item;
+}
+
+#inspectButton{
+    grid-area: inspect;
+}
+
+#helpButton{
+    grid-area: help;
+}
+
+#nextButton{
+    grid-area: next;
+}
+
+#fleeButton{
+    grid-area: flee;
+}
+
+#settingsButton{
+    grid-area: settings;
+}
+
