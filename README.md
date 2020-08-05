@@ -44,6 +44,7 @@ August 3rd, 2020:
 August 4th, 2020:
 - Added tablet support for main containers; will test.
 - Tablet @media queries are backawards. Will test again.
+- @Media queries work in chroome responsive view simulator, but not on the iPad itself. Trying with specific query for iPad.
 ======================================================================
 
 
