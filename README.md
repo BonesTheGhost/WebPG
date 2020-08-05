@@ -46,6 +46,12 @@ August 4th, 2020:
 - Tablet @media queries are backawards. Will test again.
 - @Media queries work in chroome responsive view simulator, but not on the iPad itself. Trying with specific query for iPad.
 - Trying another query method since none of the methods seem to work on mobile devices.
+
+August 5th, 2020:
+- Learned how to display the app on iOS properly after simulating it on a test Mac.
+- Also learned that the 100vh bug in iOS Safari browser was fixed with iOS-8, so have since set the vertical height to 100vh.
+- Learned how to display the app in 'fullscreen' on mobile iOS via toggling the 'search' and 'toolbar' sections with the 'Aa'.
+- Added the buttons to the control section.
 ======================================================================
 
 
