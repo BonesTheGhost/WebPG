@@ -1,10 +1,18 @@
+i{
+  font-size: 2.5rem;
+  padding-top: .5rem;
+}
 .controlButton {
     font-size: 1rem;
 }
 
+
+
 .controlPanelSection {
     display: grid;
     background-color: yellow;
+
+    grid-gap: 1rem;
 
     grid-template-columns: .25fr .25fr .25fr .25fr;
     grid-template-rows: .33fr .33fr .33fr;
@@ -14,51 +22,222 @@
     "help south next item";
 }
 
-#northButton{
-    grid-area: north;
+#north{
+  grid-area: north;
+}
+#east{
+  grid-area: east;
+}
+#south{
+  grid-area: south;
+}
+#west{
+  grid-area: west;
 }
 
-#eastButton{
-    grid-area: east;
+#attack{
+  grid-area: attack;
+}
+#defend{
+  grid-area: defend;
+}
+#item{
+  grid-area: item;
 }
 
-#southButton{
-    grid-area: south;
+#inspect{
+  grid-area: inspect;
+}
+#help{
+  grid-area: help;
+}
+#next{
+  grid-area: next;
 }
 
-#westButton{
-    grid-area: west;
+#flee{
+  grid-area: flee;
+}
+#settings{
+  grid-area: settings;
 }
 
-#attackButton{
-    grid-area: attack;
+/* These buttons are the game controls */
+
+.controlButton {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+
+
+  width: 100%;
+  height: auto;
+
+  padding: .5rem;
+
+  font-size: 1rem;
+  letter-spacing: .2rem;
+  
+
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  
+  outline: none;
+  color: rgb(230, 230, 230);
+  background-color: #777777;
+  border: 1px solid rgb(88, 88, 88);
+  border-radius: 5px;
+  box-shadow: 0px 5px 0 rgba(0,0,0,0.5);
+  transition: background-color .4s ease;
+}
+.controlButton::after{
+  content: '';
+  display: block;
 }
 
-#defendButton{
-    grid-area: defend;
+
+.controlButton.defend{
+  background-color: darkslateblue;
+}
+.controlButton.defend:hover {
+  background-color: rgb(115, 102, 197);
+}
+.controlButton.defend:active {
+  background-color: rgb(38, 31, 85);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
 }
 
-#itemButton{
-    grid-area: item;
+.controlButton.north{
+  background-color: darkgreen;
+}
+.controlButton.north:hover {
+  background-color: rgb(14, 143, 14);
+}
+.controlButton.north:active {
+  background-color: rgb(0, 61, 0);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
 }
 
-#inspectButton{
-    grid-area: inspect;
+.controlButton.attack{
+  background-color: crimson;
+}
+.controlButton.attack:hover {
+  background-color: rgb(255, 0, 51);
+}
+.controlButton.attack:active {
+  background-color: rgb(161, 3, 35);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
 }
 
-#helpButton{
-    grid-area: help;
+.controlButton.west{
+  background-color: darkgreen;
+}
+.controlButton.west:hover {
+  background-color: rgb(14, 143, 14);
+}
+.controlButton.west:active {
+  background-color: rgb(0, 61, 0);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
 }
 
-#nextButton{
-    grid-area: next;
+.controlButton.east{
+  background-color: darkgreen;
+}
+.controlButton.east:hover {
+  background-color: rgb(14, 143, 14);
+}
+.controlButton.east:active {
+  background-color: rgb(0, 61, 0);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
 }
 
-#fleeButton{
-    grid-area: flee;
+.controlButton.south{
+  background-color: darkgreen;
+}
+.controlButton.south:hover {
+  background-color: rgb(14, 143, 14);
+}
+.controlButton.south:active {
+  background-color: rgb(0, 61, 0);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
 }
 
-#settingsButton{
-    grid-area: settings;
+.controlButton.inspect{
+  background-color: rgb(235, 0, 98);
+}
+.controlButton.inspect:hover {
+  background-color: rgb(255, 83, 154);
+}
+.controlButton.inspect:active {
+  background-color: rgb(100, 4, 44);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
+}
+
+.controlButton.help{
+  background-color: rgb(9, 179, 142);
+}
+.controlButton.help:hover {
+  background-color: rgb(24, 197, 160);
+}
+.controlButton.help:active {
+  background-color: rgb(6, 117, 93);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
+}
+
+.controlButton.item{
+  background-color: rgb(24, 3, 99);
+}
+.controlButton.item:hover {
+  background-color: rgb(41, 2, 185);
+}
+.controlButton.item:active {
+  background-color: rgb(16, 2, 70);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
+}
+.controlButton.next{
+  background-color: rgb(18, 141, 163);
+}
+.controlButton.next:hover {
+  background-color: rgb(23, 184, 212);
+}
+.controlButton.next:active {
+  background-color: rgb(2, 98, 116);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
+}
+
+.controlButton.settings{
+  background-color: rgb(156, 156, 156);
+}
+.controlButton.settings:hover {
+  background-color: rgb(182, 182, 182);
+}
+.controlButton.settings:active {
+  background-color: rgb(99, 99, 99);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
+}
+
+.controlButton.flee{
+  background-color: rgb(141, 167, 81);
+}
+.controlButton.flee:hover {
+  background-color: rgb(150, 168, 108);
+}
+.controlButton.flee:active {
+  background-color: rgb(89, 105, 51);
+  box-shadow: 0px 1px 0 rgba(0,0,0,0.5);
+  transform: translateY(4px);
 }
 
