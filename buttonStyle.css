@@ -1,25 +1,24 @@
 i{
-  font-size: 2.5rem;
-  padding-top: .5rem;
-}
-.controlButton {
-    font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 
 
 .controlPanelSection {
     display: grid;
-    background-color: yellow;
 
     grid-gap: 1rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    margin-top: 1rem;
+    margin-bottom: .35rem;
 
     grid-template-columns: .25fr .25fr .25fr .25fr;
     grid-template-rows: .33fr .33fr .33fr;
     grid-template-areas: 
     "settings north inspect attack"
-    "west flee east defend"
-    "help south next item";
+    "west item east defend"
+    "help south next flee";
 }
 
 #north{
@@ -73,10 +72,13 @@ i{
   width: 100%;
   height: auto;
 
-  padding: .5rem;
+  padding-top: 1.5rem;
+  padding-right:.5rem;
+  padding-bottom: 1.5rem;
+  padding-left:.5rem;
 
   font-size: 1rem;
-  letter-spacing: .2rem;
+  letter-spacing: .1rem;
   
 
   cursor: pointer;
@@ -95,6 +97,9 @@ i{
 .controlButton::after{
   content: '';
   display: block;
+}
+.controlButton i{
+  margin-bottom: .5rem;
 }
 
 

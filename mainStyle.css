@@ -42,6 +42,7 @@ html{
   background-color: lightgreen;
 
   padding: auto;
+  overflow-y: scroll;
 }
 
 .aboutContainer{

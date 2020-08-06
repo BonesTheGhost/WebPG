@@ -10,26 +10,131 @@
   
   <title>mobileFocus</title>
 
+  <!--Font Awesome CDN-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+
   <!--Main Container Styling-->
   <link rel="stylesheet" href="mainStyle.css">
 
   <!--Button Styling-->
   <link rel="stylesheet" href="buttonStyle.css">
+
+  <!--DEFAULT Stats Sidebar Styling-->
+  <link rel="stylesheet" href="stats.css">
 </head>
 
 
 <body>
-  
+
   
   <section id="global-grid" class="global-grid">
     
-    <nav id="navbar" class="navbar">NAVBAR</nav>
+    <!--Contains the Left and Right Sidebars & Their respective hamburger menus-->
+    <nav id="navbar" class="navbar">
+      
+        <!--Inventory Menu Button-->
+        <div class="burger left">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+  
+        <h1 class="logo">WebPG</h1>
+  
+        <!--Stats Menu Button-->
+        <div class="burger right">
+          <div class="line4"></div>
+          <div class="line5"></div>
+          <div class="line6"></div>
+        </div>
+    </nav>
 
-    <section id="consoleContainer" class="consoleContainer">CONSOLE</section>
+
+
+    <!--Stats Sidebar
+    <div id="statsSidebar" class="sidebar stats">
+      
+      <section class="statsContainer">
+        <section class="profile">
+          <section class="profilePicture">
+            <p>PROFILE PICTURE</p>
+          </section>
+        </section>
+  
+        <!--STATS GALORE SECTION 1!!
+        <section class="statsArea1">
+          
+          <section class="playerName">
+            <p class="statName">Name: </p><p id="statPlayerName" class="statText">N/a</p>
+          </section>
+          <section class="stat1">
+            <p class="statName">Health: </p><p id="statPlayerHealth" class="statText">0</p>
+          </section>
+          <section class="stat2">
+            <p class="statName">Agility: </p><p id="statPlayerAgility" class="statText">0</p>
+          </section>
+          
+          <section class="stat3">
+            <p class="statName">Attack: </p><p id="statPlayerAttack" class="statText">0</p>
+          </section>
+          <section class="stat4">
+            <p class="statName">Defense: </p><p id="statPlayerDefense" class="statText">0</p>
+          </section>
+
+          <section class="stat5">
+            <p class="statName">Strength: </p><p id="statPlayerStrength" class="statText">0</p>
+          </section>
+          <section class="stat6">
+            <p class="statName">Dexterity: </p><p id="statPlayerDexterity" class="statText">0</p>
+          </section>
+
+          <section class="stat7">
+            <p class="statName">Balance: </p><p id="statPlayerBalance" class="statText">0</p>
+          </section>
+          <section class="stat8"></section>
+
+          <section class="stat9"></section>
+          <section class="stat10"></section>
+
+          <section class="stat11"></section>
+          <section class="stat12"></section>
+
+          <section class="stat13"></section>
+          <section class="stat14"></section>
+
+          <section class="stat15"></section>
+          <section class="stat16"></section>
+
+        </section>
+      </section>
+      
+    </div>
+  -->
+
+    <section id="consoleContainer" class="consoleContainer">
+        <p id="exp1">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp2">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp3">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp4">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp5">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp6">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp7">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp8">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp9">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp10">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp11">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+        <p id="exp12">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
+    </section>
 
     <section id="aboutContainer" class="aboutContainer">ABOUT</section>
 
-    <section id="playerChoices" class="playerChoices">CHOICES</section>
+    <section id="playerChoices" class="playerChoices">
+        <p id="com0"><i class=""></i>What will you do?</p>
+        <div id="com1Div"><i id="input1" class="fas"></i><i id="choice1" class="fas"></i><p id="com1">Travel</p></div>
+        <div id="com2Div"><i id="input2" class="fas"></i><i id="choice2" class="fas"></i><p id="com2">Survey</p></div>
+        <div id="com3Div"><i id="input3" class="fas"></i><i id="choice3" class="fas"></i><p id="com3">Make Camp</p></div>
+        <div id="com4Div"><i id="input4" class="fas"></i><i id="choice4" class="fas"></i><p id="com4">Use something</p></div>
+    </section>
 
     <!--Control Container-->
     <section id="controlContainer" class="controlContainerSection">
@@ -39,62 +144,98 @@
       
         <!--North Button-->
         <section id="north" class="northButtonSection">
-          <button id="northButton" type="button" class="controlButton north">North</button>
+          <button id="northButton" type="button" class="controlButton north">
+            <i class="fas fa-caret-up"></i>
+            <p>North</p>
+          </button>
         </section>
 
         <!--East Button-->
         <section id="east" class="eastButtonSection">
-          <button id="eastButton" type="button" class="controlButton east">East</button>
+          <button id="eastButton" type="button" class="controlButton east">
+            <i class="fas fa-caret-right"></i>
+            <p>East</p>
+          </button>
         </section>
 
         <!--South Button-->
         <section id="south" class="southButtonSection">
-          <button id="southButton" type="button" class="controlButton south">South</button>
+          <button id="southButton" type="button" class="controlButton south">
+            <i class="fas fa-caret-down"></i>
+            <p>South</p>
+          </button>
         </section>
 
         <!--West Button-->
         <section id="west" class="westButtonSection">
-          <button id="westButton" type="button" class="controlButton west">West</button>
+          <button id="westButton" type="button" class="controlButton west">
+            <i class="fas fa-caret-left"></i>
+            <p>West</p>
+          </button>
         </section>
 
         <!--Attack Button-->
         <section id="attack" class="attackButtonSection">
-          <button id="attackButton" type="button" class="controlButton attack">Attack</button>
+          <button id="attackButton" type="button" class="controlButton attack">
+            <i class="fas fa-skull"></i>
+            <p>Attack</p>
+          </button>
         </section>
 
         <!--Defend Button-->
         <section id="defend" class="defendButtonSection">
-          <button id="defendButton" type="button" class="controlButton defend">Defend</button>
+          <button id="defendButton" type="button" class="controlButton defend">
+            <i class="fas fa-shield-alt"></i>
+            <p>Defend</p>
+          </button>
         </section>
 
         <!--Item Button-->
         <section id="item" class="itemButtonSection">
-          <button id="itemButton" type="button" class="controlButton item">Item</button>
+          <button id="itemButton" type="button" class="controlButton item">
+            <i class="fas fa-flask"></i>
+            <p>Item</p>
+          </button>
         </section>
 
         <!--Inspect Button-->
         <section id="inspect" class="inspectButtonSection">
-          <button id="inspectButton" type="button" class="controlButton inspect">Inspect</button>
+          <button id="inspectButton" type="button" class="controlButton inspect">
+            <i class="fas fa-search"></i>
+            <p>Inspect</p>
+          </button>
         </section>
 
         <!--Help Button-->
         <section id="help" class="helpButtonSection">
-          <button id="helpButton" type="button" class="controlButton help">Help</button>
+          <button id="helpButton" type="button" class="controlButton help">
+            <i class="fas fa-question"></i>
+            <p>Help</p>
+          </button>
         </section>
 
         <!--Next Button-->
         <section id="next" class="nextButtonSection">
-          <button id="nextButton" type="button" class="controlButton next">Next</button>
+          <button id="nextButton" type="button" class="controlButton next">
+            <i class="fas fa-angle-double-right"></i>
+            <p>Next</p>
+          </button>
         </section>
 
         <!--Flee Button-->
         <section id="flee" class="fleeButtonSection">
-          <button id="fleeButton" type="button" class="controlButton flee">Flee</button>
+          <button id="fleeButton" type="button" class="controlButton flee">
+            <i class="fas fa-running"></i>
+            <p>Flee</p>
+          </button>
         </section>
 
         <!--Settings Button-->
         <section id="settings" class="settingsButtonSection">
-          <button id="settingsButton" type="button" class="controlButton settings">Settings</button>
+          <button id="settingsButton" type="button" class="controlButton settings">
+            <i class="fas fa-cogs"></i>
+            <p>Settings</p>
+          </button>
         </section>
 
       </section>
