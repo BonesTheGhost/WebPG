@@ -53,6 +53,7 @@ August 5th, 2020:
 - Learned how to display the app in 'fullscreen' on mobile iOS via toggling the 'search' and 'toolbar' sections with the 'Aa'.
 - Added the buttons to the control section.
 - Added the button styling from the engineRebase branch. Working on getting the buttons to display correctly in mobile portrait view first.
+- Buttons spaced correctly in Chrome mobile viewer. Styling applied. Spacing and font look good. Testing on pages now!
 ======================================================================
 
 
