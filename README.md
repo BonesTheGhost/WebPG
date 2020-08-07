@@ -54,6 +54,9 @@ August 5th, 2020:
 - Added the buttons to the control section.
 - Added the button styling from the engineRebase branch. Working on getting the buttons to display correctly in mobile portrait view first.
 - Buttons spaced correctly in Chrome mobile viewer. Styling applied. Spacing and font look good. Testing on pages now!
+
+August 6th, 2020:
+- Tried to fix the buttons not aligning correctly in the mobile layout, no good results to push for today.
 ======================================================================
 
 
