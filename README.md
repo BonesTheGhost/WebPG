@@ -57,6 +57,9 @@ August 5th, 2020:
 
 August 6th, 2020:
 - Tried to fix the buttons not aligning correctly in the mobile layout, no good results to push for today.
+
+August 7th, 2020:
+- Didn't have any good changes for today.
 ======================================================================
 
 
