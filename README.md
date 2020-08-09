@@ -60,6 +60,9 @@ August 6th, 2020:
 
 August 7th, 2020:
 - Didn't have any good changes for today.
+
+August 8th, 2020:
+- Attempting to change the bottom padding of the mobile version of the app.
 ======================================================================
 
 
