@@ -81,12 +81,12 @@ html{
   }
 }
 
-/* #### Mobile Phones Portrait #### */
+/* #### ***DEFAULT:: Mobile Phones Portrait #### */
 @media screen and (max-device-width: 480px) and (orientation: portrait){
   /* some CSS here */
 }
 
-/* #### Mobile Phones Landscape #### */
+/* #### DOESN"T CHANGE: ONLY BUTTONS DO:: Mobile Phones Landscape #### */
 @media screen and (max-device-width: 640px) and (orientation: landscape){
   /* some CSS here */
 }
@@ -96,7 +96,7 @@ html{
   /* some CSS here */
 }
 
-/* #### Tablets Portrait or Landscape #### */
+/* #### iPad and iPhone Landscape + Android Phones #### */
 @media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   .global-grid {
     display: grid;
