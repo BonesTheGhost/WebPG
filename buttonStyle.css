@@ -247,3 +247,31 @@ i{
   transform: translateY(4px);
 }
 
+
+
+
+
+
+
+
+
+
+/* #### Mobile Phones Portrait or Landscape #### */
+@media screen and (max-device-width: 640px) and (orientation: landscape){
+    .controlPanelSection {
+        display: grid;
+    
+        grid-gap: .5rem;
+        margin-left: .5rem;
+        margin-right: .5rem;
+        margin-top: .5rem;
+    
+        padding-bottom: 1rem;
+    
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: .5fr .5fr;
+        grid-template-areas:
+        "help north inspect attack flee settings"
+        "west south east defend next item";
+    }
+  }
