@@ -11,7 +11,8 @@ i{
     margin-left: .5rem;
     margin-right: .5rem;
     margin-top: 1rem;
-    margin-bottom: .1rem;
+
+    padding-bottom: 2.5rem;
 
     grid-template-columns: .25fr .25fr .25fr .25fr;
     grid-template-rows: .33fr .33fr .33fr;

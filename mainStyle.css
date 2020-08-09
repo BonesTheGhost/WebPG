@@ -17,11 +17,9 @@ html{
   background-color: lightblue;
   grid-gap: 10px;
   height: 100vh;
-  margin-top: 0;
-  margin-bottom: 0;
 
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: .1fr .5fr .1fr .1fr .4fr;
+  grid-template-rows: .1fr .75fr .2fr .1fr .4fr;
   grid-template-areas:
   "navbar"
   "consoleContainer"
@@ -62,7 +60,6 @@ html{
 .controlContainerSection{
   grid-area: controlContainer;
   background-color: grey;
-  padding: auto;
 }
 
 @media screen and (min-width: 550px){
