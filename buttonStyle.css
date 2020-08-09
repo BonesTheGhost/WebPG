@@ -11,7 +11,7 @@ i{
     margin-left: .5rem;
     margin-right: .5rem;
     margin-top: 1rem;
-    margin-bottom: .35rem;
+    margin-bottom: .1rem;
 
     grid-template-columns: .25fr .25fr .25fr .25fr;
     grid-template-rows: .33fr .33fr .33fr;
@@ -73,9 +73,9 @@ i{
   height: auto;
 
   padding-top: 1.5rem;
-  padding-right:.5rem;
+  padding-right: .5rem;
   padding-bottom: 1.5rem;
-  padding-left:.5rem;
+  padding-left: .5rem;
 
   font-size: 1rem;
   letter-spacing: .1rem;
