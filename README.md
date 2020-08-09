@@ -65,6 +65,7 @@ August 8th, 2020:
 - Attempting to change the bottom padding of the mobile version of the app.
 - Made some more changes, will test and see if the changes actually behave properly this time.
 - Added a landscape orientation for mobile devices for the button control section.
+- Had some success with iPhone landscape view.
 ======================================================================
 
 
@@ -85,5 +86,7 @@ August 8th, 2020:
 
 
 ========================== ISSUES To FIX - mobileFocus =========================
-[ ]: Build basic core of mobile build scaling to tablet and desktop size correctly.
+[X]: Build basic core of mobile build scaling to tablet and desktop size correctly.
+[ ]: Look into env for iOS landscape mode safe area for 'home bar'.
+[ ]: Research how to specifically target Android MOBILE devices to try and have same mobile experience acroos operating systems.
 ==================================================================================
