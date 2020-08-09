@@ -64,6 +64,7 @@ August 7th, 2020:
 August 8th, 2020:
 - Attempting to change the bottom padding of the mobile version of the app.
 - Made some more changes, will test and see if the changes actually behave properly this time.
+- Added a landscape orientation for mobile devices for the button control section.
 ======================================================================
 
 
