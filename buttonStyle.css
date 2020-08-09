@@ -257,7 +257,7 @@ i{
 
 
 /* #### Mobile Phones Landscape #### */
-@media screen and (max-device-width: 768px) and (orientation: landscape){
+@media screen and (max-device-width: 640px) and (orientation: landscape){
     .controlPanelSection {
         display: grid;
     
@@ -274,4 +274,9 @@ i{
         "help north inspect attack flee settings"
         "west south east defend next item";
     }
+  }
+
+  /* #### Tablets Portrait or Landscape #### */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+    
   }
