@@ -66,6 +66,9 @@ August 8th, 2020:
 - Made some more changes, will test and see if the changes actually behave properly this time.
 - Added a landscape orientation for mobile devices for the button control section.
 - Had some success with iPhone landscape view.
+
+August 10th, 2020:
+-Ran out of time to add anything today.
 ======================================================================
 
 
