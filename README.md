@@ -69,6 +69,9 @@ August 8th, 2020:
 
 August 10th, 2020:
 -Ran out of time to add anything today.
+
+August 12th, 2020:
+- Attempted to modify the layout of the android version, couldn't get the @media queries to cooperate, will try again tomorrow.
 ======================================================================
 
 
