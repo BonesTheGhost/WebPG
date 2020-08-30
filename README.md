@@ -75,6 +75,11 @@ August 12th, 2020:
 
 August 15th, 2020:
 - Modified the @media queries again for iPads. It seems to work in the simulator. Will test on the iPad Mini and the J8 to verify.
+
+August 30th, 2020:
+- Back on the horse after finishing the iOS Udemy Course.
+- Added in the code for working sidebar menus.
+- Added in the settings panel.
 ======================================================================
 
 
@@ -98,5 +103,6 @@ August 15th, 2020:
 [X]: Build basic core of mobile build scaling to tablet and desktop size correctly.
 [0]: Look into env for iOS landscape mode safe area for 'home bar'.
 [0]: Research how to specifically target Android MOBILE devices to try and have same mobile experience acroos operating systems.
-[ ]: Need to add the hamburger menu functionality to the app before finalizing any more of the layout.
+[X]: Need to add the hamburger menu functionality to the app before finalizing any more of the layout.
+[ ]: Font-size for mobile version.
 ==================================================================================
