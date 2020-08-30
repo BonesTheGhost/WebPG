@@ -80,6 +80,7 @@ August 30th, 2020:
 - Back on the horse after finishing the iOS Udemy Course.
 - Added in the code for working sidebar menus.
 - Added in the settings panel.
+- Added close windows behind the panel menus that allow for the menus to be closed by simply tapping outside the menu areas.
 ======================================================================
 
 
