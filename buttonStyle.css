@@ -11,7 +11,8 @@ i{
     margin-left: .5rem;
     margin-right: .5rem;
     margin-top: 1rem;
-    margin-bottom: .35rem;
+
+    padding-bottom: 2.5rem;
 
     grid-template-columns: .25fr .25fr .25fr .25fr;
     grid-template-rows: .33fr .33fr .33fr;
@@ -73,9 +74,9 @@ i{
   height: auto;
 
   padding-top: 1.5rem;
-  padding-right:.5rem;
+  padding-right: .5rem;
   padding-bottom: 1.5rem;
-  padding-left:.5rem;
+  padding-left: .5rem;
 
   font-size: 1rem;
   letter-spacing: .1rem;
@@ -246,3 +247,51 @@ i{
   transform: translateY(4px);
 }
 
+
+
+
+
+
+
+
+
+
+/* #### Mobile Phones Landscape #### */
+@media screen and (max-device-width: 640px) and (orientation: landscape){
+    .controlPanelSection {
+        display: grid;
+    
+        grid-gap: .5rem;
+        margin-left: .5rem;
+        margin-right: .5rem;
+        margin-top: 1rem;
+    
+        padding-bottom: 2rem;
+    
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: .5fr .5fr;
+        grid-template-areas:
+        "settings north item attack flee help"
+        "west south east defend next inspect";
+    }
+  }
+
+  /* #### Tablets Portrait or Landscape #### */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+    .controlPanelSection {
+        display: grid;
+    
+        grid-gap: 1rem;
+        margin-left: .5rem;
+        margin-right: .5rem;
+        margin-top: 1rem;
+    
+        padding-bottom: 1rem;
+    
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: .5fr .5fr;
+        grid-template-areas:
+        "settings north item attack flee help"
+        "west south east defend next inspect";
+    }
+  }
