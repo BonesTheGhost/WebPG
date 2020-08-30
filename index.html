@@ -21,10 +21,86 @@
 
   <!--DEFAULT Stats Sidebar Styling-->
   <link rel="stylesheet" href="stats.css">
+
+  <!--DEFAULT Stats Sidebar Styling-->
+  <link rel="stylesheet" href="inventory.css">
 </head>
 
 
 <body>
+
+  
+  <!--Inventory Sidebar-->
+  <div id="inventorySidebar" class="sidebar inventory">
+    <section class="inventoryContainer">
+      <p>Inventory</p>
+    </section>
+    
+  </div>
+
+  <!--Stats Sidebar-->
+  <div id="statsSidebar" class="sidebar stats">
+    
+    <section class="statsContainer">
+      <section class="profile">
+        <section class="profilePicture">
+          <p>PROFILE PICTURE</p>
+        </section>
+      </section>
+
+      <!--STATS GALORE SECTION 1!!-->
+      <section class="statsArea1">
+        
+        <section class="playerName">
+          <p class="statName">Name: </p><p id="statPlayerName" class="statText">N/a</p>
+        </section>
+        <section class="stat1">
+          <p class="statName">Health: </p><p id="statPlayerHealth" class="statText">0</p>
+        </section>
+        <section class="stat2">
+          <p class="statName">Agility: </p><p id="statPlayerAgility" class="statText">0</p>
+        </section>
+        
+        <section class="stat3">
+          <p class="statName">Attack: </p><p id="statPlayerAttack" class="statText">0</p>
+        </section>
+        <section class="stat4">
+          <p class="statName">Defense: </p><p id="statPlayerDefense" class="statText">0</p>
+        </section>
+
+        <section class="stat5">
+          <p class="statName">Strength: </p><p id="statPlayerStrength" class="statText">0</p>
+        </section>
+        <section class="stat6">
+          <p class="statName">Dexterity: </p><p id="statPlayerDexterity" class="statText">0</p>
+        </section>
+
+        <section class="stat7">
+          <p class="statName">Balance: </p><p id="statPlayerBalance" class="statText">0</p>
+        </section>
+        <section class="stat8"></section>
+
+        <section class="stat9"></section>
+        <section class="stat10"></section>
+
+        <section class="stat11"></section>
+        <section class="stat12"></section>
+
+        <section class="stat13"></section>
+        <section class="stat14"></section>
+
+        <section class="stat15"></section>
+        <section class="stat16"></section>
+
+      </section>
+    </section>
+
+  </div>
+
+  <!--Settings Panel-->
+  <section id="settingsPanel" class="settingsPanel">
+    Settings Stuff goes here just testing out the width of the damn panel.
+  </section>
 
   
   <section id="global-grid" class="global-grid">
@@ -49,67 +125,7 @@
         </div>
     </nav>
 
-
-
-    <!--Stats Sidebar
-    <div id="statsSidebar" class="sidebar stats">
-      
-      <section class="statsContainer">
-        <section class="profile">
-          <section class="profilePicture">
-            <p>PROFILE PICTURE</p>
-          </section>
-        </section>
   
-        <!--STATS GALORE SECTION 1!!
-        <section class="statsArea1">
-          
-          <section class="playerName">
-            <p class="statName">Name: </p><p id="statPlayerName" class="statText">N/a</p>
-          </section>
-          <section class="stat1">
-            <p class="statName">Health: </p><p id="statPlayerHealth" class="statText">0</p>
-          </section>
-          <section class="stat2">
-            <p class="statName">Agility: </p><p id="statPlayerAgility" class="statText">0</p>
-          </section>
-          
-          <section class="stat3">
-            <p class="statName">Attack: </p><p id="statPlayerAttack" class="statText">0</p>
-          </section>
-          <section class="stat4">
-            <p class="statName">Defense: </p><p id="statPlayerDefense" class="statText">0</p>
-          </section>
-
-          <section class="stat5">
-            <p class="statName">Strength: </p><p id="statPlayerStrength" class="statText">0</p>
-          </section>
-          <section class="stat6">
-            <p class="statName">Dexterity: </p><p id="statPlayerDexterity" class="statText">0</p>
-          </section>
-
-          <section class="stat7">
-            <p class="statName">Balance: </p><p id="statPlayerBalance" class="statText">0</p>
-          </section>
-          <section class="stat8"></section>
-
-          <section class="stat9"></section>
-          <section class="stat10"></section>
-
-          <section class="stat11"></section>
-          <section class="stat12"></section>
-
-          <section class="stat13"></section>
-          <section class="stat14"></section>
-
-          <section class="stat15"></section>
-          <section class="stat16"></section>
-
-        </section>
-      </section>
-      
-    </div>
-  -->
 
     <section id="consoleContainer" class="consoleContainer">
         <p id="exp1">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
@@ -126,7 +142,13 @@
         <p id="exp12">This sentence is precisely 200 characters long. It is designed to test the display output of the window in multiple sizes. If I can write sentences of 200 characters, I think that should be enough for</p>
     </section>
 
-    <section id="aboutContainer" class="aboutContainer">ABOUT</section>
+    <section id="aboutContainer" class="aboutContainer">
+      <p id="about0Div">About Section</p>
+        <div id="about1Div"><p id="about1">Player Coords</p></div>
+        <div id="about2Div"><p id="about2">Current Location</p></div>
+        <div id="about3Div"><p id="about3">Activity</p></div>
+        <div id="about4Div"><p id="about4">Weather</p></div>
+    </section>
 
     <section id="playerChoices" class="playerChoices">
         <p id="com0"><i class=""></i>What will you do?</p>

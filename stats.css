@@ -1,3 +1,7 @@
+/* This is the styling SPECIFIC to the stats sidebar itself, and is designed
+ONLY to be changed for the overall look and feel of the stats section.
+*/
+
 .statsContainer{
   display: grid;
   grid-template-columns: 1fr;

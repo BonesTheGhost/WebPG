@@ -1,4 +1,7 @@
-/* The main styling of the app */
+/* This is the styling for the main layout of the Global CSS Grid for 
+Transitioning from Mobile to Desktop. This also includes sidebar and hamburger 
+base styling and functionality with z-indexes and positioning.
+*/
 
 *,
 *::before,
@@ -34,7 +37,17 @@ html{
   grid-area: navbar;
   background-color: lightseagreen;
 
-  padding: auto;
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 5vh;
+  font-family: 'Rubik', sans-serif;
+  background-color: #067bc2;
+  z-index: 3000;
+
+  /*padding: auto;*/
 }
 
 .consoleContainer{
@@ -65,6 +78,104 @@ html{
   padding: auto;
 }
 
+
+
+/* ===== Sidebars & Hamburger ===== */
+.burger{
+  display: block;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+}
+.burger.left{
+  margin-left: 1rem;
+}
+.burger.left div{
+  background-color: #1de9b6;
+}
+.burger.right{
+  margin-right: 1rem;
+}
+.burger.right div{
+  background-color: #6cd1d1;
+}
+.burger div{
+  width: 2.8rem;
+  height: .5rem;
+  margin-top: .5rem;
+  margin-bottom: .25rem;
+  margin-left: .1rem;
+  margin-right: .1rem;
+  transition: all 0.3s ease;
+}
+.sidebar{
+  position: fixed;
+  width: 26rem;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.6rem;
+  z-index: 900;
+  transition: transform .3s;
+}
+.sidebar.inventory{
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  z-index: 1000;
+  background-color: #01634a;
+}
+.sidebar.stats{
+  bottom: 0;
+  right: 0;
+  transform: translateX(100%);
+  z-index: 1100;
+  background-color: #006b6b;
+}
+
+.active.sidebar{
+  transform: translateX(0);
+}
+/*These are for the burger menu animations*/
+.toggle .line1{
+  transform: rotate(-45deg) translate(-1rem,.8rem);
+}
+.toggle .line2{
+  opacity: 0;
+}
+.toggle .line3{
+  transform: rotate(45deg) translate(-.7rem,-.4rem);
+}
+.toggle .line4{
+  transform: rotate(45deg) translate(.8rem,0.8rem);
+}
+.toggle .line5{
+  opacity: 0;
+}
+.toggle .line6{
+  transform: rotate(-45deg) translate(0.7rem,-.5rem);
+}
+.settingsPanel{
+  position: fixed;
+  width: auto;
+  height: 80vh;
+  padding: 1.6rem;
+  bottom: 0;
+  left: 5%;
+  right: 5%;
+  transform: translateY(100%);
+  z-index: 900;
+  background-color: #535353;
+  transition: transform .3s;
+}
+.active.settingsPanel{
+  transform: translateY(0%);
+}
+
+
+
+/* =========== MEDIA QUERIES ============ */
 @media screen and (min-width: 550px){
   .global-grid {
     display: grid;
@@ -136,5 +247,64 @@ html{
     "consoleContainer aboutContainer"
     "consoleContainer playerChoices"
     "controlContainer controlContainer";
+  }
+
+  .consoleContainer{
+    grid-area: consoleContainer;
+    background-color: lightgreen;
+  
+    padding: auto;
+    overflow-y: scroll;
+
+    font-size: 3rem;
+  }
+
+  .consoleContainer p{
+    padding-top: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+  }
+  
+  .aboutContainer{
+    grid-area: aboutContainer;
+    background-color: lightcoral;
+  
+    padding: auto;
+
+    font-size: 2rem;
+
+    padding-top: 1rem;
+    padding-right: 0rem;
+    padding-bottom: 0rem;
+    padding-left: 1rem;
+  }
+  
+  .playerChoices{
+    grid-area: playerChoices;
+    background-color: lightgoldenrodyellow;
+  
+    padding: auto;
+
+    font-size: 3rem;
+
+    padding-top: 0rem;
+    padding-right: 0rem;
+    padding-bottom: 0rem;
+    padding-left: 1rem;
+  }
+
+  #com1Div, #com2Div, #com3Div, #com4Div {
+    padding-top: 0rem;
+    padding-right: 0rem;
+    padding-bottom: 0rem;
+    padding-left: 4rem;
+  }
+
+  #about1Div, #about2Div, #about3Div, #about4Div {
+    padding-top: 2rem;
+    padding-right: 0rem;
+    padding-bottom: 0rem;
+    padding-left: 4rem;
   }
 }

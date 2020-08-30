@@ -1,0 +1,18 @@
+/* This is the styling SPECIFIC to the inventory sidebar itself, and is designed
+ONLY to be changed for the overall look and feel of the inventory section.
+*/
+
+.inventoryContainer{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: .75fr 1fr 1fr;
+  grid-template-areas: 
+  " . "
+  " . "
+  " . ";
+
+  height: 100%;
+  background-color: rgb(79, 166, 247);
+  padding: .5rem;
+  border-radius: 3px;
+}
