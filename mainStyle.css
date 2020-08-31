@@ -334,4 +334,34 @@ html{
     padding-bottom: 0rem;
     padding-left: 4rem;
   }
+
+  .settingsPanel{
+    position: fixed;
+    width: auto;
+    height: 80vh;
+    padding: 1.6rem;
+    bottom: 0;
+    left: 15%;
+    right: 15%;
+    transform: translateY(100%);
+    z-index: 900;
+    background-color: #535353;
+    transition: transform .3s;
+  }
+}
+
+@media screen and (min-width: 1025px){
+  .settingsPanel{
+    position: fixed;
+    width: auto;
+    height: 80vh;
+    padding: 1.6rem;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    transform: translateY(100%);
+    z-index: 900;
+    background-color: #535353;
+    transition: transform .3s;
+  }
 }

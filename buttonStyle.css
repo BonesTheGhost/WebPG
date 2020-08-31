@@ -295,3 +295,48 @@ i{
         "west south east defend next inspect";
     }
   }
+
+  @media screen and (min-width: 1025px){
+    .controlPanelSection {
+      display: grid;
+  
+      grid-gap: 1rem;
+      margin-left: 0rem;
+      margin-right: 0rem;
+      margin-top: 1rem;
+      width: auto;
+  
+      padding-bottom: 2.5rem;
+      padding-left: 20%;
+      padding-right: auto;
+  
+      grid-template-columns: .05fr .1fr .1fr .1fr .1fr .1fr .1fr .05fr;
+      grid-template-rows: .33fr .33fr .33fr;
+      grid-template-areas: 
+      ".   settings  .    north     .  inspect  attack   ."
+      ".   .        west    .    east  item      defend  ."
+      ".   help      .    south     .  next     flee     .";
+  }
+  }
+
+  @media screen and (min-width: 1366px){
+    .controlPanelSection {
+      display: grid;
+  
+      grid-gap: 1rem;
+      margin-left: 0rem;
+      margin-right: 0rem;
+      margin-top: 1rem;
+  
+      padding-bottom: 2.5rem;
+      padding-left: 12%;
+      padding-right: auto;
+  
+      grid-template-columns: .1fr .05fr .1fr .1fr .1fr .1fr .1fr .05fr .1fr;
+      grid-template-rows: .33fr .33fr .33fr;
+      grid-template-areas: 
+      "settings   .    .    north     .   .   inspect   .   attack "
+      ".          .   west    .    east   .   item      .    defend"
+      "help       .    .    south     .   .   next      .   flee   ";
+  }
+  }
