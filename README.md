@@ -81,6 +81,7 @@ August 30th, 2020:
 - Added in the code for working sidebar menus.
 - Added in the settings panel.
 - Added close windows behind the panel menus that allow for the menus to be closed by simply tapping outside the menu areas.
+- Added polish to the buttons for desktop sized displays.
 ======================================================================
 
 
