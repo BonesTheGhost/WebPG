@@ -61,13 +61,35 @@ settingsClose.onclick =()=> {
 
 
 
+//**********************************************************
+//================== TARGET AREAS FOR UI ===================
+
+//CONSOLE LINES:
+let EXP1 = document.getElementById("exp1");
+let EXP2 = document.getElementById("exp2");
+let EXP3 = document.getElementById("exp3");
+let EXP4 = document.getElementById("exp4");
+let EXP5 = document.getElementById("exp5");
+let EXP6 = document.getElementById("exp6");
+let EXP7 = document.getElementById("exp7");
+let EXP8 = document.getElementById("exp8");
+let EXP9 = document.getElementById("exp9");
+let EXP10 = document.getElementById("exp10");
+let EXP11 = document.getElementById("exp11");
+let EXP12 = document.getElementById("exp12");
+//==========================================================
+
+
+
+
+
 
 //**********************************************************
 //================== VARIABLES & CONTROLS ==================
 //Global Variables, engine control variables, etc.
 
 //GAME CLOCK
-let gameClock = 1;
+let gameClock = 0;
 let previousClockState = 0;
 
 //Player Cartesian Coordinates in Map.
@@ -95,6 +117,7 @@ let inDungeon = false;
 //Player Stats
 player = {
   playerName: "Zorus",
+  playerClass: "Mage",
   playerHealth: 15,
   playerATK: 0,
   playerDEF: 5,
@@ -167,7 +190,7 @@ let enemies = {
 let mapArray = [["0","0","#","#","#"],["0","0","#","#","#"],["0","0","0","X","X"],["0","0","0","X","X"],["0","0","X","X","X"]];
 
 let areaLibrary = {
-  0: {
+  windswept: {
     char: '0', 
     name: 'Windswept Field',
     subName: '- Current Location -',
@@ -176,7 +199,7 @@ let areaLibrary = {
     campValues: ["Health", 5],
     campTempValues: ["Agility", 3]
   },
-  #: {
+  tranquil: {
     char: '#', 
     name: 'Tranquil Forest',
     subName: '- Current Location -',
@@ -185,7 +208,7 @@ let areaLibrary = {
     campValues: ["Health", 3],
     campTempValues: ["Defense", 3]
   },
-  X: {
+  wasteland: {
     char: 'X', 
     name: 'Barren Wasteland',
     subName: '- Current Location -',
@@ -212,8 +235,15 @@ let areaLibrary = {
 //THERE ARE 12 LINES OF EXPOSITION ONLY, so be careful when giving detailed
 // explanations since there may need to be multiple things on the screen.
 let expositionLibrary = {
-  welcome: {
-    '1': "This is a test of the expositionLibrary, Welcome to WebPG!"
+  intro: {
+    exp1: "You are in service to the great kingdom of Teku.",
+    exp2: "The Queen has charged you with the recovery of a stone tablet, rumored to hold ancient knowledge.",
+    exp3: "With this in mind, you set out to honor the Queen's wishes."
+  },
+  characterFlavor: {
+    exp1: "You are a pitiful squire, with dreams of becoming a brave warrior.",
+    exp2: "You are an aspiring magus, hoping to harness the powers beyond the pale.",
+    exp3: "You are a cunning blade. You pray that your success will exonerate you from past... mistakes."
   }
 };
 
@@ -294,175 +324,6 @@ let playerOWC = {
 
 
 
-
-//**********************************************************
-//============ MENU FUNCTIONS & UI MANIPULATION ============
-//Which Controls will be legal and which aren't. 'Settings' class toggles, etc.
-
-//There are two separate button enable/disable functions to make the code more clear as to what is enabled/disabled and when.
-// A single toggle function could work as well, but would become confusing to deal with after multiple turns of game logic.
-let disableButtons = (buttons) => {
-  //A function for disabling buttons and adding the CSS styling to show they're disabled. Pass Arrays
-  
-  //console.log("disableButtons(): "+buttons);
-  //console.log("buttons to disable:",buttons);
-
-  for(i=0;i<buttons.length;i++){
-    
-    
-    switch (buttons[i]){
-      case "defendControl":
-        console.log("[DEFEND]: disabled.");
-        document.getElementById("defendControl").classList.add('disabled');
-        break;
-      case "forwardControl":
-        console.log("[FORWARD]: disabled.");
-        document.getElementById("forwardControl").classList.add('disabled');
-        break;
-      case "attackControl":
-        console.log("[ATTACK]: disabled.");
-        document.getElementById("attackControl").classList.add('disabled');
-        break;
-      case "leftControl":
-        console.log("[LEFT]: disabled.");
-        document.getElementById("leftControl").classList.add('disabled');
-        break;
-      case "rightControl":
-        console.log("[RIGHT]: disabled.");
-        document.getElementById("rightControl").classList.add('disabled');
-        break;
-      case "backwardControl":
-        console.log("[BACKWARD]: disabled.");
-        document.getElementById("backwardControl").classList.add('disabled');
-        break;
-      case "itemControl":
-        console.log("[ITEM]: disabled.");
-        document.getElementById("itemControl").classList.add('disabled');
-        break;
-      case "inspectControl":
-        console.log("[INSPECT]: disabled.");
-        document.getElementById("inspectControl").classList.add('disabled');
-        break;
-      case "helpControl":
-        console.log("[HELP]: disabled.");
-        document.getElementById("helpControl").classList.add('disabled');
-        break;
-      case "nextControl":
-        console.log("[NEXT]: disabled.");
-        document.getElementById("nextControl").classList.add('disabled');
-        break;
-    }
-  }
-}
-let enableButtons = (buttons) => {
-  //A function for disabling buttons and adding the CSS styling to show they're disabled. Pass Arrays
-
-  for(i=0;i<buttons.length;i++){
-    
-    switch (buttons[i]){
-      case "defendControl":
-        //console.log("[DEFEND]: enabled!");
-        document.getElementById("defendControl").classList.remove('disabled');
-        break;
-      case "forwardControl":
-        //console.log("[FORWARD]: enabled!");
-        document.getElementById("forwardControl").classList.remove('disabled');
-        break;
-      case "attackControl":
-        //console.log("[ATTACK]: enabled!");
-        document.getElementById("attackControl").classList.remove('disabled');
-        break;
-      case "leftControl":
-        //console.log("[LEFT]: enabled!");
-        document.getElementById("leftControl").classList.remove('disabled');
-        break;
-      case "rightControl":
-        //console.log("[RIGHT]: enabled!");
-        document.getElementById("rightControl").classList.remove('disabled');
-        break;
-      case "backwardControl":
-        //console.log("[BACKWARD]: enabled!");
-        document.getElementById("backwardControl").classList.remove('disabled');
-        break;
-      case "itemControl":
-        //console.log("[ITEM]: enabled!");
-        document.getElementById("itemControl").classList.remove('disabled');
-        break;
-      case "inspectControl":
-        //console.log("[INSPECT]: enabled!");
-        document.getElementById("inspectControl").classList.remove('disabled');
-        break;
-      case "helpControl":
-        //console.log("[HELP]: enabled!");
-        document.getElementById("helpControl").classList.remove('disabled');
-        break;
-      case "nextControl":
-        //console.log("[NEXT]: enabled!");
-        document.getElementById("nextControl").classList.remove('disabled');
-        break;
-    }
-  }
-}
-//For game start
-let resetUI = () => {
-  //console.log("RESETTING UI + I/O");
-
-  enableButtons([
-    "defendControl", 
-    "attackControl", 
-    "forwardControl", 
-    "rightControl", 
-    "backwardControl", 
-    "leftControl", 
-    "itemControl", 
-    "inspectControl", 
-    "helpControl", 
-    "nextControl"
-  ]);
-  setTheseInputsAsValid([
-    "defendControl", 
-    "attackControl", 
-    "forwardControl", 
-    "rightControl", 
-    "backwardControl", 
-    "leftControl", 
-    "itemControl", 
-    "inspectControl", 
-    "helpControl", 
-    "nextControl"
-  ]);
-}
-
-let setTheseInputsAsValid = (buttons) => {
-  //This is where you pass the inputs that you want to be acceptable. Pass Arrays
-  //reset the array!!
-  validInputs = [];
-
-  for(i=0;i<buttons.length;i++){
-    validInputs.push(buttons[i]);
-    
-  }
-  //console.log("setTheseInputsAsValid: "+validInputs);
-
-}
-
-//Make Sure to ADD references when stats are added later! This just grabs the latest stat and updates it!!
-let updateStatMenu = () => {
-  $("#statPlayerName").text(player.playerName);
-  $("#statPlayerHealth").text(player.playerHealth);
-  $("#statPlayerAgility").text(player.playerAgility);
-  $("#statPlayerAttack").text(player.playerATK);
-  $("#statPlayerDefense").text(player.playerDEF);
-  $("#statPlayerStrength").text(player.playerStrength);
-  $("#statPlayerBalance").text(player.playerBalance);
-  $("#statPlayerDexterity").text(player.playerDexterity);
-}
-
-//==========================================================
-
-
-
-
 //**********************************************************
 //==================== BUTTON LISTENERS ====================
 //For hooking up the control buttons and checking if legal.
@@ -473,16 +334,106 @@ let updateStatMenu = () => {
 
 
 
+//**********************************************************
+//============ MENU FUNCTIONS & UI MANIPULATION ============
+
+let ResetUI = () => {
+  EXP2.textContent = "";
+  EXP1.textContent = "";
+  EXP3.textContent = "";
+  EXP4.textContent = "";
+  EXP5.textContent = "";
+  EXP6.textContent = "";
+  EXP7.textContent = "";
+  EXP8.textContent = "";
+  EXP9.textContent = "";
+  EXP10.textContent = "";
+  EXP11.textContent = "";
+  EXP12.textContent = "";
+};
+
+//The way to group multiple object.text into a single array to be passed for output.
+let packageForConsole = (thingsToPackage) => {
+  let package = [...thingsToPackage];
+  console.log(" Packaged Exposition: " + package);
+  return package;
+};
+
+//The function that reads the package of text and outputs to the console only.
+let outputToConsole = (package) => {
+  let idString = "exp";
+  let packageLength = package.length;
+
+  ResetUI();
+
+  //iterate through the package to print the text.
+  //Can't use the stored references here, need to plug in the ID instead.
+  for (i=0; i<packageLength; i++){
+    idString = "exp";
+    idString += i+1;
+    console.log(idString);
+    document.getElementById(idString).textContent = package[i];
+  }
+};
+
+//==========================================================
+
+
+
+
+//**********************************************************
+//===================== GAME COMPONENTS ====================
+
+
+//==========================================================
+
+
+
+
 
 //**********************************************************
 //===================== CORE GAME LOOP =====================
+let mistressOfTurns = () => {
+  console.log("\n \n \n");
+  console.log("===== ===== =====");
+  console.log(" TURN: " + gameClock);
 
+  if(gameClock == 0){
+    let openingPackage = packageForConsole([
+      expositionLibrary.intro.exp1,
+      expositionLibrary.intro.exp2,
+      expositionLibrary.intro.exp3
+    ]);
+
+    outputToConsole(openingPackage);
+  }
+}
 //==========================================================
 
 
 
 //**********************************************************
 // ============== INITIALIZATION FUNCTIONS =================
-attachBurgerMenus();
-attachSettingsPanel();
-updateStatMenu();
+
+let gamePipeline = () => {
+  //Attach all of the Menus
+  attachBurgerMenus();
+  attachSettingsPanel();
+
+  //Attach Control Buttons
+
+  //ResetUI - Control buttons
+
+  //UpdateTheStatMenu
+
+  //Run Intro Sequence
+
+  //Initialize PlayerLocation
+
+  //Pass off the game to MOT.
+  mistressOfTurns();
+}
+
+//+_+_+_++_+_+_+_+_+_+_+_+_+_++_+_+_+_+_++_+_+_+_+_+_+_+_+_+_++_
+//turn "0" => start the game.
+gamePipeline();
