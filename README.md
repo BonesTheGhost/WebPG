@@ -86,6 +86,10 @@ August 30th, 2020:
 September 5th, 2020:
 - Copied over some of the control variables and global variables.
 - Re-worked many of the previous arrays into objects instead for greater flexibility and organization.
+- Added a 'packaging' function to the UI modules section.
+- Added an 'outputToConsole' function that iterates through said package and displays the contents to the console area.
+- Added a 'resetUI' function that clears the function easily.
+- In an effort to reduce the number of explicit ID references I stored the console lines in variables for later access.
 ======================================================================
 
 
