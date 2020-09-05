@@ -82,6 +82,10 @@ August 30th, 2020:
 - Added in the settings panel.
 - Added close windows behind the panel menus that allow for the menus to be closed by simply tapping outside the menu areas.
 - Added polish to the buttons for desktop sized displays.
+
+September 5th, 2020:
+- Copied over some of the control variables and global variables.
+- Re-worked many of the previous arrays into objects instead for greater flexibility and organization.
 ======================================================================
 
 
@@ -107,4 +111,5 @@ August 30th, 2020:
 [0]: Research how to specifically target Android MOBILE devices to try and have same mobile experience acroos operating systems.
 [X]: Need to add the hamburger menu functionality to the app before finalizing any more of the layout.
 [ ]: Font-size for mobile version.
+[ ]: Need to streamline the output to console functions so that printing out the necessary text components is MUCH easier. This way I can focus on creating the game world instead of noodling around with the logic.
 ==================================================================================
