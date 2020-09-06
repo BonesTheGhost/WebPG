@@ -94,6 +94,11 @@ September 5th, 2020:
 - Added in the functionality to disable/enable ALL buttons at once.
 - Re-added the button styling for disabled buttons to be greyed out.
 - Designed a new getPlayerLocation() function.
+
+September 6th, 2020:
+- Added opening disclaimer.
+- Successfully got the 'surroundings' section to update properly.
+- Modified 'choice' output to simply use the 'legalChoices' array within playerOWC keys.
 ======================================================================
 
 
