@@ -116,14 +116,14 @@ let CHOICE4 = document.getElementById('choice4');
 //GAME CLOCK
 // Days and Nights are in increments of 10.
 // Weather is rolled for in increments of 10, but chances are reduced by a certain randomness.
-let gameClock = 0;
-let previousClockState = -1;
+let gameClock = -1;
+let previousClockState = -2;
 
 let windClock = -1;
-let previousWindClockState = -1;
+let previousWindClockState = -2;
 
 let weatherClock = -1;
-let previousWeatherClockState = -1;
+let previousWeatherClockState = -2;
 
 let numberOfDays = 0;
 let numberOfNights = 0;
@@ -178,7 +178,7 @@ let currentWind = 0;
 let dayNight = "Day";
 
 //mistressOfTurns() Branch Checks
-let gameModeCheck = "overworld";
+let gameModeCheck = "initialization";
 let canMove = true;
 let canUseItem = true;
 let canInspect = false;
@@ -309,11 +309,7 @@ let weatherLibrary = {
   },
 };
 
-//Put all of the exposition for each weather condition in this library
-// as well as the specific exposition for that terrain+weather combo.
-let weatherExpositionLibrary = {
-  //Add terrain first!
-};
+
 
 //==========================================================
 
@@ -340,16 +336,24 @@ let expositionLibrary = {
     exp3: "There WILL be bugs and weird things going on! I appreciate your patience and hope that regardless, you find something to enjoy about this concept!",
     exp4: "The readme of the master branch in github is updated regularly to reflect development history and things I will work on next."
   },
-  intro: {
-    exp1: "You are in service to the great kingdom of Teku.",
-    exp2: "The Queen has charged you with the recovery of a stone tablet, rumored to hold ancient knowledge.",
-    exp3: "With this in mind, you set out to honor the Queen's wishes."
+  travelChoice: {
+    exp1: "You have chosen to travel."
   },
-  characterFlavor: {
-    exp1: "You are a pitiful squire, with dreams of becoming a brave warrior.",
-    exp2: "You are an aspiring magus, hoping to harness the powers beyond the pale.",
-    exp3: "You are a cunning blade. You pray that your success will exonerate you from past... mistakes."
-  }
+  surveyChoice: {
+    exp1: "You have chosen to Survey The Land around you."
+  },
+  campChoice: {
+    exp1: "You have chosen to Make Camp where you are."
+  },
+  itemChoice: {
+    exp1: "You have chosen to Survey The Land around you."
+  },
+};
+
+//Put all of the exposition for each weather condition in this library
+// as well as the specific exposition for that terrain+weather combo.
+let weatherExpositionLibrary = {
+  //Add terrain first!
 };
 
 //Combat Specific Exposition, Transitions will be handled by the map tile,
@@ -455,6 +459,7 @@ function onClickLogic(event) {
   //DEFEND BUTTON
   document.getElementById("defendButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     grabID(this.id + "clicked");
     mistressOfTurns("defendButton");
   };
@@ -462,6 +467,7 @@ function onClickLogic(event) {
   //FORWARD BUTTON
   document.getElementById("northButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     console.log("forwardControl Clicked");
     mistressOfTurns("northButton");
   };
@@ -469,6 +475,7 @@ function onClickLogic(event) {
   //ATTACK BUTTON
   document.getElementById("attackButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     grabID(this.id + " clicked");
     mistressOfTurns("attackButton");
   };
@@ -476,6 +483,7 @@ function onClickLogic(event) {
   //LEFT BUTTON
   document.getElementById("westButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     grabID(this.id + " clicked");
     mistressOfTurns("westButton");
   };
@@ -483,6 +491,7 @@ function onClickLogic(event) {
   //RIGHT BUTTON
   document.getElementById("eastButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     grabID(this.id + " clicked");
     mistressOfTurns("eastButton");
   };
@@ -490,6 +499,7 @@ function onClickLogic(event) {
   //BACKWARD BUTTON
   document.getElementById("southButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     grabID(this.id + " clicked");
     mistressOfTurns("southButton");
   };
@@ -497,6 +507,7 @@ function onClickLogic(event) {
   //ITEM BUTTON
   document.getElementById("itemButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     grabID(this.id + " clicked");
     mistressOfTurns("itemButton");
   };
@@ -504,6 +515,7 @@ function onClickLogic(event) {
   //INSPECT BUTTON
   document.getElementById("inspectButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     grabID(this.id + " clicked");
     mistressOfTurns("inspectButton");
   };
@@ -511,6 +523,7 @@ function onClickLogic(event) {
   //HELP BUTTON
   document.getElementById("helpButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     grabID(this.id + " clicked");
     mistressOfTurns("helpButton");
   };
@@ -518,6 +531,7 @@ function onClickLogic(event) {
   //NEXT BUTTON
   document.getElementById("nextButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     grabID(this.id + " clicked");
     mistressOfTurns("nextButton");
   };
@@ -525,6 +539,7 @@ function onClickLogic(event) {
   //NEXT BUTTON
   document.getElementById("fleeButton").onclick = function() {
     console.log("\n \n \n");
+    console.log("===== ===== =====");
     grabID(this.id + " clicked");
     mistressOfTurns("fleeButton");
   };
@@ -762,7 +777,7 @@ let packageForConsole = (thingsToPackage) => {
   return package;
 };
 
-//The function that reads the package of text and outputs to the console only.
+//The function that reads the ARRAY of text and outputs to the console only.
 let outputToConsole = (package) => {
   let idString = "exp";
   let packageLength = package.length;
@@ -819,7 +834,7 @@ let outputToAbout = () => {
   ABOUT1.textContent = "Player Position: (X: "+playerX+" / Y: "+playerY+")"; 
   ABOUT2.textContent = "Current Location: "+areaLibrary[playerCurrentTileKey].name;
   ABOUT3.textContent = "Activity: "+playerCurrentActivity;
-  ABOUT4.textContent = "Conditions: "+dayNight+", "+currentWeather+", "+currentWind+"mph Wind, "+currentTemp+"* (F)";
+  ABOUT4.textContent = "Conditions: "+dayNight+", "+currentWeather+", "+currentWind+"mph Wind";
 };
 
 //==========================================================
@@ -856,10 +871,55 @@ let getPlayerLocation = () => {
   
 };
 
+//Grabs the STANDARD scene, dayNight, threat, and RETURNS it in an ARRAY.
+let packageAreaExposition = () => {
+  let areaPackage = [];
+  let scene = areaLibrary[playerCurrentTileKey].sceneEXP1;
+  let time = "";
+  
+  if(dayNight == "Day"){
+    time = areaLibrary[playerCurrentTileKey].effDayEXP;
+  } else if (dayNight == "Night") {
+    time = areaLibrary[playerCurrentTileKey].effNightEXP;
+  } else {
+    outputToConsole(["ERROR occured in packageAreaExposition for dayNight selection."]);
+  }
+
+  let threat = areaLibrary[playerCurrentTileKey].threatEXP;
+
+  areaPackage.push(scene,time,threat);
+  return areaPackage;
+};
+
 //Gives the player the standard overworld choices and legal button inputs.
 let presentMapChoices = () => {
   enabledAndValid(playerOWC.map.legalChoices);
   outputToChoices(playerOWC.map, 4);
+};
+
+//Gives the player the standard travel choices and legal inputs.
+let presentTravelChoices = () => {
+  enabledAndValid(playerOWC.travel.legalChoices);
+  outputToChoices(playerOWC.travel, 4);
+};
+
+//Gives the player the standard item use choices and inputs.
+let presentItemChoices = () => {
+
+};
+
+let nextToMap = () => {
+  enabledAndValid(playerOWC.nextToMap.legalChoices);
+};
+
+//Gives the player the standard inspection choices and inputs.
+let presentInspectChoices = () => {
+  enabledAndValid(playerOWC.startInspect.legalChoices);
+  outputToChoices(playerOWC.startInspect, 1);
+};
+let presentInspectFinish = () => {
+  enabledAndValid(playerOWC.finishInspect.legalChoices);
+  outputToChoices(playerOWC.finishInspect, 1);
 };
 
 //This calculates the wind within a range for the tile the player is on.
@@ -872,14 +932,13 @@ let rollForChangeOfWind = () => {
   //Calculate the current wind condition for the tile.
   let windThreshold = areaLibrary[playerCurrentTileKey].threatLevel;
   let windSpeed = 0;
-  console.log("windClock: "+ windClock);
   //console.log('Threat Level of '+playerCurrentTileKey+":: "+windThreshold);
 
   switch(windClock){
     default:
-      console.log("The windClock has not progressed far enough to change the wind: "+windClock);
+      console.log("The windClock has not progressed far enough to change the wind(7): "+windClock);
       break;
-    case 0:
+    case -1:
       console.log("Initial Wind Roll");
       windSpeed = rollWindSpeed(windThreshold);
       currentWind = windSpeed;
@@ -890,6 +949,9 @@ let rollForChangeOfWind = () => {
       windClock = 1
       currentWind = windSpeed;
       break;
+  }
+  if(windClock > 7){
+    windClock = 1;
   }
 };
 
@@ -911,8 +973,11 @@ let rollWindSpeed = (windThreshold) => {
   return windSpeed;
 };
 
+//The aggregate weather calculator.
 let calculateConditions = () => {
-  
+  rollForChangeOfWind();
+  let areaPackage = packageAreaExposition();
+  outputToConsole(areaPackage);
 };
 
 //==========================================================
@@ -947,12 +1012,11 @@ let updateGameClocks = () => {
 //**********************************************************
 //**********************************************************
 let mistressOfTurns = (playerInput) => {
-  console.log("\n \n \n");
-  console.log("===== ===== =====");
+  console.log("\n");
   console.log(" TURN: " + gameClock);
 
-  //Initial Turn 0
-  if(gameClock == 0){
+  //Initial Disclaimer.
+  if(gameClock == -1){
     let disclaimerPackage = packageForConsole([
       expositionLibrary.disclaimer.exp1,
       expositionLibrary.disclaimer.exp2,
@@ -960,27 +1024,116 @@ let mistressOfTurns = (playerInput) => {
       expositionLibrary.disclaimer.exp4,
     ]);
     outputToConsole(disclaimerPackage);
-
-    enabledAndValid([
-        "nextButton"
-      ]);
+    enabledAndValid(["nextButton"]);
     outputToChoices(playerOWC.nextFromOpening, 1);
-    gameModeCheck = "overworld";
-    
+    gameModeCheck = "setup";
     updateGameClocks();
-  } else if(validInputs.includes(playerInput) && (gameClock > previousClockState))
-  {
+    return;
+  }
+
+
+  if(validInputs.includes(playerInput) && (gameClock > previousClockState)){
+
+
+
     //The MASTER Switch Statement
     switch (gameModeCheck){
       default:
         console.log("[X]: FATAL ERROR IN gameModeCheck! MoT.");
-      case "overworld":
+      case "setup":
         //Explain the players starting conditions. Maybe a random starting location from a list of locations?
-        outputToConsole(["Testing For Wind"]);
+        outputToConsole(["We are in setup."]);
         getPlayerLocation();
-        rollForChangeOfWind();
-        presentMapChoices();
+        calculateConditions();
         outputToAbout();
+        presentMapChoices();
+        gameModeCheck = "overworldChoices";
+        updateGameClocks();
+        return;
+      case "overworld":
+        outputToConsole(["We are in overworld"]);
+        getPlayerLocation();
+        calculateConditions();
+        outputToAbout();
+        presentMapChoices();
+
+        gameModeCheck = "overworldChoices";
+        updateGameClocks();
+        return;
+
+
+      case "overworldChoices":
+        outputToConsole(["We are in OVERWORLD CHOICES"]);
+        //The Switch Gate for TRAVEL, CAMP, INSPECT, or ITEM/ABILITY
+          switch(playerInput){
+            default:
+              outputToConsole(["There was an error in OverWorld switch."]);
+              break;
+            case "northButton":
+              //Player has chosen to TRAVEL
+              presentTravelChoices();
+              outputToConsole([expositionLibrary.travelChoice.exp1]);
+              gameModeCheck = "travel";
+              updateGameClocks();
+              return;
+            case "eastButton":
+              //Player has chosen to SURVEY
+              
+              outputToConsole([expositionLibrary.surveyChoice.exp1]);
+              gameModeCheck = "survey";
+              updateGameClocks();
+              return;
+            case "southButton":
+              //Player has chosen to CAMP
+              
+              outputToConsole([expositionLibrary.campChoice.exp1]);
+              gameModeCheck = "camp";
+              updateGameClocks();
+              return;
+            case "itemButton":
+              //Player has chosen to USE SOMETHING
+              
+              outputToConsole([expositionLibrary.itemChoice.exp1]);
+              gameModeCheck = "item";
+              updateGameClocks();
+              return;
+          }
+      case "travel":
+        outputToConsole(["We are in travel"]);
+        //The Switch Gate for TRAVEL, CAMP, INSPECT, or ITEM/ABILITY
+          switch(playerInput){
+            default:
+              outputToConsole(["There was an error in OverWorld switch."]);
+              break;
+            case "northButton":
+              //Player has chosen to TRAVEL
+              outputToConsole(["You Went North"]);
+              nextToMap();
+              gameModeCheck = "overworld";
+              updateGameClocks();
+              return;
+            case "eastButton":
+              //Player has chosen to TRAVEL
+              outputToConsole(["You Went East"]);
+              nextToMap();
+              gameModeCheck = "overworld";
+              updateGameClocks();
+              return;
+            case "southButton":
+              //Player has chosen to TRAVEL
+              outputToConsole(["You Went South"]);
+              nextToMap();
+              gameModeCheck = "overworld";
+              updateGameClocks();
+              return;
+            case "westButton":
+              //Player has chosen to TRAVEL
+              outputToConsole(["You Went West"]);
+              nextToMap();
+              gameModeCheck = "overworld";
+              updateGameClocks();
+              return;
+          }
     }
   }
 }
