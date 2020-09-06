@@ -77,6 +77,31 @@ let EXP9 = document.getElementById("exp9");
 let EXP10 = document.getElementById("exp10");
 let EXP11 = document.getElementById("exp11");
 let EXP12 = document.getElementById("exp12");
+
+//ABOUT LINES:
+let ABOUT0 = document.getElementById('about0');
+let ABOUT1 = document.getElementById('about1');
+let ABOUT2 = document.getElementById('about2');
+let ABOUT3 = document.getElementById('about3');
+let ABOUT4 = document.getElementById('about4');
+
+//CHOICES LINES:
+let COM0 = document.getElementById('com0');
+let COM1 = document.getElementById('com1');
+let COM2 = document.getElementById('com2');
+let COM3 = document.getElementById('com3');
+let COM4 = document.getElementById('com4');
+//Actual input icons
+let INPUT1 = document.getElementById('input1');
+let INPUT2 = document.getElementById('input2');
+let INPUT3 = document.getElementById('input3');
+let INPUT4 = document.getElementById('input4');
+//Choice flavors
+let CHOICE1 = document.getElementById('choice1');
+let CHOICE2 = document.getElementById('choice2');
+let CHOICE3 = document.getElementById('choice3');
+let CHOICE4 = document.getElementById('choice4');
+
 //==========================================================
 
 
@@ -312,6 +337,13 @@ let playerOWC = {
     flavorIcons: ["fa"],
     choice1: "Click 'NEXT' to continue..."
   },
+  nextFromOpening: {
+    name: "Game Start!",
+    legalChoices: ["nextControl"],
+    choiceIcons: ["fa-angle-double-right"],
+    flavorIcons: ["fa-map"],
+    choice1: "Click 'NEXT' to continue..."
+  },
   toBattle: {
     name: "To Battle!",
     legalChoices: ["attackControl","defendControl","itemControl"],
@@ -445,47 +477,47 @@ let disableButtons = (buttons) => {
     
     switch (buttons[i]){
       case "defendButton":
-        console.log("[DEFEND]: disabled.");
+        //console.log("[DEFEND]: disabled.");
         document.getElementById("defendButton").classList.add('disabled');
         break;
       case "northButton":
-        console.log("[FORWARD]: disabled.");
+        //console.log("[FORWARD]: disabled.");
         document.getElementById("northButton").classList.add('disabled');
         break;
       case "attackButton":
-        console.log("[ATTACK]: disabled.");
+        //console.log("[ATTACK]: disabled.");
         document.getElementById("attackButton").classList.add('disabled');
         break;
       case "westButton":
-        console.log("[LEFT]: disabled.");
+        //console.log("[LEFT]: disabled.");
         document.getElementById("westButton").classList.add('disabled');
         break;
       case "eastButton":
-        console.log("[RIGHT]: disabled.");
+        //console.log("[RIGHT]: disabled.");
         document.getElementById("eastButton").classList.add('disabled');
         break;
       case "southButton":
-        console.log("[BACKWARD]: disabled.");
+        //console.log("[BACKWARD]: disabled.");
         document.getElementById("southButton").classList.add('disabled');
         break;
       case "itemButton":
-        console.log("[ITEM]: disabled.");
+        //console.log("[ITEM]: disabled.");
         document.getElementById("itemButton").classList.add('disabled');
         break;
       case "inspectButton":
-        console.log("[INSPECT]: disabled.");
+        //console.log("[INSPECT]: disabled.");
         document.getElementById("inspectButton").classList.add('disabled');
         break;
       case "helpButton":
-        console.log("[HELP]: disabled.");
+        //console.log("[HELP]: disabled.");
         document.getElementById("helpButton").classList.add('disabled');
         break;
       case "nextButton":
-        console.log("[NEXT]: disabled.");
+        //console.log("[NEXT]: disabled.");
         document.getElementById("nextButton").classList.add('disabled');
         break;
       case "fleeButton":
-        console.log("[FLEE]: disabled.");
+        //console.log("[FLEE]: disabled.");
         document.getElementById("fleeButton").classList.add('disabled');
         break;
     }
@@ -497,45 +529,45 @@ let enableButtons = (buttons) => {
   for(i=0;i<buttons.length;i++){
     
     switch (buttons[i]){
-      case "defendControl":
+      case "defendButton":
         //console.log("[DEFEND]: enabled!");
-        document.getElementById("defendControl").classList.remove('disabled');
+        document.getElementById("defendButton").classList.remove('disabled');
         break;
-      case "forwardControl":
+      case "northButton":
         //console.log("[FORWARD]: enabled!");
-        document.getElementById("forwardControl").classList.remove('disabled');
+        document.getElementById("northButton").classList.remove('disabled');
         break;
-      case "attackControl":
+      case "attackButton":
         //console.log("[ATTACK]: enabled!");
-        document.getElementById("attackControl").classList.remove('disabled');
+        document.getElementById("attackButton").classList.remove('disabled');
         break;
-      case "leftControl":
+      case "westButton":
         //console.log("[LEFT]: enabled!");
-        document.getElementById("leftControl").classList.remove('disabled');
+        document.getElementById("westButton").classList.remove('disabled');
         break;
-      case "rightControl":
+      case "eastButton":
         //console.log("[RIGHT]: enabled!");
-        document.getElementById("rightControl").classList.remove('disabled');
+        document.getElementById("eastButton").classList.remove('disabled');
         break;
-      case "backwardControl":
+      case "southButton":
         //console.log("[BACKWARD]: enabled!");
-        document.getElementById("backwardControl").classList.remove('disabled');
+        document.getElementById("southButton").classList.remove('disabled');
         break;
-      case "itemControl":
+      case "itemButton":
         //console.log("[ITEM]: enabled!");
-        document.getElementById("itemControl").classList.remove('disabled');
+        document.getElementById("itemButton").classList.remove('disabled');
         break;
-      case "inspectControl":
+      case "inspectButton":
         //console.log("[INSPECT]: enabled!");
-        document.getElementById("inspectControl").classList.remove('disabled');
+        document.getElementById("inspectButton").classList.remove('disabled');
         break;
-      case "helpControl":
+      case "helpButton":
         //console.log("[HELP]: enabled!");
-        document.getElementById("helpControl").classList.remove('disabled');
+        document.getElementById("helpButton").classList.remove('disabled');
         break;
-      case "nextControl":
+      case "nextButton":
         //console.log("[NEXT]: enabled!");
-        document.getElementById("nextControl").classList.remove('disabled');
+        document.getElementById("nextButton").classList.remove('disabled');
         break;
     }
   }
@@ -593,8 +625,17 @@ let setTheseInputsAsValid = (buttons) => {
 
 }
 
+//Simply Pass what you want enabled and set as valid.
+let enabledAndValid = (buttons) => {
+  console.log("Enabling And Setting to Valid: " + buttons);
+  disableAllButtons();
+  enableButtons(buttons);
+  setTheseInputsAsValid(buttons);
+};
+
 //Rests the text CONSOLE UI
 let ResetUI = () => {
+  console.log("*Resetting Console.");
   EXP2.textContent = "";
   EXP1.textContent = "";
   EXP3.textContent = "";
@@ -608,6 +649,17 @@ let ResetUI = () => {
   EXP11.textContent = "";
   EXP12.textContent = "";
 };
+
+let ResetChoices = () => {
+  console.log("*Resetting Choices.");
+  COM1.textContent = "";
+  COM2.textContent = "";
+  COM3.textContent = "";
+  COM4.textContent = "";
+};
+
+
+
 
 //For dropping an error on the console window quickly
 let outputErrorToGame = () => {
@@ -638,6 +690,40 @@ let outputToConsole = (package) => {
     console.log(idString);
     document.getElementById(idString).textContent = package[i];
   }
+};
+
+
+
+//YOU have to manually tell the choices the number of Choices there are
+// UP TO 4 since a NAME is ALWAYS ASSUMED!!!
+let outputToChoices = (choicesObject, numberOfItemsToDisplay) => {
+
+  switch (numberOfItemsToDisplay){
+    default:
+      console.log("ERROR in outputToChoices() length switch.")
+    case 1:
+      COM0.textContent = choicesObject.name;
+      COM1.textContent = choicesObject.choice1;
+    case 2:
+      COM0.textContent = choicesObject.name;
+      COM1.textContent = choicesObject.choice1;
+      COM2.textContent = choicesObject.choice2;
+    case 3:
+      COM0.textContent = choicesObject.name;
+      COM1.textContent = choicesObject.choice1;
+      COM2.textContent = choicesObject.choice2;
+      COM3.textContent = choicesObject.choice3;
+    case 4:
+      COM0.textContent = choicesObject.name;
+      COM1.textContent = choicesObject.choice1;
+      COM2.textContent = choicesObject.choice2;
+      COM3.textContent = choicesObject.choice3;
+      COM4.textContent = choicesObject.choice4;
+  }
+};
+
+let outputToAbout = () => {
+
 };
 
 //==========================================================
@@ -671,7 +757,12 @@ let mistressOfTurns = () => {
 
     outputToConsole(openingPackage);
 
-    disableAllButtons();
+    enabledAndValid([
+        "nextButton"
+      ]);
+
+    ResetChoices();
+    outputToChoices(playerOWC.nextFromOpening, 1);
   }
 }
 //==========================================================

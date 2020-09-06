@@ -255,6 +255,15 @@ html{
     "consoleContainer playerChoices"
     "controlContainer controlContainer";
   }
+  .consoleContainer{
+    grid-area: consoleContainer;
+    background-color: lightgreen;
+  
+    padding: auto;
+    overflow-y: scroll;
+
+    font-size: 2rem;
+  }
 }
 
 /* #### Desktops #### */
