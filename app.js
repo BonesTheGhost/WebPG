@@ -138,6 +138,7 @@ let playerCurrentTileChar = "";
 let playerCurrentTileKey = ""
 let inTown = false;
 let inDungeon = false;
+let playerCurrentActivity = "Standing";
 
 //Player Stats
 player = {
@@ -157,6 +158,9 @@ player = {
 
 //WEATHER & ENVIRONMENT - Survey The land?
 let currentVisibility = 5;
+let currentWeather = "Clear";
+let currentTemp = 70;
+let currentWind = 0;
 
 //mistressOfTurns() Branch Checks
 let gameModeCheck = "overworld";
@@ -169,9 +173,6 @@ let validInputs = [];
 let globalInputs = [
   "defendButton", 
   "attackButton", 
-  "northButton", 
-  "eastButton", 
-  "southButton", 
   "westButton", 
   "itemButton", 
   "inspectButton", 
@@ -265,6 +266,12 @@ let expositionLibrary = {
   error: {
     exp1: "The game encountered an unplanned state."
   },
+  disclaimer: {
+    exp1: "Welcome to the test version of WebPG (I know, the name needs work!).",
+    exp2: "It is currently recommended to play the game on a laptop or desktop. Mobile phones and tablets will be corrected for at a much later time.",
+    exp3: "There WILL be bugs and weird things going on! I appreciate your patience and hope that regardless, you find something to enjoy about this concept!",
+    exp4: "The readme of the master branch in github is updated regularly to reflect development history and things I will work on next."
+  },
   intro: {
     exp1: "You are in service to the great kingdom of Teku.",
     exp2: "The Queen has charged you with the recovery of a stone tablet, rumored to hold ancient knowledge.",
@@ -292,7 +299,7 @@ let combatExposition = {
 let playerOWC = {
   map: {
     name: "Map - What will you do?",
-    legalChoices: ["forwardControl","rightControl","backwardControl","itemControl","inspectControl"],
+    legalChoices: ["northButton","eastButton","southButton","itemButton","inspectButton"],
     choiceIcons: ["fa-caret-up","fa-caret-right","fa-caret-down","fa-flask"],
     flavorIcons: ["fa-hiking","fa-binoculars","fa-fire-alt","fa-drumstick-bite"],
     choice1: "Travel.",
@@ -302,7 +309,7 @@ let playerOWC = {
   },
   travel: {
     name: "Adventuring - Which way would you like to go?",
-    legalChoices: ["forwardControl","rightControl","backwardControl","leftControl"],
+    legalChoices: ["northButton","eastButton","southButton","westButton"],
     choiceIcons: ["fa-caret-up","fa-caret-right","fa-caret-down","fa-caret-left"],
     flavorIcons: ["fa-compass","fa-compass","fa-compass","fa-compass"],
     choice1: "Travel North",
@@ -312,49 +319,49 @@ let playerOWC = {
   },
  startInspect: {
     name: "What would you like to examine?",
-    legalChoices: ["northControl"],
+    legalChoices: ["northButton"],
     choiceIcons: [""],
     flavorIcons: [""],
     choice1: "Check an item."
   },
   finishInspect: {
     name: "Finished inspecting...",
-    legalChoices: ["nextControl"],
+    legalChoices: ["nextButton"],
     choiceIcons: [""],
     flavorIcons: [""],
     choice1: "Click 'NEXT' to continue..."
   },
   attemptSleep: {
     name: "You attempt to sleep.",
-    legalChoices: ["nextControl"],
+    legalChoices: ["nextButton"],
     choiceIcons: ["fa-angle-double-right"],
     flavorIcons: ["fa-map"],
     choice1: "Click 'NEXT' to continue..."
   },
   nextToMap: {
     name: "",
-    legalChoices: ["nextControl"],
+    legalChoices: ["nextButton"],
     choiceIcons: ["fa-angle-double-right"],
     flavorIcons: ["fa-map"],
     choice1: "Click 'NEXT' to continue..."
   },
   blankNext: {
     name: "",
-    legalChoices: ["nextControl"],
+    legalChoices: ["nextButton"],
     choiceIcons: ["fa-angle-double-right"],
     flavorIcons: ["fa"],
     choice1: "Click 'NEXT' to continue..."
   },
   nextFromOpening: {
     name: "Game Start!",
-    legalChoices: ["nextControl"],
+    legalChoices: ["nextButton"],
     choiceIcons: ["fa-angle-double-right"],
     flavorIcons: ["fa-map"],
     choice1: "Click 'NEXT' to continue..."
   },
   toBattle: {
     name: "To Battle!",
-    legalChoices: ["attackControl","defendControl","itemControl"],
+    legalChoices: ["attackButton","defendButton","itemButton"],
     choiceIcons: ["fa-skull","fa-shield-alt","fa-flask"],
     flavorIcons: ["fa-gavel","fa-times-circle","fa-drumstick-bite"],
     choice1: "Attack the Enemy!",
@@ -633,7 +640,7 @@ let setTheseInputsAsValid = (buttons) => {
 
 }
 
-//Simply Pass what you want enabled and set as valid.
+//Simply Pass AN ARRAY what you want enabled and set as valid.
 let enabledAndValid = (buttons) => {
   console.log("Enabling And Setting to Valid: " + buttons);
   disableAllButtons();
@@ -736,11 +743,12 @@ let outputToChoices = (choicesObject, numberOfItemsToDisplay) => {
 
 //Used later on when the game starts functioning more fully.
 let outputToAbout = () => {
-  ABOUT0.textContent = "N/a";
-  ABOUT1.textContent = "N/a"; 
-  ABOUT2.textContent = "N/a";
-  ABOUT3.textContent = "N/a";
-  ABOUT4.textContent = "N/a";
+  //Don't Touch The Title
+  //ABOUT0.textContent = "N/a";
+  ABOUT1.textContent = "Player Position: (X: "+playerX+" / Y: "+playerY+")"; 
+  ABOUT2.textContent = "Current Location: "+areaLibrary[playerCurrentTileKey].name;
+  ABOUT3.textContent = "Activity: "+playerCurrentActivity;
+  ABOUT4.textContent = "Conditions: "+currentWeather+", "+currentWind+"mph Wind, "+currentTemp+"* (F)";
 };
 
 //==========================================================
@@ -777,6 +785,11 @@ let getPlayerLocation = () => {
   
 };
 
+let presentMapChoices = () => {
+  enabledAndValid(playerOWC.map.legalChoices);
+  outputToChoices(playerOWC.map, 4);
+};
+
 //==========================================================
 
 
@@ -806,12 +819,13 @@ let mistressOfTurns = (playerInput) => {
 
   //Initial Turn 0
   if(gameClock == 0){
-    let openingPackage = packageForConsole([
-      expositionLibrary.intro.exp1,
-      expositionLibrary.intro.exp2,
-      expositionLibrary.intro.exp3
+    let disclaimerPackage = packageForConsole([
+      expositionLibrary.disclaimer.exp1,
+      expositionLibrary.disclaimer.exp2,
+      expositionLibrary.disclaimer.exp3,
+      expositionLibrary.disclaimer.exp4,
     ]);
-    outputToConsole(openingPackage);
+    outputToConsole(disclaimerPackage);
 
     enabledAndValid([
         "nextButton"
@@ -829,6 +843,8 @@ let mistressOfTurns = (playerInput) => {
         //Explain the players starting conditions. Maybe a random starting location from a list of locations?
         outputToConsole(["You made it this far!"]);
         getPlayerLocation();
+        presentMapChoices();
+        outputToAbout();
     }
   }
 }
