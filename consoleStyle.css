@@ -176,16 +176,9 @@ not being simply "restart-able". I played with removing the animation, setting d
 for the respective elements, etc. Anim's seem to run almost asynchronously, like setTimeout, their
 runs are set and completed in a separate handler that has a consistent state even if the
 anim is overwritten or the element is removed. Its bloaty, but unfortunately this is what I have.*/
-#ow1.resetAnim{
-  animation: typing2 1s steps(60, end) 0s;
-  animation-fill-mode: forwards;
-}
-#ow2.resetAnim{
-  animation: typing2 1s steps(60, end) 0s;
-  animation-fill-mode: forwards;
-}
 
-.expose p.resetAnim{
+
+.consoleContainer p.resetAnim{
   animation: typing2 1s steps(60, end) 0s;
   animation-fill-mode: forwards;
 }

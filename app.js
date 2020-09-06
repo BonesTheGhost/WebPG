@@ -549,17 +549,39 @@ function onClickLogic(event) {
 
 
 
+
 //**********************************************************
 //============ MENU FUNCTIONS & UI MANIPULATION ============
 
 // *******************************************************************
 //ANY TIME THERE IS OUTPUT TO CONSOLE, INCLUDE THIS!!
 //Hook this up later!!!
+//ANY TIME THERE IS OUTPUT TO CONSOLE, INCLUDE THIS!!
 let toggleTypeAnim = () => {
+  ABOUT0.classList.toggle("resetAnim");
+  ABOUT1.classList.toggle("resetAnim");
+  ABOUT2.classList.toggle("resetAnim");
+  ABOUT3.classList.toggle("resetAnim");
+  ABOUT4.classList.toggle("resetAnim");
+
   EXP1.classList.toggle("resetAnim");
   EXP2.classList.toggle("resetAnim");
   EXP3.classList.toggle("resetAnim");
   EXP4.classList.toggle("resetAnim");
+  EXP5.classList.toggle("resetAnim");
+  EXP6.classList.toggle("resetAnim");
+  EXP7.classList.toggle("resetAnim");
+  EXP8.classList.toggle("resetAnim");
+  EXP9.classList.toggle("resetAnim");
+  EXP10.classList.toggle("resetAnim");
+  EXP11.classList.toggle("resetAnim");
+  EXP12.classList.toggle("resetAnim");
+
+  COM0.classList.toggle("resetAnim");
+  COM1.classList.toggle("resetAnim");
+  COM2.classList.toggle("resetAnim");
+  COM3.classList.toggle("resetAnim");
+  COM4.classList.toggle("resetAnim");
 }
 
 //There are two separate button enable/disable functions to make the code more clear as to what is enabled/disabled and when.
@@ -799,6 +821,8 @@ let packageForConsole = (thingsToPackage) => {
 
 //The function that reads the ARRAY of text and outputs to the console only.
 let outputToConsole = (package) => {
+  toggleTypeAnim();
+  
   let idString = "exp";
   let packageLength = package.length;
 

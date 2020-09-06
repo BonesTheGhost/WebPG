@@ -268,7 +268,7 @@ html{
 @media screen and (min-width: 1024px){
   .global-grid {
     display: grid;
-    background-color: lightblue;
+    background-color: rgb(62, 66, 60);
     grid-gap: 10px;
     height: 100vh;
     margin-top: 0;
@@ -285,7 +285,7 @@ html{
 
   .consoleContainer{
     grid-area: consoleContainer;
-    background-color: lightgreen;
+    background-color: rgb(28, 31, 28);
   
     padding: auto;
     overflow-y: scroll;
@@ -302,7 +302,7 @@ html{
   
   .aboutContainer{
     grid-area: aboutContainer;
-    background-color: lightcoral;
+    background-color: rgb(28, 31, 28);
   
     padding: auto;
 
@@ -316,7 +316,7 @@ html{
   
   .playerChoices{
     grid-area: playerChoices;
-    background-color: lightgoldenrodyellow;
+    background-color: rgb(28, 31, 28);
   
     padding: auto;
 
