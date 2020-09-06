@@ -103,6 +103,8 @@ September 6th, 2020:
 - Added in the ability to calculate wind speed based on terrain threat level.
 - Added in the various control clocks for weather and wind calculations.
 - Added 'nextToMap' function for travel choice results.
+- Added in the icons to the choices section.
+- Re-imported the consoleStyling and adapted it to basically work with the current build.
 ======================================================================
 
 
@@ -140,4 +142,7 @@ September 6th, 2020:
 [ ]: Add combat into the game.
 [ ]: Add experience.
 [ ]: Create any towns and villages necessary.
+[ ]: Need to fix the typing animation.
+[ ]: Need to RE-fix overall styling.
+[ ]: Need to implement the choice blink effect.
 ==================================================================================
