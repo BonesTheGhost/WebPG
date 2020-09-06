@@ -134,8 +134,8 @@ let playerPositionOffsetY = Math.floor(mapHeight/2);
 
 
 //For Controlling various functions, like inspect based on location vs. item. vs. mob.
-let playerCurrentTile = "";
-let playerCurrentTileIndex = 0;
+let playerCurrentTileChar = "";
+let playerCurrentTileKey = ""
 let inTown = false;
 let inDungeon = false;
 
@@ -214,7 +214,8 @@ let enemies = {
 
 //Map, Map Locations, and Choices.
 let mapArray = [["0","0","#","#","#"],["0","0","#","#","#"],["0","0","0","X","X"],["0","0","0","X","X"],["0","0","X","X","X"]];
-
+//mapChars will be updated automatically in getPlayerLocation to handle map changes.
+let mapChars = [];
 let areaLibrary = {
   windswept: {
     char: '0', 
@@ -309,11 +310,18 @@ let playerOWC = {
     choice3: "Travel South",
     choice4: "Travel West"
   },
+ startInspect: {
+    name: "What would you like to examine?",
+    legalChoices: ["northControl"],
+    choiceIcons: [""],
+    flavorIcons: [""],
+    choice1: "Check an item."
+  },
   finishInspect: {
     name: "Finished inspecting...",
     legalChoices: ["nextControl"],
-    choiceIcons: ["fa-angle-double-right"],
-    flavorIcons: ["fa-map"],
+    choiceIcons: [""],
+    flavorIcons: [""],
     choice1: "Click 'NEXT' to continue..."
   },
   attemptSleep: {
@@ -688,7 +696,6 @@ let outputToConsole = (package) => {
   for (i=0; i<packageLength; i++){
     idString = "exp";
     idString += i+1;
-    console.log(idString);
     document.getElementById(idString).textContent = package[i];
   }
 };
@@ -727,6 +734,7 @@ let outputToChoices = (choicesObject, numberOfItemsToDisplay) => {
   }
 };
 
+//Used later on when the game starts functioning more fully.
 let outputToAbout = () => {
   ABOUT0.textContent = "N/a";
   ABOUT1.textContent = "N/a"; 
@@ -742,7 +750,32 @@ let outputToAbout = () => {
 
 //**********************************************************
 //===================== GAME COMPONENTS ====================
+let getPlayerLocation = () => {
+  //create an array of area name keys.
+  let arrayOfAreas = Object.keys(areaLibrary);
+  //Get the length of the areaLibrary object.
+  let areaLibraryLength = Object.keys(areaLibrary).length;
+  //Compensate for map not being cartesian.
+  let playerAdjustedX = playerX + playerPositionOffsetX;
+  let playerAdjustedY = playerY + playerPositionOffsetY;
 
+  //cycle through areaLibrary and extract all 'chars'
+  for(i=0; i<areaLibraryLength; i++){
+    let areaName = arrayOfAreas[i];
+    mapChars.push(areaLibrary[areaName].char);
+  }
+
+  //get current mapArray char, retrieve index for it, match it to area key.
+  playerCurrentTileChar = mapArray[playerAdjustedX][playerAdjustedY];
+  let currentArea = mapChars.indexOf(playerCurrentTileChar);
+  playerCurrentTileKey = arrayOfAreas[currentArea];
+
+  // console.log(mapChars);
+  // console.log(playerCurrentTileChar);
+  // console.log(playerCurrentTileKey);
+
+  
+};
 
 //==========================================================
 
@@ -760,9 +793,12 @@ let updateGameClock = () => {
   gameClock += 1;
   console.log("[GAME CLOCK]: (+1) = ", gameClock);
 }
-
-
-
+//**********************************************************
+//**********************************************************
+//**********************************************************
+//**********************************************************
+//**********************************************************
+//**********************************************************
 let mistressOfTurns = (playerInput) => {
   console.log("\n \n \n");
   console.log("===== ===== =====");
@@ -792,6 +828,7 @@ let mistressOfTurns = (playerInput) => {
       case "setup":
         //Explain the players starting conditions. Maybe a random starting location from a list of locations?
         outputToConsole(["You made it this far!"]);
+        getPlayerLocation();
     }
   }
 }
