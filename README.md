@@ -90,6 +90,9 @@ September 5th, 2020:
 - Added an 'outputToConsole' function that iterates through said package and displays the contents to the console area.
 - Added a 'resetUI' function that clears the function easily.
 - In an effort to reduce the number of explicit ID references I stored the console lines in variables for later access.
+- Re-added the ability to disable and enable the software buttons in the game.
+- Added in the functionality to disable/enable ALL buttons at once.
+- Re-added the button styling for disabled buttons to be greyed out.
 ======================================================================
 
 
