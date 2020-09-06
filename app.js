@@ -114,8 +114,19 @@ let CHOICE4 = document.getElementById('choice4');
 //Global Variables, engine control variables, etc.
 
 //GAME CLOCK
+// Days and Nights are in increments of 10.
+// Weather is rolled for in increments of 10, but chances are reduced by a certain randomness.
 let gameClock = 0;
 let previousClockState = -1;
+
+let windClock = -1;
+let previousWindClockState = -1;
+
+let weatherClock = -1;
+let previousWeatherClockState = -1;
+
+let numberOfDays = 0;
+let numberOfNights = 0;
 
 //Player Cartesian Coordinates in Map.
 let playerX = 0;
@@ -158,9 +169,13 @@ player = {
 
 //WEATHER & ENVIRONMENT - Survey The land?
 let currentVisibility = 5;
-let currentWeather = "Clear";
+let currentWeather = "DEFAULT";
+let currentWeatherSeverity = 1;
+let currentWindSeverity = 1;
+let currentWeatherKey = "sun";
 let currentTemp = 70;
 let currentWind = 0;
+let dayNight = "Day";
 
 //mistressOfTurns() Branch Checks
 let gameModeCheck = "overworld";
@@ -217,34 +232,87 @@ let enemies = {
 let mapArray = [["0","0","#","#","#"],["0","0","#","#","#"],["0","0","0","X","X"],["0","0","0","X","X"],["0","0","X","X","X"]];
 //mapChars will be updated automatically in getPlayerLocation to handle map changes.
 let mapChars = [];
+//All of the terrain in the game. Don't forget to add exposition for 
+// Scene, Combat Effectiveness Day/Night, Threat Level (Standardized language).
 let areaLibrary = {
   windswept: {
     char: '0', 
     name: 'Windswept Field',
-    subName: '- Current Location -',
+    threatLevel: '0',
     campName: 'Breezy Hilltop (Windswept Field)',
-    campSubName: '- Camping -',
-    campValues: ["Health", 5],
-    campTempValues: ["Agility", 3]
+    legalWeather: ["rain", "sun", "moon", "wind"],
+    sceneEXP1: "An ocean of tall grass stretches out before you.",
+    effDayEXP: "There are no formations in sight to provide cover for foes.",
+    effNightEXP: "The tall grass masks your silhouette in the dark. ",
+    threatEXP: "This area is open and peaceful. You feel at ease here."
   },
   tranquil: {
     char: '#', 
     name: 'Tranquil Forest',
-    subName: '- Current Location -',
+    threatLevel: "1",
     campName: 'Green Grotto (Tranquil Forest)',
-    campSubName: '- Camping -',
-    campValues: ["Health", 3],
-    campTempValues: ["Defense", 3]
+    legalWeather: ["rain", "sun", "moon", "wind"],
+    sceneEXP1: "An ocean of tall grass stretches out before you.",
+    effDayEXP: "There are no formations in sight to provide cover for foes.",
+    effNightEXP: "The tall grass masks your silhouette in the dark. ",
+    threatEXP: "This area is open and peaceful. You feel at ease here."
   },
   wasteland: {
     char: 'X', 
     name: 'Barren Wasteland',
-    subName: '- Current Location -',
     campName: 'Exposed Camp (Barren Wasteland)',
-    campSubName: '- Camping -',
-    campValues: ["Health", -3],
-    campTempValues: ["Agility", -3, "Defense", -5, "Attack", 1]
   }
+};
+
+
+//1-5 determines the severity of the condition.
+let weatherLibrary = {
+  1: {
+    snow: "Drifting Flakes",
+    rain: "Gentle Mist",
+    sun: "Mostly Cloudy",
+    moon: "Mostly Cloudy",
+    fog: "Ground Fog",
+    wind: "0-10"
+  },
+  2: {
+    snow: "Flurries",
+    rain: "Drizzle",
+    sun: "Partly Cloudy",
+    moon: "Partly Cloudy",
+    fog: "Waist-high Fog",
+    wind: "11-20"
+  },
+  3: {
+    snow: "Steady Snow",
+    rain: "Steady Rain",
+    sun: "Clear",
+    moon: "Clear",
+    fog: "Obscuring Haze",
+    wind: "21-30"
+  },
+  4: {
+    snow: "Snow Gales",
+    rain: "Thunderstorm",
+    sun: "Hot Sun",
+    moon: "Bright Moon",
+    fog: "Thick Fog",
+    wind: "31-40"
+  },
+  5: {
+    snow: "Howling Blizzard",
+    rain: "Violent Storm",
+    sun: "Scorching Sun",
+    moon: "Beaming Moon",
+    fog: "Stifling Smoke",
+    wind: "41-50"
+  },
+};
+
+//Put all of the exposition for each weather condition in this library
+// as well as the specific exposition for that terrain+weather combo.
+let weatherExpositionLibrary = {
+  //Add terrain first!
 };
 
 //==========================================================
@@ -674,8 +742,11 @@ let resetChoices = () => {
   COM4.textContent = "";
 };
 
-
-
+//A utility function for controlling weather, enemy spawn etc.
+let generateRandom = (lowerBound, upperBound) => {
+  let myRandom = Math.floor((Math.random() * upperBound) + lowerBound);
+  return myRandom;
+};
 
 //For dropping an error on the console window quickly
 let outputErrorToGame = () => {
@@ -748,7 +819,7 @@ let outputToAbout = () => {
   ABOUT1.textContent = "Player Position: (X: "+playerX+" / Y: "+playerY+")"; 
   ABOUT2.textContent = "Current Location: "+areaLibrary[playerCurrentTileKey].name;
   ABOUT3.textContent = "Activity: "+playerCurrentActivity;
-  ABOUT4.textContent = "Conditions: "+currentWeather+", "+currentWind+"mph Wind, "+currentTemp+"* (F)";
+  ABOUT4.textContent = "Conditions: "+dayNight+", "+currentWeather+", "+currentWind+"mph Wind, "+currentTemp+"* (F)";
 };
 
 //==========================================================
@@ -785,9 +856,63 @@ let getPlayerLocation = () => {
   
 };
 
+//Gives the player the standard overworld choices and legal button inputs.
 let presentMapChoices = () => {
   enabledAndValid(playerOWC.map.legalChoices);
   outputToChoices(playerOWC.map, 4);
+};
+
+//This calculates the wind within a range for the tile the player is on.
+//Threat Level 0: 1-2
+//Threat Level 1: 1-3
+//Threat Level 2: 1-4 weighted 3&4
+//Threat Level 3: 1-5 weighted 4&5
+// WILL HAVE TO COMPENSATE FOR CHANGING TILES LATER.
+let rollForChangeOfWind = () => {
+  //Calculate the current wind condition for the tile.
+  let windThreshold = areaLibrary[playerCurrentTileKey].threatLevel;
+  let windSpeed = 0;
+  console.log("windClock: "+ windClock);
+  //console.log('Threat Level of '+playerCurrentTileKey+":: "+windThreshold);
+
+  switch(windClock){
+    default:
+      console.log("The windClock has not progressed far enough to change the wind: "+windClock);
+      break;
+    case 0:
+      console.log("Initial Wind Roll");
+      windSpeed = rollWindSpeed(windThreshold);
+      currentWind = windSpeed;
+      break;
+    case 7:
+      console.log("Wind Roll");
+      windSpeed = rollWindSpeed(windThreshold);
+      windClock = 1
+      currentWind = windSpeed;
+      break;
+  }
+};
+
+//An assist function for rollForChangeOfWind();
+let rollWindSpeed = (windThreshold) => {
+  let windSpeed = 0;
+  if(windThreshold == 0){
+    windSpeed = generateRandom(0,20);
+  } else if (windThreshold == 1){
+    windSpeed = generateRandom(0,30);
+  } else if (windThreshold == 2){
+    windSpeed = generateRandom(0,40);
+  } else if (windThreshold == 3){
+    windSpeed = generateRandom(0,50);
+  } else {
+    console.log("The Wind Spirits had an issue with rolling for windSpeed.")
+  }
+  console.log("wind speed "+windSpeed);
+  return windSpeed;
+};
+
+let calculateConditions = () => {
+  
 };
 
 //==========================================================
@@ -798,13 +923,22 @@ let presentMapChoices = () => {
 
 //**********************************************************
 //===================== CORE GAME LOOP =====================
-let updateGameClock = () => {
+let updateGameClocks = () => {
   //Preserve the previous time for comparison.
   previousClockState = gameClock;
+  previousWeatherClockState = weatherClock;
+  previousWindClockState = windClock;
 
-  //increment the game clock.
+
+
+  //increment the game clocks.
   gameClock += 1;
+  windClock += 1;
+  weatherClock += 1;
+
   console.log("[GAME CLOCK]: (+1) = ", gameClock);
+  console.log("[WIND CLOCK]: (+1) = ", windClock);
+  console.log("[WEATHER CLOCK]: (+1) = ", weatherClock);
 }
 //**********************************************************
 //**********************************************************
@@ -831,18 +965,20 @@ let mistressOfTurns = (playerInput) => {
         "nextButton"
       ]);
     outputToChoices(playerOWC.nextFromOpening, 1);
-    gameModeCheck = "setup";
-    updateGameClock();
+    gameModeCheck = "overworld";
+    
+    updateGameClocks();
   } else if(validInputs.includes(playerInput) && (gameClock > previousClockState))
   {
     //The MASTER Switch Statement
     switch (gameModeCheck){
       default:
         console.log("[X]: FATAL ERROR IN gameModeCheck! MoT.");
-      case "setup":
+      case "overworld":
         //Explain the players starting conditions. Maybe a random starting location from a list of locations?
-        outputToConsole(["You made it this far!"]);
+        outputToConsole(["Testing For Wind"]);
         getPlayerLocation();
+        rollForChangeOfWind();
         presentMapChoices();
         outputToAbout();
     }
