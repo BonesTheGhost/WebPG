@@ -142,16 +142,17 @@ let canInspect = false;
 //INPUT Branch Check & Global input reference for quickly deciding which inputs to enable/disable;
 let validInputs = [];
 let globalInputs = [
-  "defendControl", 
-  "attackControl", 
-  "forwardControl", 
-  "rightControl", 
-  "backwardControl", 
-  "leftControl", 
-  "itemControl", 
-  "inspectControl", 
-  "helpControl", 
-  "nextControl"
+  "defendButton", 
+  "attackButton", 
+  "northButton", 
+  "eastButton", 
+  "southButton", 
+  "westButton", 
+  "itemButton", 
+  "inspectButton", 
+  "helpButton", 
+  "nextButton",
+  "fleeButton"
 ];
 
 //For the hover effect and perhaps other reference.
@@ -235,6 +236,9 @@ let areaLibrary = {
 //THERE ARE 12 LINES OF EXPOSITION ONLY, so be careful when giving detailed
 // explanations since there may need to be multiple things on the screen.
 let expositionLibrary = {
+  error: {
+    exp1: "The game encountered an unplanned state."
+  },
   intro: {
     exp1: "You are in service to the great kingdom of Teku.",
     exp2: "The Queen has charged you with the recovery of a stone tablet, rumored to hold ancient knowledge.",
@@ -328,7 +332,88 @@ let playerOWC = {
 //==================== BUTTON LISTENERS ====================
 //For hooking up the control buttons and checking if legal.
 
+let grabID = (event) => {
+  console.log(event);
+}
 
+function onClickLogic(event) {
+  //DEFEND BUTTON
+  document.getElementById("defendButton").onclick = function() {
+    console.log("\n \n \n");
+    grabID(this.id + "clicked");
+    mistressOfTurns("defendButton");
+  };
+
+  //FORWARD BUTTON
+  document.getElementById("northButton").onclick = function() {
+    console.log("\n \n \n");
+    console.log("forwardControl Clicked");
+    mistressOfTurns("northButton");
+  };
+
+  //ATTACK BUTTON
+  document.getElementById("attackButton").onclick = function() {
+    console.log("\n \n \n");
+    grabID(this.id + " clicked");
+    mistressOfTurns("attackButton");
+  };
+
+  //LEFT BUTTON
+  document.getElementById("westButton").onclick = function() {
+    console.log("\n \n \n");
+    grabID(this.id + " clicked");
+    mistressOfTurns("westButton");
+  };
+
+  //RIGHT BUTTON
+  document.getElementById("eastButton").onclick = function() {
+    console.log("\n \n \n");
+    grabID(this.id + " clicked");
+    mistressOfTurns("eastButton");
+  };
+
+  //BACKWARD BUTTON
+  document.getElementById("southButton").onclick = function() {
+    console.log("\n \n \n");
+    grabID(this.id + " clicked");
+    mistressOfTurns("southButton");
+  };
+
+  //ITEM BUTTON
+  document.getElementById("itemButton").onclick = function() {
+    console.log("\n \n \n");
+    grabID(this.id + " clicked");
+    mistressOfTurns("itemButton");
+  };
+
+  //INSPECT BUTTON
+  document.getElementById("inspectButton").onclick = function() {
+    console.log("\n \n \n");
+    grabID(this.id + " clicked");
+    mistressOfTurns("inspectButton");
+  };
+
+  //HELP BUTTON
+  document.getElementById("helpButton").onclick = function() {
+    console.log("\n \n \n");
+    grabID(this.id + " clicked");
+    mistressOfTurns("helpButton");
+  };
+
+  //NEXT BUTTON
+  document.getElementById("nextButton").onclick = function() {
+    console.log("\n \n \n");
+    grabID(this.id + " clicked");
+    mistressOfTurns("nextButton");
+  };
+
+  //NEXT BUTTON
+  document.getElementById("fleeButton").onclick = function() {
+    console.log("\n \n \n");
+    grabID(this.id + " clicked");
+    mistressOfTurns("fleeButton");
+  };
+}
 //==========================================================
 
 
@@ -337,6 +422,178 @@ let playerOWC = {
 //**********************************************************
 //============ MENU FUNCTIONS & UI MANIPULATION ============
 
+// *******************************************************************
+//ANY TIME THERE IS OUTPUT TO CONSOLE, INCLUDE THIS!!
+//Hook this up later!!!
+let toggleTypeAnim = () => {
+  EXP1.classList.toggle("resetAnim");
+  EXP2.classList.toggle("resetAnim");
+  EXP3.classList.toggle("resetAnim");
+  EXP4.classList.toggle("resetAnim");
+}
+
+//There are two separate button enable/disable functions to make the code more clear as to what is enabled/disabled and when.
+// A single toggle function could work as well, but would become confusing to deal with after multiple turns of game logic.
+let disableButtons = (buttons) => {
+  //A function for disabling buttons and adding the CSS styling to show they're disabled. Pass Arrays
+  
+  //console.log("disableButtons(): "+buttons);
+  //console.log("buttons to disable:",buttons);
+
+  for(i=0;i<buttons.length;i++){
+    
+    
+    switch (buttons[i]){
+      case "defendButton":
+        console.log("[DEFEND]: disabled.");
+        document.getElementById("defendButton").classList.add('disabled');
+        break;
+      case "northButton":
+        console.log("[FORWARD]: disabled.");
+        document.getElementById("northButton").classList.add('disabled');
+        break;
+      case "attackButton":
+        console.log("[ATTACK]: disabled.");
+        document.getElementById("attackButton").classList.add('disabled');
+        break;
+      case "westButton":
+        console.log("[LEFT]: disabled.");
+        document.getElementById("westButton").classList.add('disabled');
+        break;
+      case "eastButton":
+        console.log("[RIGHT]: disabled.");
+        document.getElementById("eastButton").classList.add('disabled');
+        break;
+      case "southButton":
+        console.log("[BACKWARD]: disabled.");
+        document.getElementById("southButton").classList.add('disabled');
+        break;
+      case "itemButton":
+        console.log("[ITEM]: disabled.");
+        document.getElementById("itemButton").classList.add('disabled');
+        break;
+      case "inspectButton":
+        console.log("[INSPECT]: disabled.");
+        document.getElementById("inspectButton").classList.add('disabled');
+        break;
+      case "helpButton":
+        console.log("[HELP]: disabled.");
+        document.getElementById("helpButton").classList.add('disabled');
+        break;
+      case "nextButton":
+        console.log("[NEXT]: disabled.");
+        document.getElementById("nextButton").classList.add('disabled');
+        break;
+      case "fleeButton":
+        console.log("[FLEE]: disabled.");
+        document.getElementById("fleeButton").classList.add('disabled');
+        break;
+    }
+  }
+}
+let enableButtons = (buttons) => {
+  //A function for disabling buttons and adding the CSS styling to show they're disabled. Pass Arrays
+
+  for(i=0;i<buttons.length;i++){
+    
+    switch (buttons[i]){
+      case "defendControl":
+        //console.log("[DEFEND]: enabled!");
+        document.getElementById("defendControl").classList.remove('disabled');
+        break;
+      case "forwardControl":
+        //console.log("[FORWARD]: enabled!");
+        document.getElementById("forwardControl").classList.remove('disabled');
+        break;
+      case "attackControl":
+        //console.log("[ATTACK]: enabled!");
+        document.getElementById("attackControl").classList.remove('disabled');
+        break;
+      case "leftControl":
+        //console.log("[LEFT]: enabled!");
+        document.getElementById("leftControl").classList.remove('disabled');
+        break;
+      case "rightControl":
+        //console.log("[RIGHT]: enabled!");
+        document.getElementById("rightControl").classList.remove('disabled');
+        break;
+      case "backwardControl":
+        //console.log("[BACKWARD]: enabled!");
+        document.getElementById("backwardControl").classList.remove('disabled');
+        break;
+      case "itemControl":
+        //console.log("[ITEM]: enabled!");
+        document.getElementById("itemControl").classList.remove('disabled');
+        break;
+      case "inspectControl":
+        //console.log("[INSPECT]: enabled!");
+        document.getElementById("inspectControl").classList.remove('disabled');
+        break;
+      case "helpControl":
+        //console.log("[HELP]: enabled!");
+        document.getElementById("helpControl").classList.remove('disabled');
+        break;
+      case "nextControl":
+        //console.log("[NEXT]: enabled!");
+        document.getElementById("nextControl").classList.remove('disabled');
+        break;
+    }
+  }
+}
+
+//For bulk enabling everything.
+let enableAllButtons = () => {
+  enableButtons(
+    [
+      "defendButton", 
+      "attackButton", 
+      "northButton", 
+      "eastButton", 
+      "southButton", 
+      "westButton", 
+      "itemButton", 
+      "inspectButton", 
+      "helpButton", 
+      "nextButton",
+      "fleeButton"
+    ]
+  );
+};
+//For bulk disabling everything.
+let disableAllButtons = () => {
+  disableButtons(
+    [
+      "defendButton", 
+      "attackButton", 
+      "northButton", 
+      "eastButton", 
+      "southButton", 
+      "westButton", 
+      "itemButton", 
+      "inspectButton", 
+      "helpButton", 
+      "nextButton",
+      "fleeButton"
+    ]
+  );
+};
+
+//It may be useful to work this into a update buttons single function that handles all button legality
+// in one fell swoop; you tell it what you want, it enables those, disables everything else, sets valid inputs.
+let setTheseInputsAsValid = (buttons) => {
+  //This is where you pass the inputs that you want to be acceptable. Pass Arrays
+  //reset the array!!
+  validInputs = [];
+
+  for(i=0;i<buttons.length;i++){
+    validInputs.push(buttons[i]);
+    
+  }
+  //console.log("setTheseInputsAsValid: "+validInputs);
+
+}
+
+//Rests the text CONSOLE UI
 let ResetUI = () => {
   EXP2.textContent = "";
   EXP1.textContent = "";
@@ -350,6 +607,13 @@ let ResetUI = () => {
   EXP10.textContent = "";
   EXP11.textContent = "";
   EXP12.textContent = "";
+};
+
+//For dropping an error on the console window quickly
+let outputErrorToGame = () => {
+  ResetUI();
+  errorPackage = packageForConsole([expositionLibrary.error.exp1]);
+  outputToConsole(errorPackage);
 };
 
 //The way to group multiple object.text into a single array to be passed for output.
@@ -406,6 +670,8 @@ let mistressOfTurns = () => {
     ]);
 
     outputToConsole(openingPackage);
+
+    disableAllButtons();
   }
 }
 //==========================================================
@@ -421,8 +687,9 @@ let gamePipeline = () => {
   attachSettingsPanel();
 
   //Attach Control Buttons
+  onClickLogic();
 
-  //ResetUI - Control buttons
+  //Reset Control buttons
 
   //UpdateTheStatMenu
 
