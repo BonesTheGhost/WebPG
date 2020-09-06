@@ -102,6 +102,7 @@ September 6th, 2020:
 - Added in a reusable random number generation function.
 - Added in the ability to calculate wind speed based on terrain threat level.
 - Added in the various control clocks for weather and wind calculations.
+- Added 'nextToMap' function for travel choice results.
 ======================================================================
 
 
