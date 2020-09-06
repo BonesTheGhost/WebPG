@@ -731,7 +731,7 @@ let enabledAndValid = (buttons) => {
   setTheseInputsAsValid(buttons);
 };
 
-//Rests the text CONSOLE UI
+//Rests the text CONSOLE UI.
 let resetUI = () => {
   console.log("*Resetting Console.");
   EXP2.textContent = "";
@@ -747,10 +747,30 @@ let resetUI = () => {
   EXP11.textContent = "";
   EXP12.textContent = "";
 };
-
+//Resets the choices window.
 let resetChoices = () => {
   console.log("*Resetting Choices.");
   COM0.textContent = "";
+  COM1.textContent = "";
+  COM2.textContent = "";
+  COM3.textContent = "";
+  COM4.textContent = "";
+};
+//Clears the icons in the choices window.
+let resetIcons = () => {
+  //Resetting the icons
+  INPUT1.className = "fas";
+  CHOICE1.className = "fas";
+
+  INPUT2.className = "fas";
+  CHOICE2.className = "fas";
+
+  INPUT3.className = "fas";
+  CHOICE3.className = "fas";
+
+  INPUT4.className = "fas";
+  CHOICE4.className = "fas";
+
   COM1.textContent = "";
   COM2.textContent = "";
   COM3.textContent = "";
@@ -802,6 +822,8 @@ let outputToChoices = (choicesObject, numberOfItemsToDisplay) => {
   //Empty the choices section for new print.
   resetChoices();
 
+  //Resetting the icons
+  resetIcons();
 
   switch (numberOfItemsToDisplay){
     default:
@@ -809,23 +831,45 @@ let outputToChoices = (choicesObject, numberOfItemsToDisplay) => {
     case 1:
       COM0.textContent = choicesObject.name;
       COM1.textContent = choicesObject.choice1;
+      INPUT1.classList.add(choicesObject.choiceIcons[0])
+      CHOICE1.classList.add(choicesObject.flavorIcons[0]) 
     case 2:
       COM0.textContent = choicesObject.name;
       COM1.textContent = choicesObject.choice1;
+      INPUT1.classList.add(choicesObject.choiceIcons[0])
+      CHOICE1.classList.add(choicesObject.flavorIcons[0]) 
+
       COM2.textContent = choicesObject.choice2;
+      INPUT2.classList.add(choicesObject.choiceIcons[1])
+      CHOICE2.classList.add(choicesObject.flavorIcons[1]) 
     case 3:
       COM0.textContent = choicesObject.name;
       COM1.textContent = choicesObject.choice1;
+      INPUT1.classList.add(choicesObject.choiceIcons[0])
+      CHOICE1.classList.add(choicesObject.flavorIcons[0]) 
       COM2.textContent = choicesObject.choice2;
+      INPUT2.classList.add(choicesObject.choiceIcons[1])
+      CHOICE2.classList.add(choicesObject.flavorIcons[1]) 
       COM3.textContent = choicesObject.choice3;
+      INPUT3.classList.add(choicesObject.choiceIcons[2])
+      CHOICE3.classList.add(choicesObject.flavorIcons[2]) 
     case 4:
       COM0.textContent = choicesObject.name;
       COM1.textContent = choicesObject.choice1;
+      INPUT1.classList.add(choicesObject.choiceIcons[0])
+      CHOICE1.classList.add(choicesObject.flavorIcons[0]) 
       COM2.textContent = choicesObject.choice2;
+      INPUT2.classList.add(choicesObject.choiceIcons[1])
+      CHOICE2.classList.add(choicesObject.flavorIcons[1]) 
       COM3.textContent = choicesObject.choice3;
+      INPUT3.classList.add(choicesObject.choiceIcons[2])
+      CHOICE3.classList.add(choicesObject.flavorIcons[2]) 
       COM4.textContent = choicesObject.choice4;
+      INPUT4.classList.add(choicesObject.choiceIcons[3])
+      CHOICE4.classList.add(choicesObject.flavorIcons[3]) 
   }
 };
+
 
 //Used later on when the game starts functioning more fully.
 let outputToAbout = () => {
