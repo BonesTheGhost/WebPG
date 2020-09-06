@@ -93,6 +93,7 @@ September 5th, 2020:
 - Re-added the ability to disable and enable the software buttons in the game.
 - Added in the functionality to disable/enable ALL buttons at once.
 - Re-added the button styling for disabled buttons to be greyed out.
+- Designed a new getPlayerLocation() function.
 ======================================================================
 
 
@@ -119,4 +120,15 @@ September 5th, 2020:
 [X]: Need to add the hamburger menu functionality to the app before finalizing any more of the layout.
 [ ]: Font-size for mobile version.
 [ ]: Need to streamline the output to console functions so that printing out the necessary text components is MUCH easier. This way I can focus on creating the game world instead of noodling around with the logic.
+[ ]: Implement the inventory system with Currency.
+[ ]: Implement a proper intro sequence with Class selection, name entry, etc.
+[ ]: Create the ENEMY Library for the game.
+[ ]: Create the ITEM Library.
+[ ]: Create the NPC Library.
+[ ]: Create a situational exposition Library for how various things interact with each other.
+[ ]: Write all of the exposition for the Libraries.
+[ ]: Craft the plot.
+[ ]: Add combat into the game.
+[ ]: Add experience.
+[ ]: Create any towns and villages necessary.
 ==================================================================================
