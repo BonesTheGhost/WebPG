@@ -105,6 +105,7 @@ September 6th, 2020:
 - Added 'nextToMap' function for travel choice results.
 - Added in the icons to the choices section.
 - Re-imported the consoleStyling and adapted it to basically work with the current build.
+- Changed the Desktop @media queries to more accurately show the consoleStyling.css file from before.
 ======================================================================
 
 
