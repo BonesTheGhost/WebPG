@@ -115,7 +115,7 @@ let CHOICE4 = document.getElementById('choice4');
 
 //GAME CLOCK
 let gameClock = 0;
-let previousClockState = 0;
+let previousClockState = -1;
 
 //Player Cartesian Coordinates in Map.
 let playerX = 0;
@@ -634,7 +634,7 @@ let enabledAndValid = (buttons) => {
 };
 
 //Rests the text CONSOLE UI
-let ResetUI = () => {
+let resetUI = () => {
   console.log("*Resetting Console.");
   EXP2.textContent = "";
   EXP1.textContent = "";
@@ -650,8 +650,9 @@ let ResetUI = () => {
   EXP12.textContent = "";
 };
 
-let ResetChoices = () => {
+let resetChoices = () => {
   console.log("*Resetting Choices.");
+  COM0.textContent = "";
   COM1.textContent = "";
   COM2.textContent = "";
   COM3.textContent = "";
@@ -680,7 +681,7 @@ let outputToConsole = (package) => {
   let idString = "exp";
   let packageLength = package.length;
 
-  ResetUI();
+  resetUI();
 
   //iterate through the package to print the text.
   //Can't use the stored references here, need to plug in the ID instead.
@@ -697,6 +698,10 @@ let outputToConsole = (package) => {
 //YOU have to manually tell the choices the number of Choices there are
 // UP TO 4 since a NAME is ALWAYS ASSUMED!!!
 let outputToChoices = (choicesObject, numberOfItemsToDisplay) => {
+
+  //Empty the choices section for new print.
+  resetChoices();
+
 
   switch (numberOfItemsToDisplay){
     default:
@@ -723,7 +728,11 @@ let outputToChoices = (choicesObject, numberOfItemsToDisplay) => {
 };
 
 let outputToAbout = () => {
-
+  ABOUT0.textContent = "N/a";
+  ABOUT1.textContent = "N/a"; 
+  ABOUT2.textContent = "N/a";
+  ABOUT3.textContent = "N/a";
+  ABOUT4.textContent = "N/a";
 };
 
 //==========================================================
@@ -743,26 +752,47 @@ let outputToAbout = () => {
 
 //**********************************************************
 //===================== CORE GAME LOOP =====================
-let mistressOfTurns = () => {
+let updateGameClock = () => {
+  //Preserve the previous time for comparison.
+  previousClockState = gameClock;
+
+  //increment the game clock.
+  gameClock += 1;
+  console.log("[GAME CLOCK]: (+1) = ", gameClock);
+}
+
+
+
+let mistressOfTurns = (playerInput) => {
   console.log("\n \n \n");
   console.log("===== ===== =====");
   console.log(" TURN: " + gameClock);
 
+  //Initial Turn 0
   if(gameClock == 0){
     let openingPackage = packageForConsole([
       expositionLibrary.intro.exp1,
       expositionLibrary.intro.exp2,
       expositionLibrary.intro.exp3
     ]);
-
     outputToConsole(openingPackage);
 
     enabledAndValid([
         "nextButton"
       ]);
-
-    ResetChoices();
     outputToChoices(playerOWC.nextFromOpening, 1);
+    gameModeCheck = "setup";
+    updateGameClock();
+  } else if(validInputs.includes(playerInput) && (gameClock > previousClockState))
+  {
+    //The MASTER Switch Statement
+    switch (gameModeCheck){
+      default:
+        console.log("[X]: FATAL ERROR IN gameModeCheck! MoT.");
+      case "setup":
+        //Explain the players starting conditions. Maybe a random starting location from a list of locations?
+        outputToConsole(["You made it this far!"]);
+    }
   }
 }
 //==========================================================
@@ -776,19 +806,13 @@ let gamePipeline = () => {
   //Attach all of the Menus
   attachBurgerMenus();
   attachSettingsPanel();
-
   //Attach Control Buttons
   onClickLogic();
-
   //Reset Control buttons
-
+  enableAllButtons();
   //UpdateTheStatMenu
 
-  //Run Intro Sequence
-
-  //Initialize PlayerLocation
-
-  //Pass off the game to MOT.
+  //Pass off the game to MoT.
   mistressOfTurns();
 }
 
