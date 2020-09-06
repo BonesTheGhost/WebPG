@@ -99,6 +99,9 @@ September 6th, 2020:
 - Added opening disclaimer.
 - Successfully got the 'surroundings' section to update properly.
 - Modified 'choice' output to simply use the 'legalChoices' array within playerOWC keys.
+- Added in a reusable random number generation function.
+- Added in the ability to calculate wind speed based on terrain threat level.
+- Added in the various control clocks for weather and wind calculations.
 ======================================================================
 
 
