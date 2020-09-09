@@ -109,6 +109,8 @@ September 6th, 2020:
 
 September 8th, 2020:
 - Modified the overflow values of the overall CSS grid, as well as the individual grid components to handle text resizing the window incorrectly.
+- Created separate divs for my exposition, about, and choices <p> tags so the animations only affect the paragraphs and NOT the containers.
+- Modified the 'typing' animation to animate from the top-down instead of left-to-right since left-to-right was causing problems with 'nowrap' in the 'white-space' property. Now I don't have to worry about the length of the text or font-size and how they effect the window. I can simply type the game material and the windows handles the rest, all while maintaining the old console style game feeling that I am aiming for.
 ======================================================================
 
 
