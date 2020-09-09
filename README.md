@@ -106,6 +106,9 @@ September 6th, 2020:
 - Added in the icons to the choices section.
 - Re-imported the consoleStyling and adapted it to basically work with the current build.
 - Changed the Desktop @media queries to more accurately show the consoleStyling.css file from before.
+
+September 8th, 2020:
+- Modified the overflow values of the overall CSS grid, as well as the individual grid components to handle text resizing the window incorrectly.
 ======================================================================
 
 
