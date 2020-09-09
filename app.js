@@ -558,30 +558,9 @@ function onClickLogic(event) {
 //Hook this up later!!!
 //ANY TIME THERE IS OUTPUT TO CONSOLE, INCLUDE THIS!!
 let toggleTypeAnim = () => {
-  ABOUT0.classList.toggle("resetAnim");
-  ABOUT1.classList.toggle("resetAnim");
-  ABOUT2.classList.toggle("resetAnim");
-  ABOUT3.classList.toggle("resetAnim");
-  ABOUT4.classList.toggle("resetAnim");
-
-  EXP1.classList.toggle("resetAnim");
-  EXP2.classList.toggle("resetAnim");
-  EXP3.classList.toggle("resetAnim");
-  EXP4.classList.toggle("resetAnim");
-  EXP5.classList.toggle("resetAnim");
-  EXP6.classList.toggle("resetAnim");
-  EXP7.classList.toggle("resetAnim");
-  EXP8.classList.toggle("resetAnim");
-  EXP9.classList.toggle("resetAnim");
-  EXP10.classList.toggle("resetAnim");
-  EXP11.classList.toggle("resetAnim");
-  EXP12.classList.toggle("resetAnim");
-
-  COM0.classList.toggle("resetAnim");
-  COM1.classList.toggle("resetAnim");
-  COM2.classList.toggle("resetAnim");
-  COM3.classList.toggle("resetAnim");
-  COM4.classList.toggle("resetAnim");
+  document.getElementById('expDiv').classList.toggle("resetAnim");
+  document.getElementById('aboutDiv').classList.toggle("resetAnim");
+  document.getElementById('choicesDiv').classList.toggle("resetAnim");
 }
 
 //There are two separate button enable/disable functions to make the code more clear as to what is enabled/disabled and when.
@@ -1082,6 +1061,10 @@ let updateGameClocks = () => {
 //**********************************************************
 //**********************************************************
 let mistressOfTurns = (playerInput) => {
+  //RUN THIS HERE SO THAT EVERY TIME THE PLAYER INTERACTS (THUS REFRESHING THE CONSOLE) 
+  // THE ANIMATIONS TOGGLE PROPERLY!
+  toggleTypeAnim();
+
   console.log("\n");
   console.log(" TURN: " + gameClock);
 
@@ -1111,8 +1094,8 @@ let mistressOfTurns = (playerInput) => {
       default:
         console.log("[X]: FATAL ERROR IN gameModeCheck! MoT.");
       case "setup":
+
         //Explain the players starting conditions. Maybe a random starting location from a list of locations?
-        outputToConsole(["We are in setup."]);
         getPlayerLocation();
         calculateConditions();
         outputToAbout();
@@ -1121,6 +1104,7 @@ let mistressOfTurns = (playerInput) => {
         updateGameClocks();
         return;
       case "overworld":
+
         outputToConsole(["We are in overworld"]);
         getPlayerLocation();
         calculateConditions();

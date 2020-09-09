@@ -158,28 +158,17 @@ runs are set and completed in a separate handler that has a consistent state eve
 anim is overwritten or the element is removed. Its bloaty, but unfortunately this is what I have.*/
 
 
-.expDiv.resetAnim{
+#expDiv.resetAnim{
   animation: typing2 1s steps(60, end) 0s;
   animation-fill-mode: forwards;
 }
 
-#com0.resetAnim{
+#choicesDiv.resetAnim{
   animation: typing2 1s steps(60, end) 0s;
   animation-fill-mode: forwards;
 }
-#com1Div.resetAnim{
-  animation: typing2 1s steps(60, end) 0s;
-  animation-fill-mode: forwards;
-}
-#com2Div.resetAnim{
-  animation: typing2 1s steps(60, end) 0s;
-  animation-fill-mode: forwards;
-}
-#com3Div.resetAnim{
-  animation: typing2 1s steps(60, end) 0s;
-  animation-fill-mode: forwards;
-}
-#com4Div.resetAnim{
+
+#aboutDiv.resetAnim{
   animation: typing2 1s steps(60, end) 0s;
   animation-fill-mode: forwards;
 }
