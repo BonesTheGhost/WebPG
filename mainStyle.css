@@ -21,6 +21,8 @@ html{
   grid-gap: 10px;
   height: 100vh;
 
+  overflow: hidden;
+
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: .1fr .75fr .2fr .1fr .4fr;
   grid-template-areas:
@@ -61,11 +63,15 @@ html{
   background-color: lightcoral;
 
   padding: auto;
+
+  overflow: hidden;
 }
 
 .playerChoices{
   grid-area: playerChoices;
   background-color: lightgoldenrodyellow;
+
+  overflow: hidden;
 }
 
 .controlContainerSection{
@@ -289,6 +295,7 @@ html{
   
     padding: auto;
     overflow-y: scroll;
+    overflow-x: hidden;
 
     font-size: 3rem;
   }
@@ -306,6 +313,8 @@ html{
   
     padding: auto;
 
+    overflow: hidden;
+
     font-size: 2rem;
 
     padding-top: 1rem;
@@ -319,6 +328,8 @@ html{
     background-color: rgb(28, 31, 28);
   
     padding: auto;
+
+    overflow: hidden;
 
     font-size: 1rem;
 

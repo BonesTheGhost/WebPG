@@ -821,8 +821,8 @@ let packageForConsole = (thingsToPackage) => {
 
 //The function that reads the ARRAY of text and outputs to the console only.
 let outputToConsole = (package) => {
-  toggleTypeAnim();
   
+
   let idString = "exp";
   let packageLength = package.length;
 
@@ -842,6 +842,7 @@ let outputToConsole = (package) => {
 //YOU have to manually tell the choices the number of Choices there are
 // UP TO 4 since a NAME is ALWAYS ASSUMED!!!
 let outputToChoices = (choicesObject, numberOfItemsToDisplay) => {
+  
 
   //Empty the choices section for new print.
   resetChoices();
@@ -897,6 +898,7 @@ let outputToChoices = (choicesObject, numberOfItemsToDisplay) => {
 
 //Used later on when the game starts functioning more fully.
 let outputToAbout = () => {
+  
   //Don't Touch The Title
   //ABOUT0.textContent = "N/a";
   ABOUT1.textContent = "Player Position: (X: "+playerX+" / Y: "+playerY+")"; 
