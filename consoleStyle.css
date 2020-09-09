@@ -9,11 +9,30 @@
 
   padding-top: 0rem;
   padding-right: 0rem;
-  padding-bottom: 1rem;
-  padding-left: 5rem;
+  padding-bottom: 0rem;
+  padding-left: 0rem;
+}
 
-  white-space: nowrap;
+.aboutContainer p{
+  color: rgb(13, 165, 13);
 
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  padding-top: 0rem;
+  padding-right: 0rem;
+  padding-bottom: 0rem;
+  padding-left: 0rem;
+}
+
+.aboutDiv{
+  /*Ensures content isn't show until the animation completes*/
+  overflow:hidden;
+  /* to keep all on one line: white-space: nowrap; */
+  animation: typing 1s steps(30, end);
+}
+
+.expDiv{
   /*Ensures content isn't show until the animation completes*/
   overflow:hidden;
   /* to keep all on one line: white-space: nowrap; */
@@ -41,6 +60,13 @@
 .playerChoices i{
   padding: .5rem;
   padding-right: 0rem;
+}
+
+.choicesDiv {
+  /*Ensures content isn't show until the animation completes*/
+  overflow:hidden;
+  /* to keep all on one line: white-space: nowrap; */
+  animation: typing 1s steps(30, end);
 }
 
 #input1{
@@ -72,72 +98,26 @@
   font-weight: bold;
   text-transform: uppercase;
   font-size: 2rem;
-
-  width: 0;
-
-  /*Ensures content isn't show until the animation completes:*/
-  overflow:hidden;
-  /*keeps text on its own line as the container grows:*/
-  white-space: nowrap;
-  animation: typing 1s steps(60, end) 0s;
-  animation-fill-mode: forwards;
 }
 #com1Div{
   color: rgb(10, 134, 10);
   grid-area: com1Div;
   padding-left: 1rem;
-
-  width: 0;
-
-  /*Ensures content isn't show until the animation completes:*/
-  overflow:hidden;
-  /*keeps text on its own line as the container grows:*/
-  white-space: nowrap;
-  animation: typing 1s steps(60, end) 0s;
-  animation-fill-mode: forwards;
 }
 #com2Div{
   color: rgb(10, 134, 10);
   grid-area: com2Div;
   padding-left: 1rem;
-
-  width: 0;
-
-  /*Ensures content isn't show until the animation completes:*/
-  overflow:hidden;
-  /*keeps text on its own line as the container grows:*/
-  white-space: nowrap;
-  animation: typing 1s steps(60, end) 0s;
-  animation-fill-mode: forwards;
 }
 #com3Div{
   color: rgb(10, 134, 10);
   grid-area: com3Div;
   padding-left: 1rem;
-
-  width: 0;
-
-  /*Ensures content isn't show until the animation completes:*/
-  overflow:hidden;
-  /*keeps text on its own line as the container grows:*/
-  white-space: nowrap;
-  animation: typing 1s steps(60, end) 0s;
-  animation-fill-mode: forwards;
 }
 #com4Div{
   color: rgb(10, 134, 10);
   grid-area: com4Div;
   padding-left: 1rem;
-
-  width: 0;
-
-  
-  /*Ensures content isn't show until the animation completes:*/
-  overflow:hidden;
-  /*keeps text on its own line as the container grows:*/
-  white-space: nowrap;
-  animation: typing 1s steps(60, end) 0s;
-  animation-fill-mode: forwards;
 }
 
 .notAvailable{
@@ -152,19 +132,19 @@
 /* TYPING ANIMATIONS */
 @keyframes typing {
   from {
-    width: 0;
+    height: 0;
   }
   to {
-    width: 100%;
+    height: 100%;
   }
 }
 
 @keyframes typing2 {
   from {
-    width: 0;
+    height: 0;
   }
   to {
-    width: 100%;
+    height: 100%;
   }
 }
 
@@ -178,7 +158,7 @@ runs are set and completed in a separate handler that has a consistent state eve
 anim is overwritten or the element is removed. Its bloaty, but unfortunately this is what I have.*/
 
 
-.consoleContainer p.resetAnim{
+.expDiv.resetAnim{
   animation: typing2 1s steps(60, end) 0s;
   animation-fill-mode: forwards;
 }
